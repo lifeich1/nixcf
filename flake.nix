@@ -92,7 +92,7 @@
         config: override:
         let
           args = config // override;
-          home-nix = args.home-nix or ./home.nix;
+          home-nix = args.home-nix or ./home/pc;
         in
         {
           _module.args = args;
