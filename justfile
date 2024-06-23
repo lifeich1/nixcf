@@ -48,3 +48,14 @@ du_result := "/tmp/nix-du-result.svg"
 du:
   nix-du -s=500MB | dot -Tsvg > {{du_result}}
   gwenview {{du_result}}
+
+temp_tag := `date +%N`
+host_no_proxy := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn"
+proxy host="127.0.0.1" tmpfile=("/tmp/111nixdae.override.conf." + temp_tag):
+  echo "[Service]" > {{tmpfile}}
+  echo "Environment=\"https_proxy=socks5h://{{host}}:10809\"" >> {{tmpfile}}
+  echo "Environment=\"no_proxy={{host_no_proxy}}\"" >> {{tmpfile}}
+  sudo mkdir /run/systemd/system/nix-daemon.service.d/
+  sudo mv -v {{tmpfile}} /run/systemd/system/nix-daemon.service.d/override.conf
+  sudo systemctl daemon-reload
+  sudo systemctl restart nix-daemon
