@@ -1,3 +1,3 @@
 # nixcf
 
-Mine nixos configurations.
+My nixos configurations.
