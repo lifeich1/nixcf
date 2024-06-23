@@ -1,0 +1,3 @@
+# nixcf
+
+Mine nixos configurations.

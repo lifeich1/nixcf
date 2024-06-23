@@ -1,0 +1,104 @@
+# User configuration
+
+if [ -d "$HOME/bin" ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+#export PATH="$PATH:/opt/armv7l-linux-musleabihf-cross/bin"
+
+export CROSS_CONTAINER_ENGINE=podman
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+addfunc_=(
+  cfzsh "vim ~/.zshrc"
+  cfssh "vim ~/.ssh/config"
+  pxy-yt-dlp "yt-dlp --proxy socks5://my-pi:10809"
+  git-alias "view ~/.oh-my-zsh/plugins/git/README.md"
+  com-lmon "systemctl --user restart com-pxy-lemonade.service"
+  st-lmon "systemctl --user status com-pxy-lemonade.service"
+  gh-cl "cd /home/fool/Code/z/github.com && mkdir \$(dirname \$1) && cd \$(dirname \$1) && gh repo clone"
+  du "dust"
+  #cheat "docker run --rm bannmann/docker-cheat"
+  cat "bat"
+  gzw "gb --color=always|sk --ansi|xargs git switch"
+  ga. "ga ."
+)
+faddfunc_=(
+  ll "ls -laahHg"
+  l "ls -lhHg"
+  la "ls -aa"
+  gsh "git show --ext-diff"
+)
+alias ls='eza'
+alias j='just' # use alias for completions
+
+function snv() {
+  if [ -f Session.vim ]; then
+    nvim -S Session.vim
+  else
+    nvim
+  fi
+}
+
+function za() {
+  sess=$(zellij ls|sk --ansi|cut -d ' ' -f 1)
+  if [ -z "$sess" ]; then
+    echo "Selected NO session."
+    return 1
+  fi
+  echo $sess
+  if [ $# -eq 1 ]; then
+    zellij $1 $sess
+  else
+    zellij a $sess
+  fi
+}
+
+
+if [ -n "$NVIM" ]; then
+  export VISUAL="nvr --remote-tab-wait +'set bufhidden=wipe'"
+  export GIT_EDITOR=$VISUAL
+  addfunc_+=(nvim "nvr")
+  addfunc_+=(vd 'nvr -c "lcd $(pwd)"')
+fi
+
+
+function {
+while [ $# -ge 2 ]; do
+  eval "function $1() { $2 \$@; }"
+  shift 2
+done
+} $addfunc_; unset addfunc_
+function {
+while [ $# -ge 2 ]; do
+  unalias $1
+  eval "function $1() { $2 \$@; }"
+  shift 2
+done
+} $faddfunc_; unset faddfunc_
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
