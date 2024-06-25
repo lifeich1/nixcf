@@ -112,7 +112,10 @@
     ]
   );
 
-  fool.proxy.use-pi = false;
+  fool.proxy = {
+    has-pi = true;
+    use-pi = false;
+  };
   fool.sudo.nopass = true;
   services.xray.enable = true;
   fool.syncthing.enable = true;
