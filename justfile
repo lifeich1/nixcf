@@ -12,6 +12,9 @@ alias g := nixos-debug
 alias pi := rebuild-pi
 alias xps := rebuild-xps
 
+all: chk && rebuild-pi rebuild-xps
+  test $(hostname) = "nixos-gtr5"
+
 nixos-debug: chk
   sudo nixos-rebuild switch --flake . --verbose --show-trace --print-build-logs
 
