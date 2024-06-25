@@ -1,0 +1,5 @@
+default-server = "pi"
+
+[servers.pi]
+endpoint = "http://my-pi:8080"
+token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE4NzcxMDM5NjgsInN1YiI6Imd0cjciLCJodHRwczovL2p3dC5hdHRpYy5ycy92MSI6eyJjYWNoZXMiOnsiKiI6eyJyIjoxLCJ3IjoxLCJjYyI6MX19fX0.wT1DIf58mQ2Jnitp8gzgwfiCP_kOHLV0xDZ3VhJHCFY"
