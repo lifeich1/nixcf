@@ -19,12 +19,12 @@ with lib;
     auto-optimise-store = true;
     trusted-users = [ username ];
     substituters = mkBefore [
+      "http://my-pi:8080/my-pi_attic" # homelab
       "https://mirror.sjtu.edu.cn/nix-channels/store"
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
-      "http://my-pi:8080/my-pi_attic" # homelab
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
