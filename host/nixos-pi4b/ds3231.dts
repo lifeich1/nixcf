@@ -1,0 +1,26 @@
+// redo: ovmerge -c i2c-rtc-overlay.dts,ds3231
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "raspberrypi,4-model-b";
+	fragment@0 {
+		target = <&i2cbus>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			ds3231@68 {
+				compatible = "maxim,ds3231";
+				reg = <0x68>;
+			};
+		};
+	};
+	fragment@1 {
+		target = <&i2c_arm>;
+		i2cbus: __overlay__ {
+			status = "okay";
+		};
+	};
+};
+

@@ -41,6 +41,7 @@
     lsof # list open files
 
     wiringpi
+    i2c-tools
   ];
 
   programs.zellij.enable = true;

@@ -21,6 +21,19 @@
     kernelParams = [ "iomem=relaxed" ];
   };
 
+  # https://github.com/NixOS/nixpkgs/issues/320557
+  hardware = {
+    raspberry-pi."4".apply-overlays-dtmerge.enable = true;
+    deviceTree = {
+      overlays = [
+        {
+          name = "bcm2711-rpi-4-ds3231";
+          dtsFile = ./ds3231.dts;
+        }
+      ];
+    };
+  };
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
