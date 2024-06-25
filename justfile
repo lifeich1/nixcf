@@ -10,6 +10,7 @@ nixos *flags:
 
 alias g := nixos-debug
 alias pi := rebuild-pi
+alias xps := rebuild-xps
 
 nixos-debug: chk
   sudo nixos-rebuild switch --flake . --verbose --show-trace --print-build-logs
@@ -20,8 +21,13 @@ colmena-pi *flags:
 rebuild-pi *flags:
   nixos-rebuild switch --flake .{{"#nixos-pi4b"}} --target-host root@my-pi {{flags}} {{nom_flag}}
 
-xps *flags:
+my_xps := "192.168.31.224"
+
+colmena-xps *flags:
   colmena apply --on xps {{flags}}
+
+rebuild-xps *flags:
+  nixos-rebuild switch --flake .{{"#nixos-xps13"}} --target-host root@{{my_xps}} {{flags}} {{nom_flag}}
 
 nvim:
   #!/usr/bin/env bash
