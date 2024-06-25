@@ -95,6 +95,7 @@
       nixpkgs-review
       nix-du
       graphviz
+      attic-client
 
       # KDE
       krita

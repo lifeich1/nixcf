@@ -28,7 +28,6 @@
     gnutar
     gawk
     zstd
-    gnupg
     #busybox
     psmisc
 

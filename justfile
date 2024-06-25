@@ -1,7 +1,7 @@
 default: nixos
 
-chk:
-  nix flake check
+chk *flags:
+  nix flake check {{flags}}
 
 nom_flag := "--log-format internal-json -v |& nom --json"
 
