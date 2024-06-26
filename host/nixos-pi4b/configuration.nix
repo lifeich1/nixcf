@@ -49,6 +49,10 @@
 
   # NOTE hardware above, userspace below
 
+  networking.extraHosts = ''
+    127.0.0.1  my-pi
+  '';
+
   fool.secrets.pass = "pi-pass";
 
   users = {
