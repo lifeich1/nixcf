@@ -22,7 +22,8 @@ in
       {
         enable = true;
         user = username;
-        dataDir = datadir;
+        dataDir = pubdir;
+        configDir = datadir + "/.config/syncthing";
         overrideFolders = false;
         overrideDevices = false;
         settings = {
@@ -72,16 +73,19 @@ in
             };
             "${pubdir}/ala-an70/pics" = {
               id = "mjwxp-9joch";
+              type = "receiveonly";
               label = "ala-an70/pics";
               devices = [ "ala_an70" ];
             };
             "${pubdir}/ala-an70/camera" = {
               id = "ala-an70_pam5-照片";
+              type = "receiveonly";
               label = "ala-an70/camera";
               devices = [ "ala_an70" ];
             };
             "${pubdir}/matepad23/camera" = {
               id = "dbr-w10_qv9a-照片";
+              type = "receiveonly";
               label = "matepad23/camera";
               devices = [ "matepad23" ];
             };
