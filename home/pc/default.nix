@@ -99,11 +99,12 @@
 
       # KDE
       krita
+      libsForQt5.kdenlive
+      glaxnimate # dep by kdenlive
       libsForQt5.plasma-integration
       libsForQt5.plasma-browser-integration
       libsForQt5.ktimer
       libsForQt5.kdeplasma-addons
-      kdePackages.svgpart
     ]
     ++ [ all.inputs.agenix.packages."${all.system}".default ];
 
