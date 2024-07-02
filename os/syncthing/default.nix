@@ -89,6 +89,12 @@ in
               label = "matepad23/camera";
               devices = [ "matepad23" ];
             };
+            "${pubdir}/matepad23/screenshots" = {
+              id = "qe97y-ilta4";
+              type = "receiveonly";
+              label = "matepad23/screenshots";
+              devices = [ "matepad23" ];
+            };
           };
           devices = {
             gtr7.id = "DYFRCJJ-7WNW3GF-XHTLMH3-2UBZ2TR-6KGAAAD-APLJK6F-GCVZQEJ-OWNC7QQ";
