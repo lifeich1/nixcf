@@ -6,7 +6,10 @@ chk *flags:
 nom_flag := "--log-format internal-json -v |& nom --json"
 
 nixos *flags:
+  rm -f .prev-system
+  ln -s /nix/var/nix/profiles/`readlink /nix/var/nix/profiles/system` .prev-system
   sudo nixos-rebuild switch --flake . {{flags}} {{nom_flag}}
+  nvd diff .prev-system /nix/var/nix/profiles/system
 
 alias g := nixos-debug
 alias pi := rebuild-pi
