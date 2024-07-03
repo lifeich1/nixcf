@@ -25,7 +25,7 @@ with lib;
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
       # NOTE sometimes commu cache corrupted then broke home-manager
-      "https://nix-community.cachix.org"
+      #"https://nix-community.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
