@@ -8,8 +8,7 @@ in
     home.file.".ssh/config.d/qcraft".text = ''
       Host combk
         HostName 192.168.31.188
-        User l
-        port 22011
+        User qcraft
         ForwardAgent Yes
 
       Host com
