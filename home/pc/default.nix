@@ -54,9 +54,9 @@
       #
       # it provides the command `nom` works just like `nix`
       # with more details log output
-      #nix-output-monitor
+      nix-output-monitor
       colmena
-      nh
+      nvd
 
       # productivity
       #hugo # static site generator

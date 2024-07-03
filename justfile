@@ -1,12 +1,12 @@
 default: nixos
 
-nom_flag := "--log-format internal-json -v |& nom --json" 
-
 chk *flags:
   nix flake check {{flags}}
 
+nom_flag := "--log-format internal-json -v |& nom --json"
+
 nixos *flags:
-  nh os switch . {{flags}}
+  sudo nixos-rebuild switch --flake . {{flags}} {{nom_flag}}
 
 alias g := nixos-debug
 alias pi := rebuild-pi
@@ -16,7 +16,7 @@ all: chk && rebuild-pi rebuild-xps
   test $(hostname) = "nixos-gtr5"
 
 nixos-debug: chk
-  nh os switch -v . -- --verbose --show-trace --print-build-logs
+  sudo nixos-rebuild switch --flake . --verbose --show-trace --print-build-logs
 
 colmena-pi *flags:
   colmena apply --on pi4b {{flags}}
