@@ -61,6 +61,21 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  # for guitarix
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "-";
+      item = "memlock";
+      value = "8192000";
+    }
+    {
+      domain = "*";
+      type = "-";
+      item = "rtprio";
+      value = "95";
+    }
+  ];
 
   fool.sudo.nopass = true;
   fool.secrets.pass = "gtr-pass";
@@ -74,6 +89,7 @@
       "wheel"
       "vboxusers"
       "jackaudio"
+      "audio"
     ];
     packages = with pkgs; [
       firefox
