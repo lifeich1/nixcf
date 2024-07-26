@@ -12,7 +12,7 @@ in
         ForwardAgent Yes
 
       Host com
-        HostName 172.18.18.62
+        HostName 172.18.28.71
         User qcraft
         ProxyCommand ssh -W %h:%p combk
 
