@@ -184,7 +184,7 @@ command! PkgSt call s:MinpacPrepare() | call minpac#status()
 
 " fzf fold settings {{{
 let g:fzf_buffers_jump = 1
-"let g:fzf_tags_command = 'exctags -a'
+let $FZF_DEFAULT_COMMAND = "fd --type f --strip-cwd-prefix"
 " }}}
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>zt :BTags<CR>
