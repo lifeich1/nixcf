@@ -38,7 +38,7 @@ rebuild-xps *flags:
 nvim:
   #!/usr/bin/env bash
   set -euxo pipefail
-  cd ./assets/nvim
+  cd ./fool/nvim
   cp -lb vimrc ~/.vimrc
   cp -lb init.lua ~/.vim/init.lua
   cp -lb init.vim ~/.config/nvim/init.vim
