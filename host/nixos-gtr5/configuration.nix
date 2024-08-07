@@ -46,7 +46,6 @@
   };
 
   # Enable sound with pipewire. FIXME debuging
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
