@@ -26,6 +26,7 @@
       #fzf # A command-line fuzzy finder
       skim
       just
+      fd
 
       # networking tools
       #mtr # A network diagnostic tool

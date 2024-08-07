@@ -27,6 +27,7 @@ in
 
       home.packages = with pkgs; [
         fzf
+        fd # for fzf respect gitignore
         lemonade
         neovim-remote
         gitmoji-cli
