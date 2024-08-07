@@ -23,8 +23,6 @@
       #jq # A lightweight and flexible command-line JSON processor
       #yq-go # yaml processer https://github.com/mikefarah/yq
       eza # A modern replacement for ‘ls’
-      #fzf # A command-line fuzzy finder
-      skim
       just
       fd
 
@@ -109,8 +107,14 @@
     ]
     ++ [ all.inputs.agenix.packages."${all.system}".default ];
 
-  programs.helix.enable = true;
-  programs.emacs.enable = true;
+  programs.helix.enable = true; # NOTICE learning
+  programs.emacs.enable = true; # TODO pack configs
+
+  # TODO move out
+  programs.skim = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   fool.gpg.pinentry = pkgs.pinentry-qt;
   fool.proxy.use-pi = true;
