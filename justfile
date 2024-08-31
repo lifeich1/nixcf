@@ -72,6 +72,9 @@ proxy host="127.0.0.1" tmpfile=("/tmp/111nixdae.override.conf." + temp_tag):
   sudo systemctl daemon-reload
   sudo systemctl restart nix-daemon
 
+daemon-env:
+  sudo cat /proc/`pidof nix-daemon|awk '{print $1}'`/environ|tr '\0' '\n'
+
 disable-commu:
   sed 's/https:\/\/nix-community.cachix.org//' < /etc/nix/nix.conf > /tmp/nix.conf
   sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.bak
