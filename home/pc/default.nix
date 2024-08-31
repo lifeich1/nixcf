@@ -78,6 +78,7 @@
       usbutils # lsusb
 
       # TODO put into programs/
+      wpsoffice-cn
       google-chrome
       syncthingtray
       tor-browser
