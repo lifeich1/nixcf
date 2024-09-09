@@ -111,6 +111,8 @@
   programs.helix.enable = true; # NOTICE learning
   programs.emacs.enable = true; # TODO pack configs
 
+  # TODO snapshot $HOME/.cargo/config[.toml]
+
   # TODO move out
   programs.skim = {
     enable = true;
