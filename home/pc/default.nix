@@ -111,10 +111,6 @@
   programs.emacs.enable = true; # TODO pack configs
 
   # TODO move out
-  programs.skim = {
-    enable = true;
-    enableZshIntegration = true;
-  };
 
   fool.cargo.ctrl-config = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;
@@ -122,7 +118,10 @@
   fool.git = {
     # TODO proxy enabled directories
   };
-  fool.zsh.enable = true;
+  fool.zsh = {
+    enable = true;
+    with-skim = true;
+  };
   fool.cfg-ssh = {
     vultr = true;
     qcraft = true;

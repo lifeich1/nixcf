@@ -13,6 +13,10 @@ in
     enable = mkEnableOption "zsh with my configuration";
   };
 
+  imports = [
+    ./skim.nix
+  ];
+
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       fastfetch
