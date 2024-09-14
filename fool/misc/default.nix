@@ -9,6 +9,11 @@ let
   _cfg = config.fool.misc;
 in
 {
+  imports = [
+    ./nixbuild.nix
+    ./gtr.nix
+  ];
+
   config = {
     # basic
     home.packages = with pkgs; [
@@ -19,6 +24,7 @@ in
       eza # A modern replacement for ‘ls’
       just
       fd # modern `find`
+      skim
 
       # networking tools
       mtr # A network diagnostic tool
@@ -37,6 +43,7 @@ in
       p7zip
 
       # misc
+      emojify
       #cowsay
       file
       which

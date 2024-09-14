@@ -1,60 +1,15 @@
-{ pkgs, ... }@all:
+{ pkgs, ... }:
 
 {
-  # 通过 home.packages 安装一些常用的软件
-  # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
-  # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
-  home.packages =
-    with pkgs;
-    [
-      vlc
-      # web
-      qbittorrent
-
-      # nix related
-      #
-      # it provides the command `nom` works just like `nix`
-      # with more details log output
-      nix-output-monitor
-      colmena
-      nvd
-
-      # productivity
-      #hugo # static site generator
-      #glow # markdown previewer in terminal
-
-      # TODO put into programs/
-      wpsoffice-cn
-      google-chrome
-      syncthingtray
-      tor-browser
-      calibre
-      yt-dlp
-      lux
-      jekyll
-      python3
-      appimage-run
-      usbimager
-      rpi-imager
-      emojify
-      guitarix
-      nixpkgs-review
-      nix-du
-      graphviz
-
-      # KDE
-      krita
-      libsForQt5.kdenlive
-      glaxnimate # dep by kdenlive
-      libsForQt5.plasma-integration
-      libsForQt5.plasma-browser-integration
-      libsForQt5.ktimer
-      libsForQt5.kdeplasma-addons
-    ]
-    ++ [ all.inputs.agenix.packages."${all.system}".default ];
+  home.packages = with pkgs; [
+    # trials on one host
+    charasay
+  ];
 
   programs.helix.enable = true; # NOTICE learning
   programs.emacs.enable = true; # TODO pack configs
+
+  fool.misc.gtr = true;
 
   fool.cargo.ctrl-config = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;
