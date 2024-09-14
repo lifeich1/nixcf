@@ -12,8 +12,10 @@ let
 in
 {
   imports = [
+    ./collections
     ./firewall
     ./gitea
+    ./plasma
     ./proxychains
     ./sudo
     ./syncthing
