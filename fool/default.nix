@@ -19,6 +19,7 @@ with lib;
     ./nvim
     ./xray
     ./zsh
+    ./misc
   ];
 
   options.fool = {
