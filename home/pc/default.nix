@@ -111,14 +111,13 @@
   programs.helix.enable = true; # NOTICE learning
   programs.emacs.enable = true; # TODO pack configs
 
-  # TODO snapshot $HOME/.cargo/config[.toml]
-
   # TODO move out
   programs.skim = {
     enable = true;
     enableZshIntegration = true;
   };
 
+  fool.cargo.ctrl-config = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;
   fool.proxy.use-pi = true;
   fool.git = {

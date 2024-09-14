@@ -10,6 +10,7 @@ with lib;
 {
   imports = [
     ./alacritty
+    ./cargo
     ./cfg-ssh
     ./fastfetch
     ./git
