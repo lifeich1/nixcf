@@ -133,6 +133,7 @@
         nixos-pi4b = [
           nixos-hardware.nixosModules.raspberry-pi-4
           inputs.attic.nixosModules.atticd
+          ./os/atticd
           (pass_config pi4b_config { home-nix = ./home/micro-srv; })
         ];
       };
