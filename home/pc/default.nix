@@ -95,7 +95,6 @@
       nixpkgs-review
       nix-du
       graphviz
-      attic-client
 
       # KDE
       krita
@@ -133,6 +132,7 @@
     enable = true;
     font-size = 10;
   };
+  fool.attic.watch-store = true;
 
   i18n.inputMethod = {
     enabled = "fcitx5";
@@ -142,21 +142,4 @@
       fcitx5-lua
     ];
   };
-
-  ## TODO pack as mod in future
-  # dep: attic-client
-  systemd.user.services."attic-watch-store" = {
-    Unit = {
-      Description = "Watch the Nix Store for new paths and upload them to a binary cache";
-      After = [ "basic.target" ];
-      Wants = [ "basic.target" ];
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.attic-client}/bin/attic watch-store my-pi_attic";
-    };
-  };
-  xdg.configFile."attic/config.toml".source = ./attic-client.toml;
 }
