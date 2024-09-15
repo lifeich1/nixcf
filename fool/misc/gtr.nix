@@ -43,6 +43,7 @@ in
       jekyll
       usbimager
       graphviz
+      gh
 
       # system
       python3
