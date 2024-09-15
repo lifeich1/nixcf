@@ -48,12 +48,6 @@
       "jackaudio"
       "audio"
     ];
-    packages = with pkgs; [
-      firefox
-      kate
-      xsel
-      #  thunderbird
-    ];
     shell = pkgs.zsh;
   };
 

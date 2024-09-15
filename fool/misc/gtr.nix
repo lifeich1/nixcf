@@ -47,12 +47,26 @@ in
       # system
       python3
       appimage-run
+      xsel
 
       # KDE
+      kate
       libsForQt5.plasma-integration
       libsForQt5.plasma-browser-integration
       libsForQt5.ktimer
       libsForQt5.kdeplasma-addons
     ];
+
+    programs.firefox.enable = true;
+    programs.thunderbird = {
+      # TODO move out with config control
+      enable = true;
+      profiles.fool = {
+        isDefault = true;
+        settings = {
+          "font.language.group" = "zh-CN";
+        };
+      };
+    };
   };
 }

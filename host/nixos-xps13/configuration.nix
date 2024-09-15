@@ -42,16 +42,6 @@
       "networkmanager"
       "wheel"
     ];
-    packages =
-      (with pkgs; [
-        git
-        kate
-        xsel
-      ])
-      ++ (with pkgs-stable; [
-        firefox
-        thunderbird
-      ]);
     shell = pkgs.zsh;
   };
 
