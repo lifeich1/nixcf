@@ -7,9 +7,7 @@
 
   programs.zellij.enable = true;
 
-  fool.git.proxy = {
-    # TODO enable at listed directories
-  };
+  fool.git.github-proxy = true;
   fool.zsh.enable = true;
   fool.fastfetch.configFile = ./fastfetch-config.jsonc;
   fool.cfg-ssh = {

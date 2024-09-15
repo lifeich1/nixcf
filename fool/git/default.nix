@@ -20,11 +20,7 @@ in
       default = "lifeich0@gmail.com";
       description = "git userEmail";
     };
-    proxy = {
-      enable = mkEnableOption "http(s) proxy";
-      use-pi = mkEnableOption "using `my-pi` as proxy server";
-      # TODO enabled directories
-    };
+    github-proxy = mkEnableOption "enable http(s) proxy for github cloned path.";
   };
 
   config = {
@@ -34,15 +30,21 @@ in
       userEmail = mkDefault cfg.email;
       difftastic.enable = true;
       lfs.enable = true;
-      extraConfig = mkIf cfg.proxy.enable (
-        let
-          url = config.proxy.socks5_url;
-        in
-        {
-          https.proxy = url;
-          http.proxy = url;
-        }
-      );
+      extraConfig = mkIf cfg.github-proxy {
+        includeIf."gitdir:Code/z/github.com/**".path =
+          let
+            suffix = config.xdg.configFile."fool_git_http_proxy.inc".target;
+          in
+          "${config.home.homeDirectory}/${suffix}";
+      };
     };
+
+    xdg.configFile."fool_git_http_proxy.inc".text = ''
+      [http]
+      proxy = ${config.fool.proxy.socks5_url};
+
+      [https]
+      proxy = ${config.fool.proxy.socks5_url};
+    '';
   };
 }

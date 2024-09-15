@@ -14,9 +14,7 @@
   fool.cargo.ctrl-config = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;
   fool.proxy.use-pi = true;
-  fool.git = {
-    # TODO proxy enabled directories
-  };
+  fool.git.github-proxy = true;
   fool.zsh = {
     enable = true;
     with-skim = true;
