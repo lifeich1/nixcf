@@ -31,6 +31,7 @@
 
     hobob = {
       url = "github:lifeich1/hobob/deploy";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
