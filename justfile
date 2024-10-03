@@ -1,5 +1,10 @@
 default: nixos
 
+update:
+  nix flake update --debug
+
+alias u := update
+
 chk *flags:
   nix flake check {{flags}}
 
