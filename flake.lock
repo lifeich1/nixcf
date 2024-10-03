@@ -126,11 +126,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1726480170,
-        "narHash": "sha256-SJ1abMGF41rQzkoR4hDyZUgpwTiN/gguon/9qAmepfA=",
+        "lastModified": 1726492640,
+        "narHash": "sha256-Ug78bB7j5fpIhTMTnq4/wjD84Sf5S0kMdTVIUkoC79s=",
         "owner": "lifeich1",
         "repo": "hobob",
-        "rev": "131f85b57abe11dfb6a09cdd8b96f5dd37fa2fad",
+        "rev": "b1c8b20aa50119c028c9b5a3bcd3cc82f371f313",
         "type": "github"
       },
       "original": {
@@ -268,11 +268,11 @@
     },
     "nixpkgs-stable_2": {
       "locked": {
-        "lastModified": 1726320982,
-        "narHash": "sha256-RuVXUwcYwaUeks6h3OLrEmg14z9aFXdWppTWPMTwdQw=",
+        "lastModified": 1727672256,
+        "narHash": "sha256-9/79hjQc9+xyH+QxeMcRsA6hDyw6Z9Eo1/oxjvwirLk=",
         "ref": "nixos-24.05",
-        "rev": "8f7492cce28977fbf8bd12c72af08b1f6c7c3e49",
-        "revCount": 635144,
+        "rev": "1719f27dd95fd4206afb9cec9f415b539978827e",
+        "revCount": 635555,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       },
@@ -284,11 +284,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1726243404,
-        "narHash": "sha256-sjiGsMh+1cWXb53Tecsm4skyFNag33GPbVgCdfj3n9I=",
+        "lastModified": 1727802920,
+        "narHash": "sha256-HP89HZOT0ReIbI7IJZJQoJgxvB2Tn28V6XS3MNKnfLs=",
         "ref": "nixos-unstable",
-        "rev": "345c263f2f53a3710abe117f28a5cb86d0ba4059",
-        "revCount": 680873,
+        "rev": "27e30d177e57d912d614c88c622dcfdb2e6e6515",
+        "revCount": 687768,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       },
