@@ -126,11 +126,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1726492640,
-        "narHash": "sha256-Ug78bB7j5fpIhTMTnq4/wjD84Sf5S0kMdTVIUkoC79s=",
+        "lastModified": 1728415870,
+        "narHash": "sha256-vAlCIBeZstsJ1RrI7F78JUlg6C7NInQ7EDtIJ+80jrg=",
         "owner": "lifeich1",
         "repo": "hobob",
-        "rev": "b1c8b20aa50119c028c9b5a3bcd3cc82f371f313",
+        "rev": "1321cb1f5259db3186c59bd0ff6077f1a4c2305c",
         "type": "github"
       },
       "original": {
