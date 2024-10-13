@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # trials on one host
     charasay
+    microsoft-edge
   ];
 
   programs.helix.enable = true; # NOTICE learning
