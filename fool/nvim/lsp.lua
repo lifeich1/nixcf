@@ -147,3 +147,31 @@ for _, ls in ipairs(language_servers) do
     -- you can add other fields for setting up lsp server in this table
   })
 end
+
+require 'fzf_lsp'.setup()
+
+require 'nvim-treesitter.configs'.setup {
+  modules = {},
+  ensure_installed = {},
+  sync_install = false,
+  auto_install = false,
+  ignore_install = { "all" },
+
+  highlight = {
+    enable = true,
+
+    disable = function(lang, buf)
+      local max_filesize = 100 * 1024 -- 100 KB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+    end,
+
+    additional_vim_regex_highlighting = false,
+  },
+
+  indent = {
+    enable = true,
+  },
+}

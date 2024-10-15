@@ -56,6 +56,15 @@ in
         #python312Packages.python-lsp-server
       ];
 
+      programs.neovim.plugins = with pkgs.vimPlugins; [
+        fzf-lsp-nvim
+        (nvim-treesitter.withPlugins (
+          plugins: with plugins; [
+            lalrpop
+          ]
+        ))
+      ];
+
       home.file.".lintd/nvim/lsp.lua".source = ./lsp.lua;
     })
   ];
