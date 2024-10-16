@@ -109,7 +109,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    --vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<Bslash>i', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<Bslash>wa', vim.lsp.buf.add_workspace_folder, opts)
@@ -124,6 +124,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<Bslash>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+    vim.keymap.set('n', '<Bslash>zt', vim.lsp.buf.document_symbol, opts)
 
     if client ~= nil and client.server_capabilities.documentFormattingProvider then
       vim.api.nvim_create_autocmd('BufWritePre', {
