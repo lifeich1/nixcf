@@ -108,3 +108,11 @@ vim.api.nvim_create_autocmd('BufEnter', {
     vim.opt_local.filetype = 'json';
   end,
 })
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = vim.api.nvim_create_augroup('ft_lalrpop', {}),
+  pattern = { "*.lalrpop" },
+  callback = function(ev)
+    vim.opt_local.filetype = 'lalrpop';
+  end,
+})
