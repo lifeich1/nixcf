@@ -234,22 +234,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-2311": {
-      "locked": {
-        "lastModified": 1720535198,
-        "narHash": "sha256-zwVvxrdIzralnSbcpghA92tWu2DV2lwv89xZc8MTrbg=",
-        "ref": "nixos-23.11",
-        "rev": "205fd4226592cc83fd4c0885a3e4c9c400efabb5",
-        "revCount": 559232,
-        "type": "git",
-        "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
-      },
-      "original": {
-        "ref": "nixos-23.11",
-        "type": "git",
-        "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1724316499,
@@ -307,7 +291,6 @@
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-2311": "nixpkgs-2311",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "vim-minpac": "vim-minpac"
       }

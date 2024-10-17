@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-stable,
   ...
 }:
 with lib;
@@ -16,47 +17,50 @@ in
   config = mkIf cfg.gtr {
     fool.misc.nixbuild = true;
 
-    home.packages = with pkgs; [
-      # (multi)media
-      vlc
-      calibre
+    home.packages =
+      (with pkgs-stable; [
+        calibre # https://github.com/NixOS/nixpkgs/issues/348845
+      ])
+      ++ (with pkgs; [
+        # (multi)media
+        vlc
 
-      # talent
-      krita
-      guitarix
-      libsForQt5.kdenlive
-      glaxnimate # dep by kdenlive
+        # talent
+        krita
+        guitarix
+        libsForQt5.kdenlive
+        glaxnimate # dep by kdenlive
 
-      # web
-      qbittorrent
-      google-chrome
-      tor-browser
-      yt-dlp
-      lux
+        # web
+        qbittorrent
+        google-chrome
+        tor-browser
+        yt-dlp
+        lux
 
-      # productivity
-      #hugo # static site generator
-      #glow # markdown previewer in terminal
-      imagemagick
-      wpsoffice-cn
-      syncthingtray
-      jekyll
-      usbimager
-      graphviz
-      gh
+        # productivity
+        #hugo # static site generator
+        #glow # markdown previewer in terminal
+        imagemagick
+        wpsoffice-cn
+        syncthingtray
+        jekyll
+        usbimager
+        graphviz
+        gh
 
-      # system
-      python3
-      appimage-run
-      xsel
+        # system
+        python3
+        appimage-run
+        xsel
 
-      # KDE
-      kate
-      libsForQt5.plasma-integration
-      libsForQt5.plasma-browser-integration
-      libsForQt5.ktimer
-      libsForQt5.kdeplasma-addons
-    ];
+        # KDE
+        kate
+        libsForQt5.plasma-integration
+        libsForQt5.plasma-browser-integration
+        libsForQt5.ktimer
+        libsForQt5.kdeplasma-addons
+      ]);
 
     programs.firefox.enable = true;
     programs.thunderbird = {

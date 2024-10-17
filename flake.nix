@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-unstable";
     nixpkgs-stable.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-24.05";
-    nixpkgs-2311.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-23.11";
     #nixpkgs-fork.url = "git+file:/home/fool/Code/z/github.com/NixOS/nixpkgs?shallow=1";
     #nixpkgs-lib.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-unstable&dir=lib";
     home-manager = {
