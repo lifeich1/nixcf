@@ -56,4 +56,7 @@
   services.xray.enable = true;
   fool.syncthing.enable = true;
   fool.virtualbox.enable = true;
+
+  # NOTE experiment
+  services.teamviewer.enable = true;
 }
