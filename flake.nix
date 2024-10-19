@@ -54,7 +54,10 @@
         all_proxy = false;
         device = "none";
         has_pi = true; # physics environment
-        pkgs-stable = import nixpkgs-stable { inherit system; };
+        pkgs-stable = import nixpkgs-stable {
+          inherit system;
+          config.allowUnfree = true;
+        };
       };
 
       pi4b_config = (base_config "aarch64-linux") // {
