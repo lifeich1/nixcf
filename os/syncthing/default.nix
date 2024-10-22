@@ -95,12 +95,25 @@ in
               label = "matepad23/screenshots";
               devices = [ "matepad23" ];
             };
+            "${pubdir}/hw-p60/camera" = {
+              id = "lna-al00_pyqc-照片";
+              type = "receiveonly";
+              label = "hw-p60/camera";
+              devices = [ "hw_p60" ];
+            };
+            "${pubdir}/hw-p60/pics" = {
+              id = "dfyrd-94rbb";
+              type = "receiveonly";
+              label = "hw-p60/pics";
+              devices = [ "hw_p60" ];
+            };
           };
           devices = {
             gtr7.id = "DYFRCJJ-7WNW3GF-XHTLMH3-2UBZ2TR-6KGAAAD-APLJK6F-GCVZQEJ-OWNC7QQ";
             matepad23.id = "VQKKXIY-JESAFSW-TE5MXQF-ND3H7IR-FKL357O-ZWNYPTP-O5OSKUC-Y4XK2AU";
             ala_an70.id = "6EBVCNG-JWOCLAQ-QWLUM73-4E3C2GY-FGDVWP3-P563Q3D-X62YMIN-5FILAA5";
             xps13_9360.id = "HJBCABV-UZBQV5P-V552XA2-B4D7DH5-T2WCHRS-I55ONAS-V6AB332-GKQ67Q4";
+            hw_p60.id = "DVCK2UK-VYORBXG-LUR3444-OOYIEUU-P7E6KPD-5KTFNCZ-SFUIDXI-27LUFQO";
           };
         };
       };
