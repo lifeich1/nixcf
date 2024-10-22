@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable {
     services.atticd = {
       enable = true;
-      credentialsFile = "/etc/fool/attic/atticd.env";
+      environmentFile = "/etc/fool/attic/atticd.env";
       settings = {
         listen = "[::]:8080";
 

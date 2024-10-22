@@ -12,7 +12,7 @@
     };
     nixos-hardware.url = "git+https://gitee.com/mirrors/nixos-hardware.git";
 
-    attic.url = "github:zhaofengli/attic";
+    #attic.url = "github:zhaofengli/attic";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -135,7 +135,7 @@
         ] ++ gtr7-hardware-list;
         nixos-pi4b = [
           nixos-hardware.nixosModules.raspberry-pi-4
-          inputs.attic.nixosModules.atticd
+          #inputs.attic.nixosModules.atticd
           ./os/atticd
           (pass_config pi4b_config { home-nix = ./home/micro-srv; })
         ];
