@@ -179,3 +179,6 @@ require 'nvim-treesitter.configs'.setup {
     enable = true,
   }
 }
+
+-- disable polyglot, use treesitter
+vim.g.polyglot_disabled = { "autoindent", "toml.plugin" }

@@ -23,6 +23,20 @@ in
         viAlias = true;
         vimAlias = true;
         vimdiffAlias = true;
+        plugins = with pkgs.vimPlugins; [
+          catppuccin-nvim
+          vim-dispatch
+          vim-obsession
+          vim-projectionist
+          vim-fugitive
+          vim-polyglot
+          bufexplorer
+          plenary-nvim
+          promise-async
+          nvim-ufo
+          nvim-coverage
+          fzf-vim
+        ];
       };
 
       home.packages = with pkgs; [
@@ -53,14 +67,16 @@ in
         perl538Packages.PLS
         marksman
         vscode-langservers-extracted
-        #python312Packages.python-lsp-server
       ];
 
       programs.neovim.plugins = with pkgs.vimPlugins; [
+        nvim-lspconfig
         fzf-lsp-nvim
         (nvim-treesitter.withPlugins (
           plugins: with plugins; [
             lalrpop
+            just
+            toml
           ]
         ))
       ];
