@@ -23,10 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       #inputs.flake-utils.follows = "flake-utils";
     };
-    vim-minpac = {
-      url = "git+http://my-pi:3000/mirrors/minpac.git";
-      flake = false;
-    };
 
     hobob = {
       url = "github:lifeich1/hobob/deploy";

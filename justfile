@@ -72,7 +72,7 @@ du:
   gwenview {{du_result}}
 
 temp_tag := `date +%N`
-host_no_proxy := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn"
+host_no_proxy := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn,gitee.com"
 # temporarily add proxy settings to nix-daemon.service environ vars
 proxy host="127.0.0.1" tmpfile=("/tmp/111nixdae.override.conf." + temp_tag):
   echo "[Service]" > {{tmpfile}}

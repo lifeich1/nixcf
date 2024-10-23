@@ -8,6 +8,19 @@
 with lib;
 let
   cfg = config.fool.nvim;
+  minpac = {
+    plugin = pkgs.vimUtils.buildVimPlugin {
+      pname = "minpac";
+      version = "2024-07-31";
+      src = pkgs.fetchFromGitHub {
+        owner = "k-takata";
+        repo = "minpac";
+        rev = "caa090e10ed55f20a3a6f2df822d1a9967d151d0";
+        hash = "sha256-gAyR6Lgimzkgy+zQs0S80U4wASeUU6lM7ecxA7e4Tiw=";
+      };
+    };
+    optional = true;
+  };
 in
 {
   options.fool.nvim = {
@@ -23,20 +36,24 @@ in
         viAlias = true;
         vimAlias = true;
         vimdiffAlias = true;
-        plugins = with pkgs.vimPlugins; [
-          catppuccin-nvim
-          vim-dispatch
-          vim-obsession
-          vim-projectionist
-          vim-fugitive
-          vim-polyglot
-          bufexplorer
-          plenary-nvim
-          promise-async
-          nvim-ufo
-          nvim-coverage
-          fzf-vim
-        ];
+        plugins =
+          [
+            minpac
+          ]
+          ++ (with pkgs.vimPlugins; [
+            catppuccin-nvim
+            vim-dispatch
+            vim-obsession
+            vim-projectionist
+            vim-fugitive
+            vim-polyglot
+            bufexplorer
+            plenary-nvim
+            promise-async
+            nvim-ufo
+            nvim-coverage
+            fzf-vim
+          ]);
       };
 
       home.packages = with pkgs; [
@@ -49,7 +66,6 @@ in
 
       home.file.".vimrc".source = ./vimrc;
       home.file.".vim/init.lua".source = ./init.lua;
-      home.file.".vim/pack/minpac/opt/minpac".source = inputs.vim-minpac;
       xdg.enable = true;
       xdg.configFile."nvim/init.vim".source = ./init.vim;
     }
@@ -67,6 +83,7 @@ in
         perl538Packages.PLS
         marksman
         vscode-langservers-extracted
+        python312Packages.python-lsp-server
       ];
 
       programs.neovim.plugins = with pkgs.vimPlugins; [
