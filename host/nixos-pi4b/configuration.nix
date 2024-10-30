@@ -72,4 +72,11 @@
   fool.gitea.enable = true;
   fool.vlmcsd.enable = true;
   fool.atticd.enable = true;
+
+  # TODO dev then group into component
+  services.rustdesk-server = {
+    enable = true;
+    openFirewall = true;
+    relayIP = "localhost";
+  };
 }

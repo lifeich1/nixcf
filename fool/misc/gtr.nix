@@ -23,6 +23,9 @@ in
         teamviewer # com use
       ])
       ++ (with pkgs; [
+        # remote work
+        rustdesk-flutter
+
         # (multi)media
         vlc
 
