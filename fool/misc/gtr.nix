@@ -20,7 +20,7 @@ in
     home.packages =
       (with pkgs-stable; [
         calibre # https://github.com/NixOS/nixpkgs/issues/348845
-        teamviewer # com use
+        #teamviewer # com use
       ])
       ++ (with pkgs; [
         # remote work
