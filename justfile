@@ -26,16 +26,10 @@ all: chk && rebuild-pi rebuild-xps
 nixos-debug: chk
   sudo nixos-rebuild switch --flake . --verbose --show-trace --print-build-logs
 
-colmena-pi *flags: && (tag-deploy "pi")
-  colmena apply --on pi4b {{flags}}
-
 rebuild-pi *flags: && (tag-deploy "pi")
   nixos-rebuild switch --flake .{{"#nixos-pi4b"}} --target-host root@my-pi {{flags}} {{nom_flag}}
 
 my_xps := "192.168.31.224"
-
-colmena-xps *flags: && (tag-deploy "xps")
-  colmena apply --on xps {{flags}}
 
 rebuild-xps *flags: && (tag-deploy "xps")
   nixos-rebuild switch --flake .{{"#nixos-xps13"}} --target-host root@{{my_xps}} {{flags}} {{nom_flag}}

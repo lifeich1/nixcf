@@ -150,28 +150,5 @@
         system = "aarch64-linux";
         modules = mods.nixos-pi4b;
       };
-
-      colmena = {
-        meta = {
-          nixpkgs = import nixpkgs { system = "x86_64-linux"; };
-          nodeNixpkgs = {
-            pi4b = import nixpkgs { system = "aarch64-linux"; };
-          };
-        };
-        pi4b = {
-          deployment = {
-            targetHost = "my-pi";
-            targetUser = "root";
-          };
-          imports = mods.nixos-pi4b;
-        };
-        xps = {
-          deployment = {
-            targetHost = "192.168.31.224";
-            targetUser = "root";
-          };
-          imports = mods.nixos-xps13;
-        };
-      };
     };
 }
