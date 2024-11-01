@@ -56,7 +56,7 @@ in
         # system
         python3
         appimage-run
-        #xsel # TODO update to wayland tool
+        wl-clipboard
 
         # KDE TODO upgrade
         #kate

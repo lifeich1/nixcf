@@ -34,5 +34,7 @@ in
       #libsForQt5.frameworkintegration
       #libsForQt5.kwidgetsaddons
     ];
+
+    i18n.inputMethod.fcitx5.waylandFrontend = true;
   };
 }
