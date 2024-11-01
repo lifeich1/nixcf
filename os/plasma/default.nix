@@ -35,6 +35,17 @@ in
       #libsForQt5.kwidgetsaddons
     ];
 
-    i18n.inputMethod.fcitx5.waylandFrontend = true;
+    i18n.inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5 = {
+        waylandFrontend = true;
+        addons = with pkgs; [
+          kdePackages.fcitx5-chinese-addons
+          #fcitx5-rime
+          #fcitx5-lua
+        ];
+      };
+    };
   };
 }
