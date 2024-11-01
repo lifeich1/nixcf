@@ -28,13 +28,6 @@ in
 
     programs.kdeconnect.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      # KDE
-      #libsForQt5.plasma-framework
-      #libsForQt5.frameworkintegration
-      #libsForQt5.kwidgetsaddons
-    ];
-
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";

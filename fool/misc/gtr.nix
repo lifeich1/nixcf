@@ -32,8 +32,8 @@ in
         # talent
         krita
         guitarix
-        #libsForQt5.kdenlive # TODO
-        glaxnimate # dep by kdenlive
+        kdePackages.kdenlive
+        #glaxnimate # dep by kdenlive
 
         # web
         qbittorrent
@@ -57,13 +57,6 @@ in
         python3
         appimage-run
         wl-clipboard
-
-        # KDE TODO upgrade
-        #kate
-        #libsForQt5.plasma-integration
-        #libsForQt5.plasma-browser-integration
-        #libsForQt5.ktimer
-        #libsForQt5.kdeplasma-addons
       ]);
 
     programs.firefox.enable = true;
