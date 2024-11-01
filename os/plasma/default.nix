@@ -15,8 +15,12 @@ in
 
   config = mkIf cfg.enable {
     services.xserver.enable = true;
-    services.displayManager.sddm.enable = true;
-    services.xserver.desktopManager.plasma5.enable = true;
+    services.displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    services.desktopManager.plasma6.enable = true;
+    #services.xserver.desktopManager.plasma5.enable = true;
     services.xserver.xkb = {
       layout = "cn";
       variant = "";
@@ -26,9 +30,9 @@ in
 
     environment.systemPackages = with pkgs; [
       # KDE
-      libsForQt5.plasma-framework
-      libsForQt5.frameworkintegration
-      libsForQt5.kwidgetsaddons
+      #libsForQt5.plasma-framework
+      #libsForQt5.frameworkintegration
+      #libsForQt5.kwidgetsaddons
     ];
   };
 }

@@ -32,7 +32,7 @@ in
         # talent
         krita
         guitarix
-        libsForQt5.kdenlive
+        #libsForQt5.kdenlive # TODO
         glaxnimate # dep by kdenlive
 
         # web
@@ -56,14 +56,14 @@ in
         # system
         python3
         appimage-run
-        xsel
+        #xsel # TODO update to wayland tool
 
-        # KDE
-        kate
-        libsForQt5.plasma-integration
-        libsForQt5.plasma-browser-integration
-        libsForQt5.ktimer
-        libsForQt5.kdeplasma-addons
+        # KDE TODO upgrade
+        #kate
+        #libsForQt5.plasma-integration
+        #libsForQt5.plasma-browser-integration
+        #libsForQt5.ktimer
+        #libsForQt5.kdeplasma-addons
       ]);
 
     programs.firefox.enable = true;
