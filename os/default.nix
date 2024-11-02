@@ -34,7 +34,10 @@ in
 
   config = mkMerge [
     {
-      users.users.root.openssh.authorizedKeys.keys = [ gtr5_pubkey ];
+      users.users.root.openssh.authorizedKeys.keys = [
+        gtr5_pubkey
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIByt6QnePLW5+FE8T5dpyAOBZET7AqeE6s01Hm/rhEgq fool@nixos-xps13"
+      ];
       networking.hostName = "nixos-${device}";
       nixpkgs.config.allowUnfree = true;
       time.timeZone = "Asia/Shanghai";
