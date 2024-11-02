@@ -121,6 +121,7 @@
           (pass_config x64_config {
             username = "fool";
             device = "xps13";
+            home-nix = ./home/lightpad;
           })
         ];
         nixos-gtr5 = [
