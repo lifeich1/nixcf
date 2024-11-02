@@ -21,7 +21,8 @@ with lib;
     substituters = mkBefore [
       "http://my-pi:8080/my-pi_attic" # homelab
       "https://mirror.sjtu.edu.cn/nix-channels/store"
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      # XXX THU block social heavy thoughtput
+      #"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" 
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
       # NOTE sometimes commu cache corrupted then broke home-manager
