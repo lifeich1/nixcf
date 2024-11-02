@@ -36,7 +36,6 @@
 
   users.users.fool = {
     isNormalUser = true;
-    hashedPasswordFile = config.age.secrets.xps-pass.path;
     description = "lintd";
     extraGroups = [
       "networkmanager"

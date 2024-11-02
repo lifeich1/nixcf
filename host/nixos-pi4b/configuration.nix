@@ -59,7 +59,6 @@
     mutableUsers = false;
     users."${username}" = {
       isNormalUser = true;
-      hashedPasswordFile = config.age.secrets.pi-pass.path;
       extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [ gtr5_pubkey ];
       shell = pkgs.zsh;

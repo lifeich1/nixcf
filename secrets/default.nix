@@ -31,6 +31,8 @@ with lib;
     }
     (mkIf (isString config.fool.secrets.pass) {
       age.secrets."${config.fool.secrets.pass}".file = ./${config.fool.secrets.pass}.age;
+      users.users."${username}".hashedPasswordFile =
+        config.age.secrets."${config.fool.secrets.pass}".path;
     })
   ];
 }

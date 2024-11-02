@@ -28,11 +28,10 @@
   ## NOTE hardware above, userspace below
 
   fool.sudo.nopass = true;
+  fool.secrets.pass = "gtr-pass";
 
   users.users.fool = {
     isNormalUser = true;
-    # FIXME when ssh privkey setup ok
-    #hashedPasswordFile = config.age.secrets.gtr-pass.path;
     description = "fool-gtr7";
     extraGroups = [
       "networkmanager"

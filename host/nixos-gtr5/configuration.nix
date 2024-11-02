@@ -39,7 +39,6 @@
 
   users.users.fool = {
     isNormalUser = true;
-    hashedPasswordFile = config.age.secrets.gtr-pass.path;
     description = "fool-gtr5";
     extraGroups = [
       "networkmanager"
