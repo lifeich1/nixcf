@@ -129,6 +129,12 @@
             device = "gtr5";
           })
         ] ++ gtr7-hardware-list;
+        nixos-gtr7 = [
+          (pass_config x64_config {
+            username = "fool";
+            device = "gtr7";
+          })
+        ] ++ gtr7-hardware-list;
         nixos-pi4b = [
           nixos-hardware.nixosModules.raspberry-pi-4
           #inputs.attic.nixosModules.atticd
@@ -141,6 +147,10 @@
       nixosConfigurations.nixos-xps13 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = mods.nixos-xps13;
+      };
+      nixosConfigurations.nixos-gtr7 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = mods.nixos-gtr7;
       };
       nixosConfigurations.nixos-gtr5 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

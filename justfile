@@ -19,6 +19,7 @@ nixos *flags:
 alias g := nixos-debug
 alias pi := rebuild-pi
 alias xps := rebuild-xps
+alias gtr7 := rebuild-gtr7
 
 all: chk && rebuild-pi rebuild-xps
   test $(hostname) = "nixos-gtr5"
@@ -33,6 +34,11 @@ my_xps := "192.168.31.224"
 
 rebuild-xps *flags: && (tag-deploy "xps")
   nixos-rebuild switch --flake .{{"#nixos-xps13"}} --target-host root@{{my_xps}} {{flags}} {{nom_flag}}
+
+my_gtr7 := "192.168.31.67"
+
+rebuild-gtr7 *flags: && (tag-deploy "gtr7")
+  nixos-rebuild switch --flake .{{"#nixos-gtr7"}} --target-host root@{{my_gtr7}} {{flags}} {{nom_flag}}
 
 # hardlink nvim config files for fast dev
 nvim:
