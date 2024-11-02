@@ -11,7 +11,14 @@ in
       default = 15;
       description = "alacritty terminal font size";
     };
-    nixgl-wrapper = mkEnableOption "command `nixgl-alacritty` & desktop entry";
+
+    ## rely on:
+    ## nixgl = {
+    ##   url = "github:nix-community/nixGL";
+    ##   inputs.nixpkgs.follows = "nixpkgs";
+    ## };
+    # NOTE disable for reduce inputs
+    #nixgl-wrapper = mkEnableOption "command `nixgl-alacritty` & desktop entry";
   };
 
   config = mkMerge [
@@ -36,36 +43,36 @@ in
         };
       };
     })
-    (mkIf cfg.nixgl-wrapper {
-      home.packages = [
-        (
-          let
-            nixglil = inputs.nixgl.packages."${system}".nixGLIntel;
-            pack = [
-              nixglil
-              pkgs.alacritty
-            ];
-          in
-          pkgs.runCommand "nixgl-alacritty"
-            {
-              buildInputs = pack;
-              nativeBuildInputs = [ pkgs.makeWrapper ];
-            }
-            ''
-              mkdir -p $out/bin/
-              ln -s ${nixglil}/bin/nixGLIntel $out/bin/nixgl-alacritty
-              wrapProgram $out/bin/nixgl-alacritty --add-flags alacritty
-            ''
-        )
-      ];
-      xdg.desktopEntries.nixgl-alacritty = {
-        name = "nixgl Wrapped alacritty";
-        exec = "nixgl-alacritty";
-        categories = [
-          "System"
-          "TerminalEmulator"
-        ];
-      };
-    })
+    #(mkIf cfg.nixgl-wrapper {
+    #  home.packages = [
+    #    (
+    #      let
+    #        nixglil = inputs.nixgl.packages."${system}".nixGLIntel;
+    #        pack = [
+    #          nixglil
+    #          pkgs.alacritty
+    #        ];
+    #      in
+    #      pkgs.runCommand "nixgl-alacritty"
+    #        {
+    #          buildInputs = pack;
+    #          nativeBuildInputs = [ pkgs.makeWrapper ];
+    #        }
+    #        ''
+    #          mkdir -p $out/bin/
+    #          ln -s ${nixglil}/bin/nixGLIntel $out/bin/nixgl-alacritty
+    #          wrapProgram $out/bin/nixgl-alacritty --add-flags alacritty
+    #        ''
+    #    )
+    #  ];
+    #  xdg.desktopEntries.nixgl-alacritty = {
+    #    name = "nixgl Wrapped alacritty";
+    #    exec = "nixgl-alacritty";
+    #    categories = [
+    #      "System"
+    #      "TerminalEmulator"
+    #    ];
+    #  };
+    #})
   ];
 }

@@ -10,32 +10,17 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1723293904,
-        "narHash": "sha256-b+uqzj+Wa6xgMS9aNbX4I+sXeb5biPDi39VgvSFqFvU=",
-        "owner": "ryantm",
-        "repo": "agenix",
-        "rev": "f6291c5935fdc4e0bef208cfc0dcab7e3f7a1c41",
-        "type": "github"
+        "lastModified": 1718371084,
+        "narHash": "sha256-abpBi61mg0g+lFFU0zY4C6oP6fBwPzbHPKBGw676xsA=",
+        "ref": "refs/heads/main",
+        "rev": "3a56735779db467538fb2e577eda28a9daacaca6",
+        "revCount": 308,
+        "type": "git",
+        "url": "https://gitee.com/mirrors/agenix.git"
       },
       "original": {
-        "owner": "ryantm",
-        "repo": "agenix",
-        "type": "github"
-      }
-    },
-    "flake-utils": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
+        "type": "git",
+        "url": "https://gitee.com/mirrors/agenix.git"
       }
     },
     "hobob": {
@@ -48,16 +33,16 @@
       "locked": {
         "lastModified": 1728475700,
         "narHash": "sha256-OvaKtndB8DJschZbfv6BzlombKqJnvEacbm5ary4ucg=",
-        "owner": "lifeich1",
-        "repo": "hobob",
+        "ref": "deploy",
         "rev": "a22909c243a76a9665a3b1644572371ff59ba4f4",
-        "type": "github"
+        "revCount": 162,
+        "type": "git",
+        "url": "https://gitee.com/lifeich0/hobob.git/"
       },
       "original": {
-        "owner": "lifeich1",
         "ref": "deploy",
-        "repo": "hobob",
-        "type": "github"
+        "type": "git",
+        "url": "https://gitee.com/lifeich0/hobob.git/"
       }
     },
     "home-manager": {
@@ -99,28 +84,6 @@
       "original": {
         "type": "git",
         "url": "https://gitee.com/mirrors/home-manager-nix.git"
-      }
-    },
-    "nixgl": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1713543440,
-        "narHash": "sha256-lnzZQYG0+EXl/6NkGpyIz+FEOc/DSEG57AP1VsdeNrM=",
-        "ref": "main",
-        "rev": "310f8e49a149e4c9ea52f1adf70cdc768ec53f8a",
-        "revCount": 173,
-        "type": "git",
-        "url": "http://my-pi:3000/mirrors/nixGL.git"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "http://my-pi:3000/mirrors/nixGL.git"
       }
     },
     "nixos-hardware": {
@@ -175,7 +138,6 @@
         "agenix": "agenix",
         "hobob": "hobob",
         "home-manager": "home-manager_2",
-        "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable"

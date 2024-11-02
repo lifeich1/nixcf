@@ -12,20 +12,14 @@
     };
     nixos-hardware.url = "git+https://gitee.com/mirrors/nixos-hardware.git";
 
-    #attic.url = "github:zhaofengli/attic";
     agenix = {
-      url = "github:ryantm/agenix";
+      url = "git+https://gitee.com/mirrors/agenix.git";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
     };
-    nixgl = {
-      url = "git+http://my-pi:3000/mirrors/nixGL.git?ref=main";
-      inputs.nixpkgs.follows = "nixpkgs";
-      #inputs.flake-utils.follows = "flake-utils";
-    };
 
     hobob = {
-      url = "github:lifeich1/hobob/deploy";
+      url = "git+https://gitee.com/lifeich0/hobob.git/?ref=deploy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
