@@ -41,6 +41,7 @@
   fool.cfg-ssh = {
     vultr = true;
     qcraft = true;
+    soc = true;
   };
   fool.nvim.lsp = true;
   fool.alacritty = {
