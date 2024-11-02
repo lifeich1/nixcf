@@ -7,6 +7,7 @@ in
   options.fool.cfg-ssh = {
     vultr = mkEnableOption "vultr server ssh config";
     qcraft = mkEnableOption "bussiness workbench ssh config";
+    soc = mkEnableOption "soc chips ssh config";
   };
 
   config = mkMerge [
@@ -33,6 +34,9 @@ in
     })
     (mkIf cfg.qcraft {
       home.file.".ssh/config.d/qcraft".source = ./qcraft.cfg;
+    })
+    (mkIf cfg.soc {
+      home.file.".ssh/config.d/soc".source = ./soc.cfg;
     })
   ];
 }
