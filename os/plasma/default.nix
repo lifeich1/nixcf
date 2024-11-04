@@ -54,6 +54,8 @@ in
               mkdir -p $out/bin/
               ln -s ${prev.calibre}/bin/calibre $out/bin/calibre
               wrapProgram $out/bin/calibre --prefix QT_QPA_PLATFORM : xcb
+              mkdir -p $out/share/applications/
+              ln -s ${prev.calibre}/share/applications/calibre-gui.desktop $out/share/applications/calibre-gui.desktop
             '';
       })
     ];
