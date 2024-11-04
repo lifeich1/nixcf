@@ -17,47 +17,43 @@ in
   config = mkIf cfg.gtr {
     fool.misc.nixbuild = true;
 
-    home.packages =
-      (with pkgs-stable; [
-        calibre # https://github.com/NixOS/nixpkgs/issues/348845
-        #teamviewer # com use
-      ])
-      ++ (with pkgs; [
-        # remote work
-        rustdesk-flutter
+    home.packages = with pkgs; [
+      # remote work
+      rustdesk-flutter
 
-        # (multi)media
-        vlc
+      # (multi)media
+      vlc
 
-        # talent
-        krita
-        guitarix
-        kdePackages.kdenlive
-        #glaxnimate # dep by kdenlive
+      # talent
+      krita
+      guitarix
+      kdePackages.kdenlive
+      #glaxnimate # dep by kdenlive
 
-        # web
-        qbittorrent
-        google-chrome
-        tor-browser
-        yt-dlp
-        lux
+      # web
+      qbittorrent
+      google-chrome
+      tor-browser
+      yt-dlp
+      lux
 
-        # productivity
-        #hugo # static site generator
-        #glow # markdown previewer in terminal
-        imagemagick
-        wpsoffice-cn
-        syncthingtray
-        jekyll
-        usbimager
-        graphviz
-        gh
+      # productivity
+      #hugo # static site generator
+      #glow # markdown previewer in terminal
+      imagemagick
+      wpsoffice-cn
+      syncthingtray
+      jekyll
+      usbimager
+      graphviz
+      gh
+      calibre
 
-        # system
-        python3
-        appimage-run
-        wl-clipboard
-      ]);
+      # system
+      python3
+      appimage-run
+      wl-clipboard
+    ];
 
     programs.firefox.enable = true;
     programs.thunderbird = {

@@ -40,5 +40,22 @@ in
         ];
       };
     };
+
+    # FIX calibre ebook-viewer env, see also https://discussion.fedoraproject.org/t/calibre-and-wayland/100384/3
+    nixpkgs.overlays = [
+      (final: prev: {
+        calibre =
+          pkgs.runCommand "calibre-wayland"
+            {
+              buildInputs = [ prev.calibre ];
+              nativeBuildInputs = [ pkgs.makeWrapper ];
+            }
+            ''
+              mkdir -p $out/bin/
+              ln -s ${prev.calibre}/bin/calibre $out/bin/calibre
+              wrapProgram $out/bin/calibre --prefix QT_QPA_PLATFORM : xcb
+            '';
+      })
+    ];
   };
 }
