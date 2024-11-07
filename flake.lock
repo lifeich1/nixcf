@@ -103,11 +103,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1729880355,
-        "narHash": "sha256-RP+OQ6koQQLX5nw0NmcDrzvGL8HDLnyXt/jHhL1jwjM=",
+        "lastModified": 1730785428,
+        "narHash": "sha256-Zwl8YgTVJTEum+L+0zVAWvXAGbWAuXHax3KzuejaDyo=",
         "ref": "nixos-unstable",
-        "rev": "18536bf04cd71abd345f9579158841376fdd0c5a",
-        "revCount": 696981,
+        "rev": "4aa36568d413aca0ea84a1684d2d46f55dbabad7",
+        "revCount": 703931,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       },
@@ -119,11 +119,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1729973466,
-        "narHash": "sha256-knnVBGfTCZlQgxY1SgH0vn2OyehH9ykfF8geZgS95bk=",
+        "lastModified": 1730741070,
+        "narHash": "sha256-edm8WG19kWozJ/GqyYx2VjW99EdhjKwbY3ZwdlPAAlo=",
         "ref": "nixos-24.05",
-        "rev": "cd3e8833d70618c4eea8df06f95b364b016d4950",
-        "revCount": 636163,
+        "rev": "d063c1dd113c91ab27959ba540c0d9753409edf3",
+        "revCount": 636376,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       },
