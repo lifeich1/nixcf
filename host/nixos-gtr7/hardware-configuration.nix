@@ -14,8 +14,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # kernel 6.6.30 failed final poweroff
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  # NOTE zen(6.11.5) failed general protection fault for kwin_wayla, check gtr7:tmp/allsyslog.11140850.log
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_lqx;
   boot.initrd.availableKernelModules = [
     "ahci"
     "nvme"
