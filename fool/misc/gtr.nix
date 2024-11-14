@@ -53,6 +53,7 @@ in
       python3
       appimage-run
       wl-clipboard
+      kdePackages.qttools
     ];
 
     programs.firefox.enable = true;
