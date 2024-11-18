@@ -18,6 +18,6 @@ in
         };
       };
     }
-    (mkIf (cfg.has-pi && cfg.use-pi) { programs.proxychains.proxies.lray.host = "192.168.31.142"; })
+    (mkIf (cfg.has-pi && cfg.use-pi) { programs.proxychains.proxies.lray.host = "192.168.3.6"; })
   ];
 }

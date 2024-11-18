@@ -63,7 +63,7 @@ in
       services.openssh.enable = true;
     }
     (mkIf cfg.has-pi {
-      networking.hosts."192.168.31.142" = [ "my-pi" ];
+      networking.hosts."192.168.3.6" = [ "my-pi" ];
     })
   ];
 }

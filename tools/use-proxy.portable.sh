@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ip=${1:-192.168.31.142}
+ip=${1:-192.168.3.6}
 port=${2:-10809}
 
 echo "[Service]" > /tmp/111nixdae.override.conf.665506952
