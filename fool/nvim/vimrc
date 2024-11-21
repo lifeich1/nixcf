@@ -205,10 +205,10 @@ nnoremap <M--> gT
 nnoremap <M-=> gt
 inoremap <M--> <Esc>gT
 inoremap <M-=> <Esc>gt
-nnoremap <M-_> :-tabmove<CR>
-nnoremap <M-+> :+tabmove<CR>
-inoremap <M-_> <Esc>:-tabmove<CR>
-inoremap <M-+> <Esc>:+tabmove<CR>
+nnoremap <M-9> :-tabmove<CR>
+nnoremap <M-0> :+tabmove<CR>
+inoremap <M-9> <Esc>:-tabmove<CR>
+inoremap <M-0> <Esc>:+tabmove<CR>
 
 command Tclr2m execute tabpagenr()+1 . ",$tabdo tabcl"
 

@@ -24,8 +24,8 @@ tnoremap <M-k> <C-\><C-n><C-w><C-k>
 tnoremap <M-l> <C-\><C-n><C-w><C-l>
 tnoremap <M--> <C-\><C-n>gT
 tnoremap <M-=> <C-\><C-n>gt
-tnoremap <M-_> <C-\><C-n>:-tabmove<CR>
-tnoremap <M-+> <C-\><C-n>:+tabmove<CR>
+tnoremap <M-9> <C-\><C-n>:-tabmove<CR>
+tnoremap <M-0> <C-\><C-n>:+tabmove<CR>
 
 cnoremap <Bslash>at RSPCAutoTest<cr>
 cnoremap <Bslash>qt !rm keeptest<cr>
