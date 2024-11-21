@@ -35,6 +35,7 @@ in
       socat # replacement of openbsd-netcat
       nmap # A utility for network discovery and security auditing
       ipcalc # it is a calculator for the IPv4/v6 addresses
+      inetutils # ping6 etc.
 
       # archives
       zip
