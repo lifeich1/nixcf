@@ -10,17 +10,17 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1718371084,
-        "narHash": "sha256-abpBi61mg0g+lFFU0zY4C6oP6fBwPzbHPKBGw676xsA=",
+        "lastModified": 1723293904,
+        "narHash": "sha256-b+uqzj+Wa6xgMS9aNbX4I+sXeb5biPDi39VgvSFqFvU=",
         "ref": "refs/heads/main",
-        "rev": "3a56735779db467538fb2e577eda28a9daacaca6",
-        "revCount": 308,
+        "rev": "f6291c5935fdc4e0bef208cfc0dcab7e3f7a1c41",
+        "revCount": 314,
         "type": "git",
-        "url": "https://gitee.com/mirrors/agenix.git"
+        "url": "https://gitee.com/sunn4mirror/agenix.git"
       },
       "original": {
         "type": "git",
-        "url": "https://gitee.com/mirrors/agenix.git"
+        "url": "https://gitee.com/sunn4mirror/agenix.git"
       }
     },
     "hobob": {
@@ -73,17 +73,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1719438532,
-        "narHash": "sha256-/Vmso2ZMoFE3M7d1MRsQ2K5sR8CVKnrM6t1ys9Xjpz4=",
+        "lastModified": 1731968878,
+        "narHash": "sha256-+hTCwETOE9N8voTAaF+IzdUZz28Ws3LDpH90FWADrEE=",
         "ref": "refs/heads/master",
-        "rev": "1a4f12ae0bda877ec4099b429cf439aad897d7e9",
-        "revCount": 3617,
+        "rev": "a42fa14b53ceab66274a21da480c9f8e06204173",
+        "revCount": 3859,
         "type": "git",
-        "url": "https://gitee.com/mirrors/home-manager-nix.git"
+        "url": "https://gitee.com/sunn4mirror/home-manager.git"
       },
       "original": {
         "type": "git",
-        "url": "https://gitee.com/mirrors/home-manager-nix.git"
+        "url": "https://gitee.com/sunn4mirror/home-manager.git"
       }
     },
     "minpac": {
@@ -95,26 +95,26 @@
         "rev": "caa090e10ed55f20a3a6f2df822d1a9967d151d0",
         "revCount": 361,
         "type": "git",
-        "url": "https://gitee.com/mirrors/minpac.git"
+        "url": "https://gitee.com/zsbaozhilin/minpac.git"
       },
       "original": {
         "type": "git",
-        "url": "https://gitee.com/mirrors/minpac.git"
+        "url": "https://gitee.com/zsbaozhilin/minpac.git"
       }
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1719681865,
-        "narHash": "sha256-Lp+l1IsREVbz8WM35OJYZz8sAH0XOjrZWUXVB5bJ2qg=",
+        "lastModified": 1731797098,
+        "narHash": "sha256-UhWmEZhwJZmVZ1jfHZFzCg+ZLO9Tb/v3Y6LC0UNyeTo=",
         "ref": "refs/heads/master",
-        "rev": "a59f00f5ac65b19382617ba00f360f8bc07ed3ac",
-        "revCount": 1767,
+        "rev": "672ac2ac86f7dff2f6f3406405bddecf960e0db6",
+        "revCount": 2031,
         "type": "git",
-        "url": "https://gitee.com/mirrors/nixos-hardware.git"
+        "url": "https://gitee.com/zsbaozhilin/nixos-hardware.git"
       },
       "original": {
         "type": "git",
-        "url": "https://gitee.com/mirrors/nixos-hardware.git"
+        "url": "https://gitee.com/zsbaozhilin/nixos-hardware.git"
       }
     },
     "nixpkgs": {
