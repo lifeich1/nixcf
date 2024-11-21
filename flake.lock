@@ -86,6 +86,22 @@
         "url": "https://gitee.com/mirrors/home-manager-nix.git"
       }
     },
+    "minpac": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722400676,
+        "narHash": "sha256-gAyR6Lgimzkgy+zQs0S80U4wASeUU6lM7ecxA7e4Tiw=",
+        "ref": "refs/heads/master",
+        "rev": "caa090e10ed55f20a3a6f2df822d1a9967d151d0",
+        "revCount": 361,
+        "type": "git",
+        "url": "https://gitee.com/mirrors/minpac.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitee.com/mirrors/minpac.git"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1719681865,
@@ -138,6 +154,7 @@
         "agenix": "agenix",
         "hobob": "hobob",
         "home-manager": "home-manager_2",
+        "minpac": "minpac",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable"

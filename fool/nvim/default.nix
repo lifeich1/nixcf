@@ -11,13 +11,8 @@ let
   minpac = {
     plugin = pkgs.vimUtils.buildVimPlugin {
       pname = "minpac";
-      version = "2024-07-31";
-      src = pkgs.fetchFromGitHub {
-        owner = "k-takata";
-        repo = "minpac";
-        rev = "caa090e10ed55f20a3a6f2df822d1a9967d151d0";
-        hash = "sha256-gAyR6Lgimzkgy+zQs0S80U4wASeUU6lM7ecxA7e4Tiw=";
-      };
+      version = inputs.minpac.lastModifiedDate;
+      src = inputs.minpac;
     };
     optional = true;
   };

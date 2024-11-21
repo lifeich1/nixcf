@@ -4,18 +4,19 @@
   inputs = {
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-unstable";
     nixpkgs-stable.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-24.05";
-    #nixpkgs-fork.url = "git+file:/home/fool/Code/z/github.com/NixOS/nixpkgs?shallow=1";
-    #nixpkgs-lib.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-unstable&dir=lib";
     home-manager = {
       url = "git+https://gitee.com/mirrors/home-manager-nix.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "git+https://gitee.com/mirrors/nixos-hardware.git";
-
     agenix = {
       url = "git+https://gitee.com/mirrors/agenix.git";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
+    };
+    minpac = {
+      url = "git+https://gitee.com/mirrors/minpac.git";
+      flake = false;
     };
 
     hobob = {
