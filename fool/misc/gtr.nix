@@ -54,6 +54,7 @@ in
       appimage-run
       wl-clipboard
       kdePackages.qttools
+      parted # disk util
     ];
 
     programs.firefox.enable = true;
