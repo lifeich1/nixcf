@@ -29,6 +29,8 @@ in
       };
       Service = {
         ExecStart = "${pkgs.attic-client}/bin/attic watch-store my-pi_attic";
+        RestartSec = "10min";
+        Restart = "always";
       };
     };
     xdg.configFile."attic/config.toml".source = ./attic-client.toml;
