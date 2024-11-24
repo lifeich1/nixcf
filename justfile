@@ -111,3 +111,6 @@ tag-deploy type:
 # test: try prefetch github
 test:
   nix flake prefetch github:numtide/flake-utils
+
+print-nix-ver:
+  nix eval .#nixosConfigurations.nixos-gtr7.config.nix.package.version
