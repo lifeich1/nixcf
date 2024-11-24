@@ -107,3 +107,7 @@ tag-deploy type:
   $n += 1;
   print "-- tagging '{{type}}-r$n'\n";
   exec qq/git tag {{type}}-r$n/;
+
+# test: try prefetch github
+test:
+  nix flake prefetch github:numtide/flake-utils
