@@ -7,7 +7,7 @@
 }:
 with lib;
 {
-  boot.loader.systemd-boot.configurationLimit = mkDefault 10;
+  boot.loader.systemd-boot.configurationLimit = mkDefault 50;
 
   nix.gc = {
     automatic = true;
