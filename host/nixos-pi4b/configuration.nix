@@ -34,6 +34,10 @@
           name = "bcm2711-rpi-4-ds3231";
           dtsFile = ./ds3231.dts;
         }
+        {
+          name = "bcm2711-rpi-4-i2c-on";
+          dtsFile = ./i2c-on.dts;
+        }
       ];
     };
     i2c.enable = true;
