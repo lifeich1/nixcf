@@ -1,10 +1,10 @@
-// redo: ovmerge -c i2c-rtc-overlay.dts,ds3231
+// redo: ovmerge -c i2c-rtc-overlay.dts,ds3231 i2c0-overlay.dts
 
 /dts-v1/;
 /plugin/;
 
 / {
-	compatible = "raspberrypi,4-model-b";
+	compatible = "brcm,bcm2835";
 	fragment@0 {
 		target = <&i2cbus>;
 		__overlay__ {
@@ -22,5 +22,71 @@
 			status = "okay";
 		};
 	};
+	fragment@2 {
+		target = <&i2c0if>;
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&i2c0_pins>;
+		};
+	};
+	fragment@3 {
+		target = <&i2c0_pins>;
+		__overlay__ {
+			brcm,pins = <0 1>;
+			brcm,function = <4>;
+		};
+	};
+	fragment@4 {
+		target = <&i2c0_pins>;
+		__dormant__ {
+			brcm,pins = <28 29>;
+			brcm,function = <4>;
+		};
+	};
+	fragment@5 {
+		target = <&i2c0_pins>;
+		__dormant__ {
+			brcm,pins = <44 45>;
+			brcm,function = <5>;
+		};
+	};
+	fragment@6 {
+		target = <&i2c0_pins>;
+		__dormant__ {
+			brcm,pins = <46 47>;
+			brcm,function = <4>;
+		};
+	};
+	fragment@7 {
+		target = <&i2c0>;
+		__dormant__ {
+			compatible = "brcm,bcm2708-i2c";
+		};
+	};
+	fragment@8 {
+		target = <&i2c0mux>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+	fragment@9 {
+		target-path = "/aliases";
+		__overlay__ {
+			i2c0 = "/soc/i2c@7e205000";
+		};
+	};
+	fragment@10 {
+		target-path = "/__symbols__";
+		__overlay__ {
+			i2c0 = "/soc/i2c@7e205000";
+		};
+	};
+	__overrides__ {
+		pins_0_1 = <0>, "+3-4-5-6";
+		pins_28_29 = <0>, "-3+4-5-6";
+		pins_44_45 = <0>, "-3-4+5-6";
+		pins_46_47 = <0>, "-3-4-5+6";
+		combine = <0>, "!7";
+	};
 };
-
