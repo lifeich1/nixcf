@@ -64,7 +64,7 @@
 			ds3231@68 {
 				compatible = "maxim,ds3231";
 				reg = <0x68>;
-				phandle = <0x05>;
+				//phandle = <0x05>;
 			};
 		};
 	};
