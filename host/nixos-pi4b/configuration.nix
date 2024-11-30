@@ -14,6 +14,10 @@
       "usbhid"
       "usb_storage"
     ];
+    kernelModules = [
+      "i2c-dev"
+      "rtc-ds1307"
+    ];
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
@@ -32,6 +36,7 @@
         }
       ];
     };
+    i2c.enable = true;
   };
 
   fileSystems = {
@@ -42,7 +47,10 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ raspberrypi-eeprom ];
+  environment.systemPackages = with pkgs; [
+    raspberrypi-eeprom
+    dtc
+  ];
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.05";
