@@ -1,0 +1,21 @@
+/dts-v1/;
+
+/ {
+        compatible = "raspberrypi,4-model-b";
+
+        fragment-1 {
+                target = <0x47>;
+
+                __overlay__ {
+                        status = "okay";
+                };
+        };
+
+        fragment-0 {
+                target = <0x32>;
+
+                __overlay__ {
+                        status = "okay";
+                };
+        };
+};
