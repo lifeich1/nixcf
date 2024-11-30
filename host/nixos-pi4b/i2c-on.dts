@@ -1,3 +1,5 @@
+// redo: dtparam -D -d ../firmware-master/boot/overlays i2c=on
+
 /dts-v1/;
 
 / {
