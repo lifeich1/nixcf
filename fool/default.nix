@@ -3,7 +3,6 @@
   pkgs,
   lib,
   username,
-  device,
   ...
 }:
 with lib;
@@ -13,13 +12,14 @@ with lib;
     ./attic
     ./cargo
     ./cfg-ssh
+    ./com-lemonade
     ./fastfetch
     ./git
     ./hobob
+    ./misc
     ./nvim
     ./xray
     ./zsh
-    ./misc
   ];
 
   options.fool = {

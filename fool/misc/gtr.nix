@@ -16,6 +16,7 @@ in
 
   config = mkIf cfg.gtr {
     fool.misc.nixbuild = true;
+    fool.com-lemonade.enable = true;
 
     home.packages = with pkgs; [
       # remote work
