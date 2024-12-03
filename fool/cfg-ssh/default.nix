@@ -12,31 +12,55 @@ in
 
   config = mkMerge [
     {
-      home.file.".ssh/config".text = ''
-        Include config.d/*
-      '';
-      home.file.".ssh/config.d/github".text =
-        let
-          inherit (config.fool.proxy) tcp_url;
-        in
-        ''
-          Host github.com
-            HostName github.com
-            ServerAliveInterval 55
-            ForwardAgent yes
-            ProxyCommand nc -X 5 -x ${tcp_url} %h %p
-
-          # vim: filetype=sshconfig
-        '';
+      programs.ssh = {
+        enable = true;
+        includes = [ "config.d/*" ];
+        matchBlocks."github.com" =
+          let
+            inherit (config.fool.proxy) tcp_url;
+          in
+          {
+            hostname = "github.com";
+            serverAliveInterval = 55;
+            forwardAgent = true;
+            proxyCommand = "nc -X 5 -x ${tcp_url} %h %p";
+          };
+      };
     }
     (mkIf cfg.vultr {
-      home.file.".ssh/config.d/vultr".source = ./vultr.cfg;
+      programs.ssh.matchBlocks = {
+        ayu = {
+          hostname = "64.176.41.80";
+          user = "root";
+          forwardAgent = true;
+        };
+      };
     })
     (mkIf cfg.qcraft {
-      home.file.".ssh/config.d/qcraft".source = ./qcraft.cfg;
+      programs.ssh.matchBlocks = {
+        combk = {
+          hostname = "192.168.3.7";
+          user = "qcraft";
+          forwardAgent = true;
+        };
+        com = {
+          hostname = "172.18.20.89";
+          user = "qcraft";
+          proxyCommand = "ssh -W %h:%p combk";
+        };
+      };
     })
     (mkIf cfg.soc {
-      home.file.".ssh/config.d/soc".source = ./soc.cfg;
+      programs.ssh.matchBlocks = {
+        lclpi = {
+          hostname = "192.168.3.6";
+          user = "pi";
+        };
+        opi1 = {
+          hostname = "192.168.3.60";
+          user = "root";
+        };
+      };
     })
   ];
 }
