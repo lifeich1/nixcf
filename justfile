@@ -22,7 +22,7 @@ alias xps := rebuild-xps
 alias gtr7 := rebuild-gtr7
 
 all: chk && rebuild-pi rebuild-xps
-  test $(hostname) = "nixos-gtr5"
+  test $(hostname) = "nixos-gtr7"
 
 nixos-debug: chk
   sudo nixos-rebuild switch --flake . --verbose --show-trace --print-build-logs

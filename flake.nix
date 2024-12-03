@@ -122,12 +122,6 @@
             home-nix = ./home/lightpad;
           })
         ];
-        nixos-gtr5 = [
-          (pass_config x64_config {
-            username = "fool";
-            device = "gtr5";
-          })
-        ] ++ gtr7-hardware-list;
         nixos-gtr7 = [
           (pass_config x64_config {
             username = "fool";
@@ -150,10 +144,6 @@
       nixosConfigurations.nixos-gtr7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = mods.nixos-gtr7;
-      };
-      nixosConfigurations.nixos-gtr5 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = mods.nixos-gtr5;
       };
       nixosConfigurations.nixos-pi4b = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
