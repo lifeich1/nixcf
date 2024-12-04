@@ -149,6 +149,21 @@
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1733325960,
+        "narHash": "sha256-U1mu0sXHNrJRYdEED1DY1c83k7E3GfUA9evNeWQZgn0=",
+        "ref": "refs/heads/master",
+        "rev": "a75e451161b22ce0e94b397937085e93c9666be7",
+        "revCount": 28064,
+        "type": "git",
+        "url": "https://gitee.com/zsbaozhilin/NUR.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitee.com/zsbaozhilin/NUR.git"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -157,7 +172,8 @@
         "minpac": "minpac",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-stable": "nixpkgs-stable"
+        "nixpkgs-stable": "nixpkgs-stable",
+        "nur": "nur"
       }
     },
     "systems": {

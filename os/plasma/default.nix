@@ -38,6 +38,10 @@ in
       };
     };
 
+    environment.systemPackages = [
+      config.nur.repos.rewine.ttf-wps-fonts # for wps
+    ];
+
     # FIX calibre ebook-viewer env, see also https://discussion.fedoraproject.org/t/calibre-and-wayland/100384/3
     nixpkgs.overlays = [
       (final: prev: {
