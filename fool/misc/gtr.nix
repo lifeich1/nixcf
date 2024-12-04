@@ -55,6 +55,9 @@ in
       wl-clipboard
       kdePackages.qttools
       parted # disk util
+
+      # nix
+      nix-update
     ];
 
     programs.firefox.enable = true;
