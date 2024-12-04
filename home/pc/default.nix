@@ -4,25 +4,6 @@
   home.packages = with pkgs; [
     # trials on one host
     charasay
-
-    (runCommand "com.lemonade"
-      {
-        buildInputs = [
-          lemonade
-        ];
-      }
-      ''
-        mkdir -p $out/bin/
-        cat << EOF > $out/bin/com.lemonade
-        #!/usr/bin/env bash
-          ${pkgs.lemonade}/bin/lemonade server &
-          lemon=\$!
-          trap "kill \$lemon" EXIT
-          ssh -vNR 2489:127.0.0.1:2489 com
-        EOF
-        chmod +x $out/bin/com.lemonade
-      ''
-    )
   ];
 
   programs.helix.enable = true; # NOTICE learning

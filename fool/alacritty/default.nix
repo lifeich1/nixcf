@@ -43,26 +43,23 @@ in
         };
       };
     })
+    ## NOTE use makeDesktopItem & copyDesktopItems to override package
     #(mkIf cfg.nixgl-wrapper {
-    #  home.packages = [
+    #  home.packages = with pkgs; [
     #    (
-    #      let
-    #        nixglil = inputs.nixgl.packages."${system}".nixGLIntel;
-    #        pack = [
-    #          nixglil
-    #          pkgs.alacritty
-    #        ];
-    #      in
-    #      pkgs.runCommand "nixgl-alacritty"
-    #        {
-    #          buildInputs = pack;
-    #          nativeBuildInputs = [ pkgs.makeWrapper ];
-    #        }
-    #        ''
-    #          mkdir -p $out/bin/
-    #          ln -s ${nixglil}/bin/nixGLIntel $out/bin/nixgl-alacritty
-    #          wrapProgram $out/bin/nixgl-alacritty --add-flags alacritty
-    #        ''
+    #      writeShellApplication {
+    #        name = "nixgl-alacritty";
+    #        runtimeInputs = 
+    #          let
+    #            nixglil = inputs.nixgl.packages."${system}".nixGLIntel;
+    #          in [
+    #            nixglil
+    #            alacritty
+    #          ];
+    #        text = ''
+    #          exec nixGLIntel alacritty
+    #        '';
+    #      }
     #    )
     #  ];
     #  xdg.desktopEntries.nixgl-alacritty = {
