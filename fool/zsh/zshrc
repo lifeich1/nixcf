@@ -36,9 +36,6 @@ addfunc_=(
   cfzsh "vim ~/.zshrc"
   cfssh "vim ~/.ssh/config"
   pxy-yt-dlp "yt-dlp --proxy socks5://my-pi:10809"
-  git-alias "view ~/.oh-my-zsh/plugins/git/README.md"
-  com-lmon "systemctl --user restart com-pxy-lemonade.service"
-  st-lmon "systemctl --user status com-pxy-lemonade.service"
   gh-cl "cd /home/fool/Code/z/github.com && mkdir \$(dirname \$1) && cd \$(dirname \$1) && gh repo clone"
   du "dust"
   #cheat "docker run --rm bannmann/docker-cheat"
@@ -90,17 +87,17 @@ fi
 
 
 function {
-while [ $# -ge 2 ]; do
-  eval "function $1() { $2 \$@; }"
-  shift 2
-done
+  while [ $# -ge 2 ]; do
+    eval "function $1() { $2 \$@; }"
+    shift 2
+  done
 } $addfunc_; unset addfunc_
 function {
-while [ $# -ge 2 ]; do
-  unalias $1
-  eval "function $1() { $2 \$@; }"
-  shift 2
-done
+  while [ $# -ge 2 ]; do
+    unalias $1
+    eval "function $1() { $2 \$@; }"
+    shift 2
+  done
 } $faddfunc_; unset faddfunc_
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
