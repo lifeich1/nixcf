@@ -140,17 +140,19 @@
       };
     in
     {
-      nixosConfigurations.nixos-xps13 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = mods.nixos-xps13;
-      };
-      nixosConfigurations.nixos-gtr7 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = mods.nixos-gtr7;
-      };
-      nixosConfigurations.nixos-pi4b = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = mods.nixos-pi4b;
+      nixosConfigurations = with nixpkgs.lib; {
+        nixos-xps13 = nixosSystem {
+          system = "x86_64-linux";
+          modules = mods.nixos-xps13;
+        };
+        nixos-gtr7 = nixosSystem {
+          system = "x86_64-linux";
+          modules = mods.nixos-gtr7;
+        };
+        nixos-pi4b = nixosSystem {
+          system = "aarch64-linux";
+          modules = mods.nixos-pi4b;
+        };
       };
     };
 }
