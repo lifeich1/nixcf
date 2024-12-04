@@ -114,3 +114,8 @@ test:
 
 print-nix-ver:
   nix eval .#nixosConfigurations.nixos-gtr7.config.nix.package.version
+
+update-history:
+  git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" flake.lock
+
+alias hi := update-history
