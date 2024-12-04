@@ -20,7 +20,6 @@ in
       wayland.enable = true;
     };
     services.desktopManager.plasma6.enable = true;
-    #services.xserver.desktopManager.plasma5.enable = true;
     services.xserver.xkb = {
       layout = "cn";
       variant = "";
@@ -33,10 +32,8 @@ in
       type = "fcitx5";
       fcitx5 = {
         waylandFrontend = true;
-        addons = with pkgs; [
-          kdePackages.fcitx5-chinese-addons
-          #fcitx5-rime
-          #fcitx5-lua
+        addons = with pkgs.kdePackages; [
+          fcitx5-chinese-addons
         ];
       };
     };

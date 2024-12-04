@@ -61,6 +61,7 @@ in
     programs.firefox.enable = true;
     programs.thunderbird = {
       # TODO move out with config control
+      # use accounts.email.accounts.<name>.imap & accounts.email.accounts.<name>.thunderbird
       enable = true;
       profiles.fool = {
         isDefault = true;
