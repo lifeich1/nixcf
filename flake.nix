@@ -10,7 +10,10 @@
       url = "git+https://gitee.com/sunn4mirror/home-manager.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "git+https://gitee.com/zsbaozhilin/NUR.git";
+    nur = {
+      url = "git+https://gitee.com/zsbaozhilin/NUR.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "git+https://gitee.com/zsbaozhilin/nixos-hardware.git";
     agenix = {
       url = "git+https://gitee.com/sunn4mirror/agenix.git";
@@ -74,7 +77,7 @@
             ./host/common.nix
             ./host/${name}/configuration.nix
             ./fool/overlays
-            nur.nixosModules.nur
+            nur.modules.nixos.default
             inputs.agenix.nixosModules.default
             home-manager.nixosModules.home-manager
             (

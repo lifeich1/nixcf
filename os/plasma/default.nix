@@ -38,9 +38,9 @@ in
       };
     };
 
-    environment.systemPackages = [
-      config.nur.repos.rewine.ttf-wps-fonts # for wps
-      config.nur.repos.rewine.ttf-ms-win10 # for wps
+    environment.systemPackages = with pkgs.nur.repos.rewine; [
+      ttf-wps-fonts # for wps
+      ttf-ms-win10 # for wps
     ];
 
     # FIX calibre ebook-viewer env, see also https://discussion.fedoraproject.org/t/calibre-and-wayland/100384/3
