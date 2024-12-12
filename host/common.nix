@@ -19,7 +19,7 @@ with lib;
     auto-optimise-store = true;
     trusted-users = [ username ];
     substituters = mkBefore [
-      #"http://my-pi:8080/my-pi_attic" # homelab
+      "http://my-pi:8080/my-pi_attic" # homelab
       "https://mirror.sjtu.edu.cn/nix-channels/store"
       # XXX THU block social heavy thoughtput
       #"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" 
@@ -41,8 +41,7 @@ with lib;
       "nix-command"
       "flakes"
     ];
-    # NOTE https://github.com/Homebrew/brew/issues/18726
-    #netrc-file = "/etc/fool/nix/netrc";
+    netrc-file = "/etc/fool/nix/netrc";
   };
   environment.etc."fool/nix/netrc".text = ''
     machine my-pi
