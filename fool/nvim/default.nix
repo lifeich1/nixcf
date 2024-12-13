@@ -76,10 +76,8 @@ in
     (mkIf cfg.lsp {
       home.packages = with pkgs; [
         nil
-        statix
         #nixpkgs-fmt # beta, dying
         nixfmt-rfc-style # unstable
-        clang-tools_17
         rust-analyzer
         lua-language-server
         vim-language-server
@@ -88,6 +86,7 @@ in
         marksman
         vscode-langservers-extracted
         python312Packages.python-lsp-server
+        ccls
       ];
 
       programs.neovim.plugins = with pkgs.vimPlugins; [

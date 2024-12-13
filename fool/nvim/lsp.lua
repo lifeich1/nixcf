@@ -6,17 +6,6 @@ capabilities.textDocument.foldingRange = {
 }
 
 local lspconfig = require('lspconfig')
----[[
--- vscode extracted
--- lspconfig.jsonls.setup {}
--- lspconfig.html.setup {}
--- lspconfig.cssls.setup {}
---
--- lspconfig.pylsp.setup {}
--- lspconfig.bashls.setup {}
--- lspconfig.eslint.setup {}
--- lspconfig.vimls.setup {}
---]]
 
 lspconfig.nil_ls.setup {
   settings = {
@@ -27,11 +16,22 @@ lspconfig.nil_ls.setup {
     },
   },
 }
--- lspconfig.statix.setup {}
--- lspconfig.marksman.setup {}
 
--- lspconfig.clangd.setup {}
--- lspconfig.perlpls.setup {}
+lspconfig.ccls.setup {
+  init_options = {
+    cache = {
+      directory = os.getenv("HOME") .. "/.ccls-cache",
+    },
+    index = {
+      threads = 4,
+      trackDependency = 0,
+    },
+    clang = {
+      excludeArgs = { "-frounding-math" },
+    },
+  }
+}
+
 lspconfig.rust_analyzer.setup {
   capabilities = capabilities,
   -- Server-specific settings. See `:help lspconfig-setup`
@@ -140,8 +140,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
 local language_servers = {
   'jsonls', 'html', 'cssls', 'pylsp', 'bashls',
-  'eslint', 'vimls', 'marksman', 'clangd',
-  'perlpls' }
+  'eslint', 'vimls', 'marksman', 'perlpls' }
 for _, ls in ipairs(language_servers) do
   require('lspconfig')[ls].setup({
     capabilities = capabilities
