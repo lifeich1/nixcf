@@ -8,14 +8,17 @@
 with lib;
 let
   cfg = config.fool.nvim;
-  minpac = {
-    plugin = pkgs.vimUtils.buildVimPlugin {
-      pname = "minpac";
-      version = inputs.minpac.lastModifiedDate;
-      src = inputs.minpac;
-    };
-    optional = true;
+  minpac = pkgs.vimUtils.buildVimPlugin {
+    pname = "minpac";
+    version = inputs.minpac.lastModifiedDate;
+    src = inputs.minpac;
   };
+  optionalPlug =
+    plugs:
+    (map (plug: {
+      plugin = plug;
+      optional = true;
+    }) plugs);
 in
 {
   options.fool.nvim = {
@@ -32,10 +35,8 @@ in
         vimAlias = true;
         vimdiffAlias = true;
         plugins =
-          [
-            minpac
-          ]
-          ++ (with pkgs.vimPlugins; [
+          with pkgs.vimPlugins;
+          ([
             catppuccin-nvim
             vim-dispatch
             vim-obsession
@@ -48,6 +49,14 @@ in
             nvim-ufo
             nvim-coverage
             fzf-vim
+          ])
+          ++ (optionalPlug [
+            minpac
+            gruvbox
+            vim-startuptime
+            nerdtree
+            seoul256-vim
+            vim-grepper
           ]);
       };
 

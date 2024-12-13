@@ -33,6 +33,7 @@ augroup END
 set fileencodings=utf-8,gbk,latin1
 set modelines=5
 set ssop-=blank
+set ssop-=folds
 set ssop-=localoptions
 set ssop-=options
 set foldlevel=99
@@ -150,24 +151,23 @@ function! s:MinpacPrepare() abort
 
   " minpac managing plugins {{{
   "call minpac#add('catppuccin/nvim', {'name': 'catppuccin-nvim'})
-  call minpac#add('morhetz/gruvbox', {'type': 'opt'})
+  "call minpac#add('morhetz/gruvbox', {'type': 'opt'})
   "call minpac#add('henriquehbr/nvim-startup.lua', {'type': 'opt'})
-  call minpac#add('dstein64/vim-startuptime', {'type': 'opt'})
+  "call minpac#add('dstein64/vim-startuptime', {'type': 'opt'})
   "call minpac#add('junegunn/fzf')
   "call minpac#add('junegunn/fzf.vim')
   "call minpac#add('sheerun/vim-polyglot')
   "call minpac#add('vim-scripts/taglist.vim')
   "call minpac#add('majutsushi/tagbar')
-  call minpac#add('preservim/nerdtree', {'type': 'opt'})
+  "call minpac#add('preservim/nerdtree', {'type': 'opt'})
   "call minpac#add('skywind3000/asyncrun.vim')
-  call minpac#add('junegunn/seoul256.vim', {'type': 'opt'})
-  call minpac#add('mhinz/vim-grepper', {'type': 'opt'})
+  "call minpac#add('junegunn/seoul256.vim', {'type': 'opt'})
+  "call minpac#add('mhinz/vim-grepper', {'type': 'opt'})
   "call minpac#add('tpope/vim-dispatch')
   "call minpac#add('tpope/vim-obsession')
   "call minpac#add('tpope/vim-projectionist')
   "call minpac#add('tpope/vim-fugitive')
   "call minpac#add('neovim/nvim-lspconfig')
-  call minpac#add('williamboman/nvim-lsp-installer', {'type': 'opt'})
   "call minpac#add('jlanzarotta/bufexplorer')
   "call minpac#add('nvim-lua/plenary.nvim')
   "call minpac#add('andythigpen/nvim-coverage')
