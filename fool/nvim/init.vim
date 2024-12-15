@@ -44,6 +44,7 @@ function! s:modu(path)
   endif
 endfunction
 
+" ~/.lintd/nvim/lsp.lua
 call s:modu($HOME . "/.lintd/nvim/lsp.lua")
 
 " the leftover for test addon & clipboard platform-related optimize code

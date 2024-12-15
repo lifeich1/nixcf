@@ -78,17 +78,17 @@ nnoremap <leader>c5 :let @+=@%<cr>
 
 nnoremap <leader>nd :execute ':packadd nerdtree \| NERDTreeToggle'<cr>
 
-nnoremap <leader>rn :RSPCNew<cr>
-nnoremap <leader>rt :RSPCAppend<cr>
-"nnoremap <leader>tt :RSPCToggleTrace<cr>
-nnoremap <leader>ra :RSPCReloadAll<cr>
-
-nnoremap <leader>t :RSPCRegTest<cr>
-nnoremap <leader>T :RSPCCustomTest<cr>
-
-nnoremap <leader>m :RSPCMake<cr>
-nnoremap <leader>fu :RSPCSubmit<cr>
-nnoremap <leader>ff :RSPCSubmit!<cr>
+"nnoremap <leader>rn :RSPCNew<cr>
+"nnoremap <leader>rt :RSPCAppend<cr>
+""nnoremap <leader>tt :RSPCToggleTrace<cr>
+"nnoremap <leader>ra :RSPCReloadAll<cr>
+"
+"nnoremap <leader>t :RSPCRegTest<cr>
+"nnoremap <leader>T :RSPCCustomTest<cr>
+"
+"nnoremap <leader>m :RSPCMake<cr>
+"nnoremap <leader>fu :RSPCSubmit<cr>
+"nnoremap <leader>ff :RSPCSubmit!<cr>
 
 nnoremap <leader>kd :set keymap=dvorak<cr>
 nnoremap <leader>kk :set keymap&<cr>
