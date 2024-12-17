@@ -53,6 +53,7 @@ alias ls='eza'
 alias j='just' # use alias for completions
 if which cargo >/dev/null; then
   alias x='cargo xtask'
+  alias xx='cargo xtask rule'
 fi
 
 function snv() {
