@@ -13,6 +13,7 @@ with lib;
     ./cargo
     ./cfg-ssh
     ./com-lemonade
+    ./cp-guard
     ./fastfetch
     ./git
     ./hobob

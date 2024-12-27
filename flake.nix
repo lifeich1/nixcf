@@ -32,6 +32,7 @@
       url = "git+https://gitee.com/lifeich0/hobob.git/?ref=deploy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    cp-guard.url = "git+https://gitee.com/lifeich0/cp-guard.git";
   };
 
   outputs =

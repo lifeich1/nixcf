@@ -12,6 +12,7 @@
   fool.misc.gtr = true;
 
   fool.cargo.ctrl-config = true;
+  fool.cp-guard.enable = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;
   fool.proxy.use-pi = true;
   fool.git.github-proxy = true;
