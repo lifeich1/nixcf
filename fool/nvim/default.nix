@@ -24,6 +24,7 @@ in
   options.fool.nvim = {
     # default enabled
     lsp = mkEnableOption "Language Server Protocol";
+    nightly = mkEnableOption "use nightly neovim";
   };
 
   config = mkMerge [
@@ -102,6 +103,9 @@ in
       ];
 
       home.file.".lintd/nvim/lsp.lua".source = ./lsp.lua;
+    })
+    (mkIf cfg.nightly {
+      programs.neovim.package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
     })
   ];
 }

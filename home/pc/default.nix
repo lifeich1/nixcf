@@ -24,7 +24,10 @@
     qcraft = true;
     soc = true;
   };
-  fool.nvim.lsp = true;
+  fool.nvim = {
+    lsp = true;
+    nightly = true;
+  };
   fool.alacritty = {
     enable = true;
     font-size = 10;

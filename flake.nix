@@ -5,6 +5,8 @@
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-unstable";
     nixpkgs-stable.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-24.05";
 
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     ## manual mirrors
     home-manager = {
       url = "git+https://gitee.com/sunn4mirror/home-manager.git";
