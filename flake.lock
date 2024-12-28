@@ -29,11 +29,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1735403540,
-        "narHash": "sha256-8U6KeHInBKbpla93XP3WAvERrik85Rqxw/PLwUsLAR0=",
+        "lastModified": 1735410738,
+        "narHash": "sha256-Yxj2OUof1DBxulkUrcj4Urj+989i63pIkzcaWp2Lir4=",
         "ref": "refs/heads/master",
-        "rev": "7e237f757af5882137cb7bc16e774aaa2c83ea49",
-        "revCount": 31,
+        "rev": "555ac55f30d14105c9984fbb390f1cb37256d5a7",
+        "revCount": 34,
         "type": "git",
         "url": "https://gitee.com/lifeich0/cp-guard.git"
       },
