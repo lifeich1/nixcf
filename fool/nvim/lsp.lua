@@ -92,8 +92,8 @@ lspconfig.lua_ls.setup {
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<Bslash>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
 vim.keymap.set('n', '<Bslash>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
@@ -161,10 +161,12 @@ require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
 
+    ---@diagnostic disable-next-line: unused-local
     disable = function(lang, buf)
       local max_filesize = 100 * 1024 -- 100 KB
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > max_filesize then
+      ---@diagnostic disable-next-line: undefined-field
+      local stats = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
+      if stats and stats.size > max_filesize then
         return true
       end
     end,
