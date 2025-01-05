@@ -1,9 +1,6 @@
 {
   config,
-  pkgs,
   lib,
-  device,
-  gtr5_pubkey,
   ...
 }:
 with lib;
