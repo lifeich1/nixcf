@@ -19,6 +19,8 @@ in
       virtualisation.virtualbox.host = {
         enable = true;
         enableExtensionPack = true;
+        enableKvm = true;
+        addNetworkInterface = false; # bind with enableKvm
       };
     })
     (mkIf cfg.guest-enable {

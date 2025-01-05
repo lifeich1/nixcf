@@ -27,8 +27,7 @@
     "xhci_pci"
   ];
   boot.initrd.kernelModules = [ ];
-  ## fix VERR_SVM_IN_USE
-  # boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
