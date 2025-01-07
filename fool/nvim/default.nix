@@ -105,6 +105,7 @@ in
       home.file.".lintd/nvim/lsp.lua".source = ./lsp.lua;
     })
     (mkIf cfg.nightly {
+      # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
       programs.neovim.package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
     })
   ];
