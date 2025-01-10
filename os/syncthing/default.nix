@@ -107,6 +107,11 @@ in
               label = "hw-p60/pics";
               devices = [ "hw_p60" ];
             };
+            "${pubdir}/hw-p60/default" = {
+              id = "jzbvp-ayv9p";
+              label = "hw-p60/default";
+              devices = [ "hw_p60" ];
+            };
           };
           devices = {
             gtr7.id = "FNPFOIJ-UEYLCNH-55ITPFU-4XMILCE-UWBSR5O-JYOGGN2-B5DEM7W-3EXERQX";
