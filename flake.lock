@@ -10,17 +10,17 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1723293904,
-        "narHash": "sha256-b+uqzj+Wa6xgMS9aNbX4I+sXeb5biPDi39VgvSFqFvU=",
-        "ref": "refs/heads/main",
-        "rev": "f6291c5935fdc4e0bef208cfc0dcab7e3f7a1c41",
-        "revCount": 314,
-        "type": "git",
-        "url": "https://gitee.com/sunn4mirror/agenix.git"
+        "lastModified": 1736955230,
+        "narHash": "sha256-uenf8fv2eG5bKM8C/UvFaiJMZ4IpUFaQxk9OH5t/1gA=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "e600439ec4c273cf11e06fe4d9d906fb98fa097c",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://gitee.com/sunn4mirror/agenix.git"
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
       }
     },
     "cp-guard": {
@@ -113,17 +113,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1733175814,
-        "narHash": "sha256-zFOtOaqjzZfPMsm1mwu98syv3y+jziAq5DfWygaMtLg=",
-        "ref": "refs/heads/master",
-        "rev": "bf23fe41082aa0289c209169302afd3397092f22",
-        "revCount": 3892,
-        "type": "git",
-        "url": "https://gitee.com/sunn4mirror/home-manager.git"
+        "lastModified": 1737704314,
+        "narHash": "sha256-zta8jvOQ2wRCZmiwFEnS5iCulWAh8e+fLUlQxrgOBjM=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "a0428685572b134f6594e7d7f5db5e1febbab2d7",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://gitee.com/sunn4mirror/home-manager.git"
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
       }
     },
     "minpac": {
@@ -144,17 +144,17 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1736237814,
-        "narHash": "sha256-uTdscVaKjnRnBIMuu/oWwdiGhYd/JOQ4YZGHeCoroqs=",
-        "ref": "refs/heads/master",
-        "rev": "ca30f8501ab452ca687a7fdcb2d43e1fb1732317",
-        "revCount": 2071,
-        "type": "git",
-        "url": "https://gitee.com/zsbaozhilin/nixos-hardware.git"
+        "lastModified": 1737590910,
+        "narHash": "sha256-qM/y6Dtpu9Wmf5HqeZajQdn+cS0aljdYQQQnrvx+LJE=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "9368027715d8dde4b84c79c374948b5306fdd2db",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://gitee.com/zsbaozhilin/nixos-hardware.git"
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -172,27 +172,27 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1735563628,
-        "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
-        "ref": "nixos-24.05",
-        "rev": "b134951a4c9f3c995fd7be05f3243f8ecd65d798",
-        "revCount": 637546,
+        "lastModified": 1737569578,
+        "narHash": "sha256-6qY0pk2QmUtBT9Mywdvif0i/CLVgpCjMUn6g9vB+f3M=",
+        "ref": "nixos-24.11",
+        "rev": "47addd76727f42d351590c905d9d1905ca895b82",
+        "revCount": 713515,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       },
       "original": {
-        "ref": "nixos-24.05",
+        "ref": "nixos-24.11",
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       }
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1737062831,
-        "narHash": "sha256-Tbk1MZbtV2s5aG+iM99U8FqwxU/YNArMcWAv6clcsBc=",
+        "lastModified": 1737632463,
+        "narHash": "sha256-38J9QfeGSej341ouwzqf77WIHAScihAKCt8PQJ+NH28=",
         "ref": "nixos-unstable",
-        "rev": "5df43628fdf08d642be8ba5b3625a6c70731c19c",
-        "revCount": 738982,
+        "rev": "0aa475546ed21629c4f5bbf90e38c846a99ec9e9",
+        "revCount": 742845,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       },
@@ -211,17 +211,17 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1736263064,
-        "narHash": "sha256-UGc/ikH9GUWfErzTXcyttdqC18ih/NCtL+vO6pOkiFk=",
-        "ref": "refs/heads/master",
-        "rev": "ca9c757ffce0193240967cf5d485758bea1b4f05",
-        "revCount": 28792,
-        "type": "git",
-        "url": "https://gitee.com/zsbaozhilin/NUR.git"
+        "lastModified": 1737736379,
+        "narHash": "sha256-SzUBVzIJSZE4AG/Fljc/aQ3+3YK/Hu0KXnh6K9N92qo=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "30a6f0f8795d98d907a53cf8e06beca345fe3987",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://gitee.com/zsbaozhilin/NUR.git"
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
       }
     },
     "root": {

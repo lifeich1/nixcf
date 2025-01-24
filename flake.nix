@@ -3,20 +3,24 @@
 
   inputs = {
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-unstable";
-    nixpkgs-stable.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-24.05";
+    nixpkgs-stable.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-24.11";
 
     ## manual mirrors
     home-manager = {
-      url = "git+https://gitee.com/sunn4mirror/home-manager.git";
+      url = "github:nix-community/home-manager";
+      #url = "git+https://gitee.com/sunn4mirror/home-manager.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur = {
-      url = "git+https://gitee.com/zsbaozhilin/NUR.git";
+      url = "github:nix-community/NUR";
+      #url = "git+https://gitee.com/zsbaozhilin/NUR.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "git+https://gitee.com/zsbaozhilin/nixos-hardware.git";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    #nixos-hardware.url = "git+https://gitee.com/zsbaozhilin/nixos-hardware.git";
     agenix = {
-      url = "git+https://gitee.com/sunn4mirror/agenix.git";
+      url = "github:ryantm/agenix";
+      #url = "git+https://gitee.com/sunn4mirror/agenix.git";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
     };
