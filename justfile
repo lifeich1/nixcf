@@ -8,12 +8,12 @@ alias u := update
 chk *flags:
   nix flake check {{flags}}
 
-nom_flag := "--log-format internal-json -v |& nom --json"
+NOM_FLAG := "--log-format internal-json -v |& nom --json"
 
 nixos *flags:
   rm -f .prev-system
   ln -s /nix/var/nix/profiles/`readlink /nix/var/nix/profiles/system` .prev-system
-  sudo nixos-rebuild switch --flake . {{flags}} {{nom_flag}}
+  sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}}
   nvd diff .prev-system /nix/var/nix/profiles/system
 
 alias g := nixos-debug
@@ -28,18 +28,18 @@ nixos-debug: chk
   sudo nixos-rebuild switch --flake . --verbose --show-trace --print-build-logs
 
 rebuild-pi *flags: && (tag-deploy "pi")
-  nixos-rebuild switch --flake .{{"#nixos-pi4b"}} --target-host root@my-pi {{flags}} {{nom_flag}}
+  nixos-rebuild switch --flake .{{"#nixos-pi4b"}} --target-host root@my-pi {{flags}} {{NOM_FLAG}}
 
 my_xps := "192.168.31.224"
 
 rebuild-xps *flags: && (tag-deploy "xps")
-  nixos-rebuild switch --flake .{{"#nixos-xps13"}} --target-host root@{{my_xps}} {{flags}} {{nom_flag}}
+  nixos-rebuild switch --flake .{{"#nixos-xps13"}} --target-host root@{{my_xps}} {{flags}} {{NOM_FLAG}}
 
 #my_gtr7 := "192.168.31.67"
 my_gtr7 := "10.42.0.2" # direct connect
 
 rebuild-gtr7 *flags: && (tag-deploy "gtr7")
-  nixos-rebuild switch --flake .{{"#nixos-gtr7"}} --target-host root@{{my_gtr7}} {{flags}} {{nom_flag}}
+  nixos-rebuild switch --flake .{{"#nixos-gtr7"}} --target-host root@{{my_gtr7}} {{flags}} {{NOM_FLAG}}
 
 # hardlink nvim config files for fast dev
 nvim:
@@ -81,6 +81,11 @@ proxy host="127.0.0.1" tmpfile=("/tmp/111nixdae.override.conf." + temp_tag):
   echo "Environment=\"no_proxy={{host_no_proxy}}\"" >> {{tmpfile}}
   sudo mkdir -p /run/systemd/system/nix-daemon.service.d/
   sudo mv -v {{tmpfile}} /run/systemd/system/nix-daemon.service.d/override.conf
+  sudo systemctl daemon-reload
+  sudo systemctl restart nix-daemon
+
+no-proxy:
+  sudo rm -f /run/systemd/system/nix-daemon.service.d/override.conf
   sudo systemctl daemon-reload
   sudo systemctl restart nix-daemon
 
