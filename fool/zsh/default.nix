@@ -76,5 +76,7 @@ in
       '';
     };
 
+    programs.zellij.enableZshIntegration = false;
+
   };
 }
