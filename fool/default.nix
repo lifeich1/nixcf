@@ -10,6 +10,7 @@ with lib;
   imports = [
     ./alacritty
     ./attic
+    ./bililiverecorder
     ./cargo
     ./cfg-ssh
     ./com-lemonade

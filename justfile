@@ -124,3 +124,7 @@ update-history:
   git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" flake.lock
 
 alias hi := update-history
+
+add-app name:
+  mkdir fool/{{ name }}
+  nvr -p fool/{{ name }}/default.nix fool/default.nix

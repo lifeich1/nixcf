@@ -9,6 +9,8 @@
   programs.helix.enable = true; # NOTICE learning
   programs.emacs.enable = true; # TODO pack configs
 
+  fool.bililiverecorder.enable = true;
+
   fool.misc.gtr = true;
 
   fool.cargo.ctrl-config = true;
