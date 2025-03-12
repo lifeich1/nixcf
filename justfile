@@ -75,27 +75,28 @@ du:
 temp_tag := `date +%N`
 host_no_proxy := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn,gitee.com"
 # FIXME temporarily add proxy settings to nix-daemon.service environ vars; failed maybe by nix bug
-proxy host="127.0.0.1" tmpfile=("/tmp/111nixdae.override.conf." + temp_tag):
+proxy host="127.0.0.1" tmpfile=("/tmp/111nixdae.override.conf." + temp_tag): && daemon-restart
   echo "[Service]" > {{tmpfile}}
   echo "Environment=\"https_proxy=socks5h://{{host}}:10809\"" >> {{tmpfile}}
   echo "Environment=\"no_proxy={{host_no_proxy}}\"" >> {{tmpfile}}
   sudo mkdir -p /run/systemd/system/nix-daemon.service.d/
   sudo mv -v {{tmpfile}} /run/systemd/system/nix-daemon.service.d/override.conf
-  sudo systemctl daemon-reload
-  sudo systemctl restart nix-daemon
 
-no-proxy:
+no-proxy: && daemon-restart
   sudo rm -f /run/systemd/system/nix-daemon.service.d/override.conf
-  sudo systemctl daemon-reload
-  sudo systemctl restart nix-daemon
 
 # show nix-daemon.service environ vars
 daemon-env:
   sudo cat /proc/`pidof nix-daemon|awk '{print $1}'`/environ|tr '\0' '\n'
 
+daemon-restart:
+  sudo systemctl daemon-reload
+  sudo systemctl restart nix-daemon
+
 # temporarily remove nix-community.cachix.org from substituters
-disable-commu:
+disable-commu: && daemon-restart
   sed 's/https:\/\/nix-community.cachix.org//' < /etc/nix/nix.conf > /tmp/nix.conf
+  perl -pi -e 's/https:\/\/mirrors?\.\S+//g' /tmp/nix.conf
   sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.bak
   sudo mv /tmp/nix.conf /etc/nix/nix.conf
 
