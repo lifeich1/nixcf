@@ -73,6 +73,10 @@
     };
   };
 
+  fool.firewall = {
+    serve-hobob = true;
+    serve-friedegg = true;
+  };
   fool.hobob.overlay = true;
   fool.proxy.has-pi = false;
   services.xray.enable = true;

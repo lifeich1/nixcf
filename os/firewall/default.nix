@@ -10,6 +10,8 @@ in
       default = true;
       description = "non strict mode, allow tcp/udp 2048-*.";
     };
+    serve-hobob = mkEnableOption "open hobob port tcp:3731";
+    serve-friedegg = mkEnableOption "open friedegg(gitea) port tcp:3000";
   };
 
   config = mkMerge [
@@ -27,6 +29,20 @@ in
             from = 2048;
             to = 65535;
           }
+        ];
+      };
+    })
+    (mkIf cfg.serve-hobob {
+      networking.firewall = {
+        allowedTCPPorts = [
+          3731
+        ];
+      };
+    })
+    (mkIf cfg.serve-friedegg {
+      networking.firewall = {
+        allowedTCPPorts = [
+          3000
         ];
       };
     })
