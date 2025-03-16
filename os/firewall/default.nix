@@ -33,18 +33,10 @@ in
       };
     })
     (mkIf cfg.serve-hobob {
-      networking.firewall = {
-        allowedTCPPorts = [
-          3731
-        ];
-      };
+      networking.firewall.allowedTCPPorts = [ 3731 ];
     })
     (mkIf cfg.serve-friedegg {
-      networking.firewall = {
-        allowedTCPPorts = [
-          3000
-        ];
-      };
+      networking.firewall.allowedTCPPorts = [ 3000 ];
     })
   ];
 }
