@@ -14,9 +14,9 @@ in
   };
 
   config = mkMerge [
-    { networking.firewall.enable = true; }
     (mkIf cfg.non-strict {
       networking.firewall = {
+        enable = true;
         allowedTCPPortRanges = [
           {
             from = 2048;
@@ -32,26 +32,29 @@ in
       };
     })
     (mkIf cfg.serve-pi {
-      networking.firewall.allowedTCPPortRanges = [
-        {
-          from = 3000; # site like
-          to = 4000;
-        }
-        {
-          from = 10000; # daemon srv
-          to = 11000;
-        }
-      ];
-      networking.firewall.allowedUDPPortRanges = [
-        {
-          from = 3000;
-          to = 4000;
-        }
-        {
-          from = 10000;
-          to = 11000;
-        }
-      ];
+      # FIXME pi firewall has bug, only bypass if ssh conn alive
+      fool.firewall.non-strict = false;
+      networking.firewall.enable = false;
+      # networking.firewall.allowedTCPPortRanges = [
+      #   {
+      #     from = 3000; # site like
+      #     to = 4000;
+      #   }
+      #   {
+      #     from = 10000; # daemon srv
+      #     to = 11000;
+      #   }
+      # ];
+      # networking.firewall.allowedUDPPortRanges = [
+      #   {
+      #     from = 3000;
+      #     to = 4000;
+      #   }
+      #   {
+      #     from = 10000;
+      #     to = 11000;
+      #   }
+      # ];
     })
   ];
 }
