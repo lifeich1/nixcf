@@ -10,8 +10,7 @@ in
       default = true;
       description = "non strict mode, allow tcp/udp 2048-*.";
     };
-    serve-hobob = mkEnableOption "open hobob port tcp:3731";
-    serve-friedegg = mkEnableOption "open friedegg(gitea) port tcp:3000";
+    serve-pi = mkEnableOption "open pi serve ports";
   };
 
   config = mkMerge [
@@ -32,11 +31,27 @@ in
         ];
       };
     })
-    (mkIf cfg.serve-hobob {
-      networking.firewall.allowedTCPPorts = [ 3731 ];
-    })
-    (mkIf cfg.serve-friedegg {
-      networking.firewall.allowedTCPPorts = [ 3000 ];
+    (mkIf cfg.serve-pi {
+      networking.firewall.allowedTCPPortRanges = [
+        {
+          from = 3000; # site like
+          to = 4000;
+        }
+        {
+          from = 10000; # daemon srv
+          to = 11000;
+        }
+      ];
+      networking.firewall.allowedUDPPortRanges = [
+        {
+          from = 3000;
+          to = 4000;
+        }
+        {
+          from = 10000;
+          to = 11000;
+        }
+      ];
     })
   ];
 }
