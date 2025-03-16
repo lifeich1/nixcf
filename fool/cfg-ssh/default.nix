@@ -60,6 +60,10 @@ in
           hostname = "192.168.3.60";
           user = "root";
         };
+        gtr = {
+          hostname = "192.168.3.4";
+          user = "fool";
+        };
       };
     })
   ];
