@@ -13,5 +13,4 @@
   fool.cfg-ssh = {
     vultr = true;
   };
-  fool.hobob.enable = true;
 }

@@ -15,6 +15,7 @@ in
     ./collections
     ./firewall
     ./gitea
+    ./hobob
     ./plasma
     ./proxychains
     ./sudo

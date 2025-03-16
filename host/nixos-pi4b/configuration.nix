@@ -77,7 +77,10 @@
     serve-hobob = true;
     serve-friedegg = true;
   };
-  fool.hobob.overlay = true;
+  fool.hobob = {
+    overlay = true;
+    sys-service = true;
+  };
   fool.proxy.has-pi = false;
   services.xray.enable = true;
   fool.gitea.enable = true;
