@@ -30,7 +30,7 @@ nixos-debug: chk
 rebuild-pi *flags: && (tag-deploy "pi")
   nixos-rebuild switch --flake .{{"#nixos-pi4b"}} --target-host root@my-pi {{flags}} {{NOM_FLAG}}
 
-my_xps := "192.168.31.224"
+my_xps := "192.168.3.21"
 
 rebuild-xps *flags: && (tag-deploy "xps")
   nixos-rebuild switch --flake .{{"#nixos-xps13"}} --target-host root@{{my_xps}} {{flags}} {{NOM_FLAG}}
