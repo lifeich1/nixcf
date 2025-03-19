@@ -28,6 +28,7 @@ in
       krita
       guitarix
       kmetronome
+      qsynth
       kdePackages.kdenlive
       #glaxnimate # dep by kdenlive
 
