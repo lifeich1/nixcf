@@ -27,6 +27,7 @@ in
       # talent
       krita
       guitarix
+      kmetronome
       kdePackages.kdenlive
       #glaxnimate # dep by kdenlive
 
