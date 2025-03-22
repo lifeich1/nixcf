@@ -71,11 +71,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1728475700,
-        "narHash": "sha256-OvaKtndB8DJschZbfv6BzlombKqJnvEacbm5ary4ucg=",
+        "lastModified": 1742618944,
+        "narHash": "sha256-u3RJqvc/CqQR0UAg/v6LNbUlzkUkDnTfbSpRZbvnDP4=",
         "ref": "deploy",
-        "rev": "a22909c243a76a9665a3b1644572371ff59ba4f4",
-        "revCount": 162,
+        "rev": "14010ab811a6ebbd797f266a7f7fb573d0915295",
+        "revCount": 167,
         "type": "git",
         "url": "https://gitee.com/lifeich0/hobob.git/"
       },
