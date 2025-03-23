@@ -71,11 +71,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1742618944,
+        "lastModified": 1742623052,
         "narHash": "sha256-u3RJqvc/CqQR0UAg/v6LNbUlzkUkDnTfbSpRZbvnDP4=",
         "ref": "deploy",
-        "rev": "14010ab811a6ebbd797f266a7f7fb573d0915295",
-        "revCount": 167,
+        "rev": "ab4b3acfde4250fccf2e1f4836652b67f6b60a33",
+        "revCount": 169,
         "type": "git",
         "url": "https://gitee.com/lifeich0/hobob.git/"
       },
@@ -113,11 +113,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740624780,
-        "narHash": "sha256-8TP61AI3QBQsjzVUQFIV8NoB5nbYfJB3iHczhBikDkU=",
+        "lastModified": 1742701794,
+        "narHash": "sha256-bJIFFa6/4vBGoNmCwjO5TCIbiveV2BRxVLqHcxk5jXw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b8869e4ead721bbd4f0d6b927e8395705d4f16e6",
+        "rev": "9172a6f956f7e0f7810861b9b1146f1c43d9abcb",
         "type": "github"
       },
       "original": {
@@ -144,11 +144,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1740646007,
-        "narHash": "sha256-dMReDQobS3kqoiUCQIYI9c0imPXRZnBubX20yX/G5LE=",
+        "lastModified": 1742631601,
+        "narHash": "sha256-yJ3OOAmsGAxSl0bTmKUp3+cEYtSS+V6hUPK2rYhIPr8=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "009b764ac98a3602d41fc68072eeec5d24fc0e49",
+        "rev": "380ed15bcd6440606c6856db44a99140d422b46f",
         "type": "github"
       },
       "original": {
@@ -172,11 +172,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1740463929,
-        "narHash": "sha256-4Xhu/3aUdCKeLfdteEHMegx5ooKQvwPHNkOgNCXQrvc=",
+        "lastModified": 1742512142,
+        "narHash": "sha256-8XfURTDxOm6+33swQJu/hx6xw1Tznl8vJJN5HwVqckg=",
         "ref": "nixos-24.11",
-        "rev": "5d7db4668d7a0c6cc5fc8cf6ef33b008b2b1ed8b",
-        "revCount": 714876,
+        "rev": "7105ae3957700a9646cc4b766f5815b23ed0c682",
+        "revCount": 715908,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       },
@@ -188,11 +188,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1740560979,
-        "narHash": "sha256-Vr3Qi346M+8CjedtbyUevIGDZW8LcA1fTG0ugPY/Hic=",
+        "lastModified": 1742422364,
+        "narHash": "sha256-mNqIplmEohk5jRkqYqG19GA8MbQ/D4gQSK0Mu4LvfRQ=",
         "ref": "nixos-unstable",
-        "rev": "5135c59491985879812717f4c9fea69604e7f26f",
-        "revCount": 759373,
+        "rev": "a84ebe20c6bc2ecbcfb000a50776219f48d134cc",
+        "revCount": 770807,
         "type": "git",
         "url": "https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/"
       },
@@ -211,11 +211,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1740665842,
-        "narHash": "sha256-iFFgIi40goMMGtjoGFiecHfUr6iIW51fDFroyav850o=",
+        "lastModified": 1742711974,
+        "narHash": "sha256-7aTLjfdlPhDlixUAziHRBI4R7p4QZq/bhWffnPaW9AE=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "aba36e5a043589355cb7a7df368571f8c327fe63",
+        "rev": "c52011abd7fda6d05aa84e9e0110d56f06cac071",
         "type": "github"
       },
       "original": {
