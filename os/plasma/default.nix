@@ -32,8 +32,9 @@ in
       type = "fcitx5";
       fcitx5 = {
         waylandFrontend = true;
-        addons = with pkgs.kdePackages; [
+        addons = with pkgs; [
           fcitx5-chinese-addons
+          fcitx5-mozc
         ];
       };
     };
