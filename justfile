@@ -16,6 +16,11 @@ nixos *flags:
   sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}}
   nvd diff .prev-system /nix/var/nix/profiles/system
 
+continue *flags:
+  sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}}
+  nvd diff .prev-system /nix/var/nix/profiles/system
+
+alias cont := continue
 alias g := nixos-debug
 alias pi := rebuild-pi
 alias xps := rebuild-xps
@@ -95,10 +100,16 @@ daemon-restart:
 
 # temporarily remove nix-community.cachix.org from substituters
 disable-commu: && daemon-restart
+  test ! -e /etc/nix/nix.conf.bak
   sed 's/https:\/\/nix-community.cachix.org//' < /etc/nix/nix.conf > /tmp/nix.conf
   perl -pi -e 's/https:\/\/mirrors?\.\S+//g' /tmp/nix.conf
   sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.bak
   sudo mv /tmp/nix.conf /etc/nix/nix.conf
+
+cfg-rollback: && daemon-restart
+  test -e /etc/nix/nix.conf.bak
+  sudo rm /etc/nix/nix.conf
+  sudo mv /etc/nix/nix.conf.bak /etc/nix/nix.conf
 
 [private]
 tag-deploy type:
