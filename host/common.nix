@@ -20,11 +20,11 @@ with lib;
     trusted-users = [ username ];
     substituters = mkBefore [
       "http://my-pi:8080/my-pi_attic" # homelab
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
       # XXX THU block social heavy thoughtput
-      #"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" 
+      #"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
+      "https://mirror.sjtu.edu.cn/nix-channels/store" # XXX outdated
       # NOTE sometimes commu cache corrupted then broke home-manager
       "https://nix-community.cachix.org"
       "https://rewine.cachix.org"
