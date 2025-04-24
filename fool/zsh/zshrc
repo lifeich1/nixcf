@@ -42,6 +42,7 @@ addfunc_=(
   cat "bat"
   gzw "gb --color=always|sk --ansi|xargs git switch"
   ga. "ga ."
+  gclk "gcam ':arrow_up: lock update'"
 )
 faddfunc_=(
   ll "ls -laahHg"
