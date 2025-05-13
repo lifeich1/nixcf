@@ -94,11 +94,11 @@ with lib;
       };
       services.gpg-agent = {
         enable = true;
-        pinentryPackage = mkDefault pkgs.pinentry-curses;
+        pinentry.package = mkDefault pkgs.pinentry-curses;
       };
     }
     (mkIf (!isNull config.fool.gpg.pinentry) {
-      services.gpg-agent.pinentryPackage = mkForce config.fool.gpg.pinentry;
+      services.gpg-agent.pinentry.package = mkForce config.fool.gpg.pinentry;
     })
   ];
 }
