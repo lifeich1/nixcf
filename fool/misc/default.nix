@@ -25,6 +25,7 @@ in
       just
       fd # modern `find`
       skim
+      nnn
 
       # networking tools
       mtr # A network diagnostic tool
