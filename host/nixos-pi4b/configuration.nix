@@ -84,6 +84,9 @@
   fool.proxy.has-pi = false;
   services.xray.enable = true;
   fool.gitea.enable = true;
-  fool.vlmcsd.enable = true;
+  fool.vlmcsd = {
+    enable = true;
+    invokeType = "nix";
+  };
   fool.atticd.enable = true;
 }
