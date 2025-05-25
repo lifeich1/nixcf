@@ -13,11 +13,13 @@ NOM_FLAG := "--log-format internal-json -v |& nom --json"
 nixos *flags:
   rm -f .prev-system
   ln -s /nix/var/nix/profiles/`readlink /nix/var/nix/profiles/system` .prev-system
-  sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}}
+  sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}} || echo "error code $?"
+  test "$(readlink .prev-system)" != "$(readlink /nix/var/nix/profiles/system)" && \
   nvd diff .prev-system /nix/var/nix/profiles/system
 
 continue *flags:
-  sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}}
+  sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}} || echo "error code $?"
+  test "$(readlink .prev-system)" != "$(readlink /nix/var/nix/profiles/system)" && \
   nvd diff .prev-system /nix/var/nix/profiles/system
 
 alias cont := continue
