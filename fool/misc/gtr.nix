@@ -24,6 +24,7 @@ in
 
       # (multi)media
       vlc
+      ffmpeg
 
       # talent
       krita
