@@ -73,5 +73,7 @@ in
       #ltrace # library call monitoring
       lsof # list open files
     ];
+
+    programs.bottom.enable = true;
   };
 }

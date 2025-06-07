@@ -52,6 +52,8 @@ in
       graphviz
       gh
       calibre
+      onefetch # git repo summary
+      kalker # math eval
 
       # system
       python3
@@ -59,6 +61,8 @@ in
       wl-clipboard
       kdePackages.qttools
       parted # disk util
+      dysk # df
+      xcp # new age cp
 
       # nix
       nix-update
@@ -75,6 +79,16 @@ in
           "font.language.group" = "zh-CN";
         };
       };
+    };
+
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    programs.tealdeer = {
+      enable = true;
+      enableAutoUpdates = true;
     };
   };
 }
