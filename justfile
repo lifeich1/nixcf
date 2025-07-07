@@ -81,7 +81,7 @@ du:
 
 temp_tag := `date +%N`
 host_no_proxy := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn,gitee.com"
-# FIXME temporarily add proxy settings to nix-daemon.service environ vars; failed maybe by nix bug
+# NOTE not helpful if get in source not by pkgs
 proxy host="127.0.0.1" tmpfile=("/tmp/111nixdae.override.conf." + temp_tag): && daemon-restart
   echo "[Service]" > {{tmpfile}}
   echo "Environment=\"https_proxy=socks5h://{{host}}:10809\"" >> {{tmpfile}}

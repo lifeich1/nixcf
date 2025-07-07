@@ -27,7 +27,7 @@ in
           ALLOWED_DOMAINS = "";
         };
         service.DISABLE_REGISTRATION = true; # account created
-        mailer.SENDMAIL_PATH = "/fix-merged-wait-deploy";
+        mailer.SENDMAIL_PATH = "/fix-merged-wait-deploy"; # FIXME remove this line in future
       };
     };
   };
