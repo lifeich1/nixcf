@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
     services.podman.enable = true;
     services.podman.containers.bililiverecorder = {
-      image = "ghcr.io/bililiverecorder/bililiverecorder:2.17.0";
+      image = "ghcr.io/bililiverecorder/bililiverecorder:2.17.3";
       # user = config.home.username;
       ports = [ "2356:2356" ];
       volumes = [ "${config.home.homeDirectory}/公共/bilirec:/rec" ];
