@@ -36,7 +36,7 @@ in
 
       # web
       qbittorrent
-      pkgs-stable.google-chrome
+      google-chrome
       tor-browser
       yt-dlp
       lux
