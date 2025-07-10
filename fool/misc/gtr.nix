@@ -54,6 +54,8 @@ in
       calibre
       onefetch # git repo summary
       kalker # math eval
+      hexyl # Command-line hex viewer
+      gitnr # git ignores templates
 
       # system
       python3
@@ -63,6 +65,7 @@ in
       parted # disk util
       dysk # df
       xcp # new age cp
+      bandwhich # network
 
       # nix
       nix-update
