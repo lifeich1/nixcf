@@ -18,6 +18,7 @@ with lib;
     ./fastfetch
     ./git
     ./hobob
+    ./kitty
     ./misc
     ./nvim
     ./xray

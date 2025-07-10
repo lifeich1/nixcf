@@ -35,5 +35,9 @@
     enable = true;
     font-size = 10;
   };
+  fool.kitty = {
+    enable = true;
+    font-size = 12;
+  };
   fool.attic.watch-store = true;
 }

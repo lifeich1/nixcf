@@ -17,13 +17,7 @@ in
       description = "alacritty terminal font size";
     };
 
-    ## rely on:
-    ## nixgl = {
-    ##   url = "github:nix-community/nixGL";
-    ##   inputs.nixpkgs.follows = "nixpkgs";
-    ## };
-    # NOTE disable for reduce inputs
-    #nixgl-wrapper = mkEnableOption "command `nixgl-alacritty` & desktop entry";
+    # TODO option: alacritty package use config.lib.nixGL.wrap
   };
 
   config = mkMerge [
@@ -52,33 +46,5 @@ in
         };
       };
     })
-    ## NOTE use makeDesktopItem & copyDesktopItems to override package
-    #(mkIf cfg.nixgl-wrapper {
-    #  home.packages = with pkgs; [
-    #    (
-    #      writeShellApplication {
-    #        name = "nixgl-alacritty";
-    #        runtimeInputs =
-    #          let
-    #            nixglil = inputs.nixgl.packages."${system}".nixGLIntel;
-    #          in [
-    #            nixglil
-    #            alacritty
-    #          ];
-    #        text = ''
-    #          exec nixGLIntel alacritty
-    #        '';
-    #      }
-    #    )
-    #  ];
-    #  xdg.desktopEntries.nixgl-alacritty = {
-    #    name = "nixgl Wrapped alacritty";
-    #    exec = "nixgl-alacritty";
-    #    categories = [
-    #      "System"
-    #      "TerminalEmulator"
-    #    ];
-    #  };
-    #})
   ];
 }
