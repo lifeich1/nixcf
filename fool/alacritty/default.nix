@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.fool.alacritty;
@@ -25,6 +30,10 @@ in
     (mkIf cfg.enable {
       programs.zellij.enable = true;
 
+      home.packages = with pkgs.nerd-fonts; [
+        hack
+      ];
+
       programs.alacritty = {
         enable = true;
         settings = {
@@ -37,7 +46,7 @@ in
             size = cfg.font-size;
             normal = {
               style = "Regular";
-              family = "MesloLGS NF";
+              family = "Hack Nerd Font";
             };
           };
         };
@@ -49,7 +58,7 @@ in
     #    (
     #      writeShellApplication {
     #        name = "nixgl-alacritty";
-    #        runtimeInputs = 
+    #        runtimeInputs =
     #          let
     #            nixglil = inputs.nixgl.packages."${system}".nixGLIntel;
     #          in [

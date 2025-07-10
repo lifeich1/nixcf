@@ -22,7 +22,6 @@ in
     home.packages = with pkgs; [
       fastfetch
       zsh-powerlevel10k
-      meslo-lgs-nf
       eza
       du-dust
       bat
