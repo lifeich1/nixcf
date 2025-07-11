@@ -31,6 +31,8 @@ in
       };
       settings = {
         background_opacity = 0.85;
+        enable_audio_bell = "no";
+        visual_bell_duration = 1;
       };
       shellIntegration.enableZshIntegration = true;
     };
