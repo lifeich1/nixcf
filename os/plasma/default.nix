@@ -39,10 +39,14 @@ in
       };
     };
 
-    environment.systemPackages = with pkgs.nur.repos.rewine; [
-      ttf-wps-fonts # for wps
-      ttf-ms-win10 # WARN: collision with ttf-wps-fonts
-    ];
+    environment.systemPackages =
+      (with pkgs.nur.repos.rewine; [
+        ttf-wps-fonts # for wps
+        ttf-ms-win10 # WARN: collision with ttf-wps-fonts
+      ])
+      ++ (with pkgs; [
+        sarasa-gothic # 更纱黑体
+      ]);
 
     # FIX calibre ebook-viewer env, see also https://discussion.fedoraproject.org/t/calibre-and-wayland/100384/3
     nixpkgs.overlays = [
