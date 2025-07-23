@@ -12,6 +12,10 @@
     enable = true;
     enableZshIntegration = true;
   };
+  programs.wezterm = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   fool.bililiverecorder.enable = true;
 
