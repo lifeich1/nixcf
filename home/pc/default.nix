@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # trials on one host
     charasay
+    hyper # Terminal built on web technologies
   ];
 
   programs.helix.enable = true; # NOTICE learning
