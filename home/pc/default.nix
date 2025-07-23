@@ -33,10 +33,10 @@
   };
   fool.alacritty = {
     enable = true;
-    font-size = 10;
+    font-size = 11;
   };
   fool.kitty = {
-    enable = true;
+    enable = false;
     font-size = 12;
   };
   fool.attic.watch-store = true;
