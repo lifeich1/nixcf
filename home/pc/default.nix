@@ -8,6 +8,10 @@
 
   programs.helix.enable = true; # NOTICE learning
   programs.emacs.enable = true; # TODO pack configs
+  programs.ghostty = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   fool.bililiverecorder.enable = true;
 
