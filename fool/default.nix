@@ -21,6 +21,7 @@ with lib;
     ./kitty
     ./misc
     ./nvim
+    ./wezterm
     ./xray
     ./zsh
   ];

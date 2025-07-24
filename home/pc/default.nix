@@ -12,10 +12,6 @@
     enable = true;
     enableZshIntegration = true;
   };
-  programs.wezterm = {
-    enable = true;
-    enableZshIntegration = true;
-  };
 
   fool.bililiverecorder.enable = true;
 
@@ -43,9 +39,6 @@
     enable = true;
     font-size = 11;
   };
-  fool.kitty = {
-    enable = false;
-    font-size = 12;
-  };
+  fool.wezterm.enable = true;
   fool.attic.watch-store = true;
 }
