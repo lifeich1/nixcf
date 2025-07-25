@@ -25,12 +25,11 @@ in
     programs.wezterm = {
       enable = true;
       enableZshIntegration = true;
-      extraConfig =
-        (builtins.readFile ./cfg.lua)
-        + ''
-          cfg.font_size = ${builtins.toString cfg.font-size}
-          return cfg
-        '';
+      extraConfig = (builtins.readFile ./cfg.lua) + ''
+        return Wrap({
+          font_size = ${builtins.toString cfg.font-size},
+        })
+      '';
     };
   };
 }
