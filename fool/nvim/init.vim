@@ -6,6 +6,8 @@ source ~/.vimrc
 
 "tmapclear
 
+set completeopt=menuone,noinsert,fuzzy
+
 "set timeoutlen=50
 set clipboard+=unnamedplus
 

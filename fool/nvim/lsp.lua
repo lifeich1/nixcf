@@ -1,13 +1,6 @@
 -- require("nvim-lsp-installer").setup {}
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true
-}
 
-local lspconfig = require('lspconfig')
-
-lspconfig.nil_ls.setup {
+vim.lsp.config['nil_ls'] = {
   settings = {
     ['nil'] = {
       formatting = {
@@ -17,23 +10,22 @@ lspconfig.nil_ls.setup {
   },
 }
 
-lspconfig.ccls.setup {
-  init_options = {
-    cache = {
-      directory = os.getenv("HOME") .. "/.ccls-cache",
-    },
-    index = {
-      threads = 4,
-      trackDependency = 0,
-    },
-    clang = {
-      excludeArgs = { "-frounding-math" },
-    },
-  }
-}
+-- lspconfig.ccls.setup {
+--   init_options = {
+--     cache = {
+--       directory = os.getenv("HOME") .. "/.ccls-cache",
+--     },
+--     index = {
+--       threads = 4,
+--       trackDependency = 0,
+--     },
+--     clang = {
+--       excludeArgs = { "-frounding-math" },
+--     },
+--   }
+-- }
 
-lspconfig.rust_analyzer.setup {
-  capabilities = capabilities,
+vim.lsp.config['rust_analyzer'] = {
   -- Server-specific settings. See `:help lspconfig-setup`
   settings = {
     ['rust-analyzer'] = {
@@ -55,8 +47,7 @@ lspconfig.rust_analyzer.setup {
     },
   },
 }
-lspconfig.lua_ls.setup {
-  capabilities = capabilities,
+vim.lsp.config['lua_ls'] = {
   settings = {
     Lua = {
       runtime = {
@@ -89,11 +80,14 @@ lspconfig.lua_ls.setup {
   },
 }
 
+vim.lsp.enable({ 'jsonls', 'html', 'cssls', 'pylsp', 'bashls', 'clangd', 'eslint', 'vimls', 'marksman', 'perlpls',
+  'nil_ls', 'rust_analyzer', 'lua_ls' })
+
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<Bslash>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
-vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
 vim.keymap.set('n', '<Bslash>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
@@ -101,53 +95,52 @@ vim.keymap.set('n', '<Bslash>q', vim.diagnostic.setloclist)
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
     -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    if client:supports_method('textDocument/completion') then
+      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+      -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+      local chars = { '.', '>' };
+      client.server_capabilities.completionProvider.triggerCharacters = chars
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+      vim.keymap.set('i', '<C-M-i>', function() vim.lsp.completion.get() end)
+    end
 
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<Bslash>i', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    -- vim.keymap.set('n', '<Bslash>i', vim.lsp.buf.implementation, opts)
+    -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<Bslash>wa', vim.lsp.buf.add_workspace_folder, opts)
     vim.keymap.set('n', '<Bslash>wr', vim.lsp.buf.remove_workspace_folder, opts)
     vim.keymap.set('n', '<Bslash>wl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, opts)
-    vim.keymap.set('n', '<Bslash>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<Bslash>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<Bslash>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<Bslash>f', function()
+    -- vim.keymap.set('n', '<Bslash>D', vim.lsp.buf.type_definition, opts)
+    -- vim.keymap.set('n', '<Bslash>rn', vim.lsp.buf.rename, opts)
+    -- vim.keymap.set({ 'n', 'v' }, '<Bslash>ca', vim.lsp.buf.code_action, opts)
+    -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<Bslash>f', function() -- gq fmt lines
       vim.lsp.buf.format { async = true }
     end, opts)
-    vim.keymap.set('n', '<Bslash>zt', vim.lsp.buf.document_symbol, opts)
+    -- vim.keymap.set('n', '<Bslash>zt', vim.lsp.buf.document_symbol, opts)
 
-    if client ~= nil and client.server_capabilities.documentFormattingProvider then
+    if not client:supports_method('textDocument/willSaveWaitUntil')
+        and client:supports_method('textDocument/formatting') then
       vim.api.nvim_create_autocmd('BufWritePre', {
+        group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
         buffer = ev.buf,
         callback = function()
-          vim.lsp.buf.format {}
+          vim.lsp.buf.format({ bufnr = ev.buf, id = client.id, timeout_ms = 1000 })
         end,
       })
     end
   end,
 })
 
--- local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
-local language_servers = {
-  'jsonls', 'html', 'cssls', 'pylsp', 'bashls',
-  'eslint', 'vimls', 'marksman', 'perlpls' }
-for _, ls in ipairs(language_servers) do
-  require('lspconfig')[ls].setup({
-    capabilities = capabilities
-    -- you can add other fields for setting up lsp server in this table
-  })
-end
 
 require 'fzf_lsp'.setup()
 
