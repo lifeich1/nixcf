@@ -45,6 +45,7 @@
 
   # Enable automatic login for the user.
   services.getty.autologinUser = "fool";
+  services.teamviewer.enable = true;
 
   fool.collections.gtr = true;
   fool.proxy.has-pi = true;

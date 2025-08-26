@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  pkgs-stable,
+  # pkgs-stable,
   ...
 }:
 with lib;
@@ -20,7 +20,8 @@ in
 
     home.packages = with pkgs; [
       # remote work
-      pkgs-stable.rustdesk-flutter
+      # pkgs-stable.rustdesk-flutter
+      teamviewer
 
       # (multi)media
       vlc
