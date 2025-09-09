@@ -41,6 +41,7 @@ in
       tor-browser
       yt-dlp
       lux
+      baidupcs-go # pan.baidu
 
       # productivity
       #hugo # static site generator
