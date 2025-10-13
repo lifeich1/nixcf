@@ -44,6 +44,7 @@ in
                 "gtr7"
                 "xps13_9360"
                 "matepad23"
+                "pce_w30"
               ];
             };
             "${pubdir}/priv-films" = {
@@ -112,6 +113,11 @@ in
               label = "hw-p60/default";
               devices = [ "hw_p60" ];
             };
+            "${pubdir}/pce-w30/default" = {
+              id = "hdh9h-89r9b";
+              label = "pce-w30/default";
+              devices = [ "pce_w30" ];
+            };
           };
           devices = {
             gtr7.id = "FNPFOIJ-UEYLCNH-55ITPFU-4XMILCE-UWBSR5O-JYOGGN2-B5DEM7W-3EXERQX";
@@ -119,6 +125,7 @@ in
             ala_an70.id = "6EBVCNG-JWOCLAQ-QWLUM73-4E3C2GY-FGDVWP3-P563Q3D-X62YMIN-5FILAA5";
             xps13_9360.id = "HJBCABV-UZBQV5P-V552XA2-B4D7DH5-T2WCHRS-I55ONAS-V6AB332-GKQ67Q4";
             hw_p60.id = "DVCK2UK-VYORBXG-LUR3444-OOYIEUU-P7E6KPD-5KTFNCZ-SFUIDXI-27LUFQO";
+            pce_w30.id = "NOWMD2Q-UTUSP6O-UIA5NFL-7ANZUPV-AC2BI2Y-2DVKSQJ-5VD3JJU-J7RXTQN";
           };
         };
       };
