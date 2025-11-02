@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
@@ -11,8 +12,6 @@ in
   options.fool.bililiverecorder = {
     enable = mkEnableOption "bililiverecorder (contained app)";
     # TODO flex pinned configs, pin config.json
-
-    olived = mkEnableOption "olived container";
   };
 
   config = mkIf cfg.enable {
@@ -27,8 +26,4 @@ in
       };
     };
   };
-
-  imports = [
-    ./olived.nix
-  ];
 }

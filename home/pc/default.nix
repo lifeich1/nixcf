@@ -13,10 +13,7 @@
     enableZshIntegration = true;
   };
 
-  fool.bililiverecorder = {
-    enable = true;
-    olived = true;
-  };
+  fool.bililiverecorder.enable = true;
 
   fool.misc.gtr = true;
 
