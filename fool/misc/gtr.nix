@@ -58,6 +58,7 @@ in
       kalker # math eval
       hexyl # Command-line hex viewer
       gitnr # git ignores templates
+      android-tools
 
       # system
       python3
