@@ -13,7 +13,9 @@ in
     overlay = mkEnableOption "hobob overlay";
   };
   config = mkIf cfg.overlay {
-    nixpkgs.overlays = [ (final: prev: { hobob = inputs.hobob.packages."${prev.system}".default; }) ];
+    nixpkgs.overlays = [
+      (final: prev: { hobob = inputs.hobob.packages."${prev.stdenv.hostPlatform.system}".default; })
+    ];
 
   };
 }

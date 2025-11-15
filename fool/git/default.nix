@@ -26,25 +26,27 @@ in
   config = {
     programs.git = {
       enable = mkDefault true;
-      userName = mkDefault cfg.user;
-      userEmail = mkDefault cfg.email;
-      difftastic.enable = true;
       lfs.enable = true;
-      extraConfig = mkIf cfg.github-proxy {
-        includeIf."gitdir:Code/z/github.com/**".path =
-          let
-            suffix = config.xdg.configFile."fool_git_http_proxy.inc".target;
-          in
-          "${config.home.homeDirectory}/${suffix}";
+      settings = {
+        user = {
+          email = mkDefault cfg.email;
+          name = mkDefault cfg.user;
+        };
       };
+      includes = [
+        (mkIf cfg.github-proxy {
+          condition = "gitdir:Code/z/github.com/**";
+          contents = {
+            http.proxy = "${config.fool.proxy.socks5_url}";
+            https.proxy = "${config.fool.proxy.socks5_url}";
+          };
+        })
+      ];
     };
 
-    xdg.configFile."fool_git_http_proxy.inc".text = ''
-      [http]
-      proxy = ${config.fool.proxy.socks5_url};
-
-      [https]
-      proxy = ${config.fool.proxy.socks5_url};
-    '';
+    programs.difftastic = {
+      enable = true;
+      git.enable = true;
+    };
   };
 }

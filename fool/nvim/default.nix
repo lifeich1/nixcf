@@ -106,7 +106,8 @@ in
     })
     (mkIf cfg.nightly {
       # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-      programs.neovim.package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+      programs.neovim.package =
+        inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
     })
   ];
 }

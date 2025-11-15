@@ -23,7 +23,7 @@ in
       fastfetch
       zsh-powerlevel10k
       eza
-      du-dust
+      dust
       bat
       cheat
     ];

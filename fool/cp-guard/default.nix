@@ -8,7 +8,7 @@
 with lib;
 let
   cfg = config.fool.cp-guard;
-  cp-guard = inputs.cp-guard.packages.${pkgs.system}.default;
+  cp-guard = inputs.cp-guard.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   options.fool.cp-guard = {
