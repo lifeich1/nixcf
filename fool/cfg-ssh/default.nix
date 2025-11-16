@@ -52,7 +52,7 @@ in
     (mkIf cfg.qcraft {
       programs.ssh.matchBlocks = {
         combk = {
-          hostname = "192.168.3.7";
+          hostname = "192.168.3.8";
           user = "qcraft";
           forwardAgent = true;
         };
