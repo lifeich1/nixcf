@@ -1,0 +1,103 @@
+" Maintainer:   lintd
+" Last Changed: 2025
+"
+" All characters are ASCII, conversion to another encoding (e.g., UTF-8)
+" should work.
+
+let b:keymap_name = "en-wm_p"
+
+loadkeymap
+q	q
+w	d
+e	r
+r	w
+t	b
+y	j
+u	f
+i	u
+o	p
+p	;
+[	{
+]	}
+\\	\\
+a	a
+s	s
+d	h
+f	t
+g	g
+h	y
+j	n
+k	e
+l	o
+;	i
+'	'
+z	z
+x	x
+c	m
+v	c
+b	v
+n	k
+m	l
+,	,
+.	.
+/	/
+Z	Z
+X	X
+C	M
+V	C
+B	V
+N	K
+M	L
+<	<
+>	>
+?	?
+A	A
+S	S
+D	H
+F	T
+G	G
+H	Y
+J	N
+K	E
+L	O
+:	I
+\"	"
+Q	Q
+W	D
+E	R
+R	W
+T	B
+Y	J
+U	F
+I	U
+O	P
+P	:
+{	[
+}	]
+|	|
+-	-
+_	_
+=	=
++	+
+` ~
+1 !
+2 @
+3 #
+4 $
+5 %
+6 ^
+7 &
+8 *
+9 (
+0 )
+~ `
+! 1
+@ 2
+# 3
+$ 4
+% 5
+^ 6
+& 7
+* 8
+( 9
+) 0

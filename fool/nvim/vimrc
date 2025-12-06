@@ -31,7 +31,7 @@ noremap <Up> gk
 noremap <Down> gj
 inoremap <F2> <Esc>:w<CR>a
 
-set keymap=dvorak
+set keymap=workman-p
 " }}}
 
 let mapleader = " "
@@ -47,16 +47,13 @@ nnoremap <leader>W :match none<cr>
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-nnoremap <leader>kj :set keymap=dvorak<cr>
+nnoremap <leader>kj :set keymap=workman-p<cr>
 nnoremap <leader>kk :set keymap=<cr>
 nnoremap <leader>ya :%y<cr>
 
 nnoremap <leader>c5 :let @+=@%<cr>
 
 nnoremap <leader>nd :execute ':packadd nerdtree \| NERDTreeToggle'<cr>
-
-nnoremap <leader>kd :set keymap=dvorak<cr>
-nnoremap <leader>kk :set keymap&<cr>
 
 nnoremap <leader>po :echo "this_obsession: " . g:this_obsession<cr>
 " }}}

@@ -71,6 +71,7 @@ in
 
       home.file.".vimrc".source = ./vimrc;
       home.file.".vim/init.lua".source = ./init.lua;
+      home.file.".vim/pack/custom/start/myft/keymap/workman-p.vim".source = ./workman-p.vim;
       xdg.enable = true;
       xdg.configFile."nvim/init.vim".source = ./init.vim;
     }
