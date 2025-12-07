@@ -62,7 +62,6 @@
           inherit system;
           config.allowUnfree = true;
         };
-        newbento = attr: import ./bento attr;
       };
 
       pi4b_config = (base_config "aarch64-linux") // {
@@ -139,8 +138,7 @@
             username = "fool";
             device = "gtr7";
           })
-        ]
-        ++ gtr7-hardware-list;
+        ] ++ gtr7-hardware-list;
         nixos-pi4b = [
           nixos-hardware.nixosModules.raspberry-pi-4
           #inputs.attic.nixosModules.atticd
