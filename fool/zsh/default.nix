@@ -64,6 +64,7 @@ in
       envExtra = ''
         source ~/.lintd/zsh/zshenv
       '';
+      dotDir = config.home.homeDirectory;
     };
 
     programs.zellij.enableZshIntegration = false;

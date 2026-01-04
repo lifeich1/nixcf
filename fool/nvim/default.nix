@@ -84,7 +84,7 @@ in
         lua-language-server
         vim-language-server
         bash-language-server
-        perl538Packages.PLS
+        perl5Packages.PLS
         marksman
         vscode-langservers-extracted
         python312Packages.python-lsp-server
