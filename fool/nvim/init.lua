@@ -93,7 +93,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
         })
         vim.fn["fzf#run"](arg)
       else
-        vim.api.nvim_err_writeln('fzf#run not found')
+        vim.api.nvim_echo({ { 'fzf#run not found' } }, true, { err = true })
       end
     end
     vim.keymap.set('n', '<leader>j', call_fzf, opts);
@@ -101,18 +101,27 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end,
 })
 
-vim.api.nvim_create_autocmd('BufEnter', {
-  group = vim.api.nvim_create_augroup('json_age', {}),
-  pattern = { "*.json.age" },
-  callback = function(ev)
-    vim.opt_local.filetype = 'json';
-  end,
-})
 
-vim.api.nvim_create_autocmd('BufEnter', {
-  group = vim.api.nvim_create_augroup('ft_lalrpop', {}),
-  pattern = { "*.lalrpop" },
-  callback = function(ev)
-    vim.opt_local.filetype = 'lalrpop';
-  end,
+local wrap_ts_ft = function(ft) -- wrap treesitter filetype
+  ---@diagnostic disable-next-line: unused-local
+  return function(path, bufnr)
+    vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    --- TS fold wired with ufo
+    -- vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    -- vim.wo[0][0].foldmethod = 'expr'
+    return ft
+  end
+end
+
+vim.filetype.add({
+  extension = {
+    lalrpop = wrap_ts_ft('lalrpop'),
+  },
+  pattern = {
+    ['.*%.json%.age'] = "json",
+    ['.*%.pb%.txt'] = {
+      wrap_ts_ft('textproto'),
+      { priority = 10 },
+    },
+  },
 })

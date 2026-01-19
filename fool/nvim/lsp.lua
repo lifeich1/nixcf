@@ -144,36 +144,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 require 'fzf_lsp'.setup()
 
-require 'nvim-treesitter.configs'.setup {
-  modules = {},
-  ensure_installed = {},
-  sync_install = false,
-  auto_install = false,
-  ignore_install = { "all" },
-
-  highlight = {
-    enable = true,
-
-    ---@diagnostic disable-next-line: unused-local
-    disable = function(lang, buf)
-      local max_filesize = 100 * 1024 -- 100 KB
-      ---@diagnostic disable-next-line: undefined-field
-      local stats = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
-      if stats and stats.size > max_filesize then
-        return true
-      end
-    end,
-
-    additional_vim_regex_highlighting = false,
-  },
-
-  indent = {
-    enable = true,
-  },
-  incremental_selection = {
-    enable = true,
-  }
-}
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('TS_enable', {}),
+  pattern = { 'textproto', 'lalrpop' },
+  callback = function() vim.treesitter.start() end,
+})
 
 -- disable polyglot, use treesitter
 vim.g.polyglot_disabled = { "autoindent", "toml.plugin" }

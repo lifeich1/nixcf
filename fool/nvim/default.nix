@@ -43,7 +43,6 @@ in
             vim-obsession
             vim-projectionist
             vim-fugitive
-            vim-polyglot
             bufexplorer
             plenary-nvim
             promise-async
@@ -52,6 +51,7 @@ in
             fzf-vim
           ])
           ++ (optionalPlug [
+            vim-polyglot
             minpac
             gruvbox
             vim-startuptime
@@ -99,6 +99,7 @@ in
             lalrpop
             just
             toml
+            textproto
           ]
         ))
       ];
