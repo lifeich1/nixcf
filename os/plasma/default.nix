@@ -41,17 +41,15 @@ in
     };
 
     environment.systemPackages =
-      # (with pkgs.nur.repos.rewine; [
-      # ttf-wps-fonts # for wps
-      # ttf-ms-win10 # WARN: collision with ttf-wps-fonts
-      # ])
-      # ++
-      (
-        with pkgs;
-        [
-          sarasa-gothic # 更纱黑体
-        ]
-      );
+      # sometimes curl causes problem, try switch to hotpot
+      # https://discourse.nixos.org/t/nixos-install-returns-unable-to-download-cache-nixos-org/65488/4
+      (with pkgs.nur.repos.rewine; [
+        ttf-wps-fonts # for wps
+        ttf-ms-win10 # WARN: collision with ttf-wps-fonts
+      ])
+      ++ (with pkgs; [
+        sarasa-gothic # 更纱黑体
+      ]);
 
     # FIX calibre ebook-viewer env, see also https://discussion.fedoraproject.org/t/calibre-and-wayland/100384/3
     nixpkgs.overlays = [
