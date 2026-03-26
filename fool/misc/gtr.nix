@@ -20,6 +20,7 @@ in
 
     home.packages = with pkgs; [
       # remote work
+      # pkgs-stable.rustdesk-flutter
       teamviewer
 
       # (multi)media
@@ -30,8 +31,9 @@ in
       krita
       guitarix
       kmetronome
+      qsynth
       kdePackages.kdenlive
-      siyuan
+      #glaxnimate # dep by kdenlive
 
       # web
       qbittorrent
