@@ -14,8 +14,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # NOTE zen(6.11.5) failed general protection fault for kwin_wayla, check gtr7:tmp/allsyslog.11140850.log
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_lqx;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.initrd.availableKernelModules = [
     "ahci"
     "nvme"

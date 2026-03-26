@@ -78,8 +78,7 @@ in
     (mkIf cfg.lsp {
       home.packages = with pkgs; [
         nil
-        #nixpkgs-fmt # beta, dying
-        nixfmt-rfc-style # unstable
+        nixfmt
         rust-analyzer
         lua-language-server
         vim-language-server

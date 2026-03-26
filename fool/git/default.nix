@@ -33,6 +33,7 @@ in
           name = mkDefault cfg.user;
         };
       };
+      signing.format = "openpgp";
       includes = [
         (mkIf cfg.github-proxy {
           condition = "gitdir:Code/z/github.com/**";

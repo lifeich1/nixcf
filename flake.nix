@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-unstable";
-    nixpkgs-stable.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-25.05";
+    nixpkgs-stable.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-25.11";
 
     ## manual mirrors
     home-manager = {
@@ -138,7 +138,8 @@
             username = "fool";
             device = "gtr7";
           })
-        ] ++ gtr7-hardware-list;
+        ]
+        ++ gtr7-hardware-list;
         nixos-pi4b = [
           nixos-hardware.nixosModules.raspberry-pi-4
           #inputs.attic.nixosModules.atticd
