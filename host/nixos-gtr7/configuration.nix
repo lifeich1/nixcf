@@ -52,4 +52,18 @@
   services.xray.enable = true;
   fool.syncthing.enable = true;
   fool.virtualbox.enable = true;
+
+  # TODO pack llama-cpp cfg
+  services.llama-cpp = {
+    enable = true;
+    port = 8080;
+    host = "127.0.0.1"; # 本地访问，安全
+    model = "/models/DeepCoder-14B-Preview-Q4_K_M.gguf";
+    extraFlags = [
+      "-c"
+      "8192" # 上下文长度
+      "-t"
+      "12" # CPU 线程数，7840HS 推荐 12
+    ];
+  };
 }
