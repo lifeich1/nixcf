@@ -69,6 +69,7 @@ in
       dysk # df
       xcp # new age cp
       bandwhich # network
+      libnotify # notify-send
 
       # nix
       nix-update
