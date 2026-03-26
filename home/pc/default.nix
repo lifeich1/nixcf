@@ -43,6 +43,7 @@
   };
   fool.nvim = {
     lsp = true;
+    ai = true;
     nightly = false;
   };
   fool.alacritty = {

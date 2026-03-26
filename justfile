@@ -56,7 +56,8 @@ nvim:
   cp -lb vimrc ~/.vimrc
   cp -lb init.lua ~/.vim/init.lua
   cp -lb init.vim ~/.config/nvim/init.vim
-  [ -f ~/.lintd/nvim/lsp.lua ] && cp -lb lsp.lua ~/.lintd/nvim/lsp.lua
+  [ -f ~/.lintd/nvim/lsp.lua ] && cp -lb lsp.lua ~/.lintd/nvim/lsp.lua || echo "skip lsp"
+  [ -f ~/.lintd/nvim/ai.lua ] && cp -lb ai.lua ~/.lintd/nvim/ai.lua || echo "skip ai"
 
 # hardlink zsh config files for fast dev
 zsh:

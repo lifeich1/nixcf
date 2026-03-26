@@ -25,6 +25,7 @@ in
     # default enabled
     lsp = mkEnableOption "Language Server Protocol";
     nightly = mkEnableOption "use nightly neovim";
+    ai = mkEnableOption "use aider";
   };
 
   config = mkMerge [
@@ -104,6 +105,13 @@ in
       ];
 
       home.file.".lintd/nvim/lsp.lua".source = ./lsp.lua;
+    })
+    (mkIf cfg.ai {
+      programs.neovim.plugins = with pkgs.vimPlugins; [
+        aider-nvim
+      ];
+
+      home.file.".lintd/nvim/ai.lua".source = ./ai.lua;
     })
     (mkIf cfg.nightly {
       # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";

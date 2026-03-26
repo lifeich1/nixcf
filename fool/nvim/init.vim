@@ -48,6 +48,8 @@ endfunction
 
 " ~/.lintd/nvim/lsp.lua
 call s:modu($HOME . "/.lintd/nvim/lsp.lua")
+" ~/.lintd/nvim/ai.lua
+call s:modu($HOME . "/.lintd/nvim/ai.lua")
 
 " the leftover for test addon & clipboard platform-related optimize code
 call s:modu($HOME . "/.lintd/nvim/addon.lua")
