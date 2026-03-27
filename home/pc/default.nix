@@ -6,16 +6,6 @@
     charasay
   ];
 
-  # TODO pack aider config
-  programs.aider-chat = {
-    enable = true;
-    settings = {
-      model = "lm_studio/deepcoder-14b";
-      openai-api-base = "http://127.0.0.1:8080/v1";
-      openai-api-key = "dummy";
-    };
-  };
-
   programs.helix.enable = true; # NOTICE learning
   programs.emacs.enable = true; # TODO pack configs
   programs.ghostty = {

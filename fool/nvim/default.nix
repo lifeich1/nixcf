@@ -107,11 +107,16 @@ in
       home.file.".lintd/nvim/lsp.lua".source = ./lsp.lua;
     })
     (mkIf cfg.ai {
-      programs.neovim.plugins = with pkgs.vimPlugins; [
-        aider-nvim
+      programs.neovim.plugins = [
+        {
+          plugin = pkgs.vimPlugins.avante-nvim;
+          type = "lua";
+          config = ''
+            require("avante_lib").load()
+            require("avante").setup()
+          ''; # or builtins.readFile ./plugins/avante.lua
+        }
       ];
-
-      home.file.".lintd/nvim/ai.lua".source = ./ai.lua;
     })
     (mkIf cfg.nightly {
       # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
