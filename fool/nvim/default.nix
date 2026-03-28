@@ -110,11 +110,11 @@ in
       programs.neovim.plugins = [
         {
           plugin = pkgs.vimPlugins.avante-nvim;
-          type = "lua";
-          config = ''
-            require("avante_lib").load()
-            require("avante").setup()
-          ''; # or builtins.readFile ./plugins/avante.lua
+          # type = "lua";
+          # config = ''
+          #   --require("avante_lib").load()
+          #   --require("avante").setup()
+          # ''; # or builtins.readFile ./plugins/avante.lua
         }
       ];
     })
