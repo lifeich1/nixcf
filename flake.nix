@@ -28,6 +28,10 @@
       url = "git+https://gitee.com/zsbaozhilin/minpac.git";
       flake = false;
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ## personal packages
     hobob = {
@@ -91,7 +95,10 @@
                 _module.args = {
                   inherit nixos-hardware;
                 };
-                home-manager.sharedModules = [ ./fool ];
+                home-manager.sharedModules = [
+                  ./fool
+                  inputs.nixvim.homeModules.nixvim
+                ];
               }
             )
           ]
