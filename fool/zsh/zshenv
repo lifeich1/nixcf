@@ -50,3 +50,8 @@ if [ -d /home/fool/opt/miniconda3 ]; then
 fi
 
 if [ -e /home/fool/.nix-profile/etc/profile.d/nix.sh ]; then . /home/fool/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+
+if [ -e $HOME/.avante.sh ]; then
+  . "$HOME/.avante.sh"
+fi
