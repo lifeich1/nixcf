@@ -57,7 +57,7 @@ in
           forwardAgent = true;
         };
         com = {
-          hostname = "172.18.20.89";
+          hostname = "172.18.20.103";
           user = "qcraft";
           proxyCommand = "ssh -W %h:%p combk";
         };
