@@ -59,6 +59,7 @@ in
       hexyl # Command-line hex viewer
       gitnr # git ignores templates
       android-tools
+      bubblewrap
 
       # system
       python3
