@@ -76,7 +76,10 @@ in
       nix-update
     ];
 
-    programs.firefox.enable = true;
+    programs.firefox = {
+      enable = true;
+      configPath = ".mozilla/firefox";
+    };
     programs.thunderbird = {
       # TODO move out with config control
       # use accounts.email.accounts.<name>.imap & accounts.email.accounts.<name>.thunderbird

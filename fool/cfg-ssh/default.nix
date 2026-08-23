@@ -16,66 +16,66 @@ in
         enable = true;
         includes = [ "config.d/*" ];
         enableDefaultConfig = false;
-        matchBlocks."*" = {
-          forwardAgent = false;
-          addKeysToAgent = "no";
-          compression = false;
-          serverAliveInterval = 0;
-          serverAliveCountMax = 3;
-          hashKnownHosts = false;
-          userKnownHostsFile = "~/.ssh/known_hosts";
-          controlMaster = "no";
-          controlPath = "~/.ssh/master-%r@%n:%p";
-          controlPersist = "no";
+        settings."*" = {
+          ForwardAgent = false;
+          AddKeysToAgent = "no";
+          Compression = false;
+          ServerAliveInterval = 0;
+          ServerAliveCountMax = 3;
+          HashKnownHosts = false;
+          UserKnownHostsFile = "~/.ssh/known_hosts";
+          ControlMaster = "no";
+          ControlPath = "~/.ssh/master-%r@%n:%p";
+          ControlPersist = "no";
         };
-        matchBlocks."github.com" =
+        settings."github.com" =
           let
             inherit (config.fool.proxy) tcp_url;
           in
           {
-            hostname = "github.com";
-            serverAliveInterval = 55;
-            forwardAgent = true;
-            proxyCommand = "nc -X 5 -x ${tcp_url} %h %p";
+            HostName = "github.com";
+            ServerAliveInterval = 55;
+            ForwardAgent = true;
+            ProxyCommand = "nc -X 5 -x ${tcp_url} %h %p";
           };
       };
     }
     (mkIf cfg.vultr {
-      programs.ssh.matchBlocks = {
+      programs.ssh.settings = {
         ayu = {
-          hostname = "64.176.41.80";
-          user = "root";
-          forwardAgent = true;
+          HostName = "64.176.41.80";
+          User = "root";
+          ForwardAgent = true;
         };
       };
     })
     (mkIf cfg.qcraft {
-      programs.ssh.matchBlocks = {
+      programs.ssh.settings = {
         combk = {
-          hostname = "192.168.31.188";
-          user = "qcraft";
-          forwardAgent = true;
+          HostName = "192.168.31.188";
+          User = "qcraft";
+          ForwardAgent = true;
         };
         com = {
-          hostname = "172.18.20.103";
-          user = "qcraft";
-          proxyCommand = "ssh -W %h:%p combk";
+          HostName = "172.18.20.103";
+          User = "qcraft";
+          ProxyCommand = "ssh -W %h:%p combk";
         };
       };
     })
     (mkIf cfg.soc {
-      programs.ssh.matchBlocks = {
+      programs.ssh.settings = {
         lclpi = {
-          hostname = "192.168.3.6";
-          user = "pi";
+          HostName = "192.168.3.6";
+          User = "pi";
         };
         opi1 = {
-          hostname = "192.168.3.60";
-          user = "root";
+          HostName = "192.168.3.60";
+          User = "root";
         };
         gtr = {
-          hostname = "192.168.3.4";
-          user = "fool";
+          HostName = "192.168.3.4";
+          User = "fool";
         };
       };
     })
