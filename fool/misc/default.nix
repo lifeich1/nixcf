@@ -1,18 +1,7 @@
+{ pkgs, ... }:
+
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib;
-let
-  _cfg = config.fool.misc;
-in
-{
-  imports = [
-    ./nixbuild.nix
-    ./gtr.nix
-  ];
+  imports = [ ./nixbuild.nix ];
 
   config = {
     # basic

@@ -15,6 +15,7 @@ with lib;
     ./cfg-ssh
     ./com-lemonade
     ./cp-guard
+    ./desktop
     ./fastfetch
     ./git
     ./hobob

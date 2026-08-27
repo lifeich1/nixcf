@@ -15,6 +15,7 @@
 
   fool.bililiverecorder.enable = true;
   fool.cp-guard.enable = true;
+  fool.desktop.heavy-apps.enable = true;
   fool.nvim = {
     ai = true;
     nightly = false;
