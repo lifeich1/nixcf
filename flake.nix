@@ -52,123 +52,115 @@
     }@inputs:
     let
       gtr5_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM90PqsqQZW7/LKOq9lhIQWk0ASsdhoXBxdOjYqq86Ze fool@nixos-gtr5";
-      base_config = system: {
-        inherit
-          gtr5_pubkey
-          inputs
-          system
-          nixpkgs
-          ;
-        all_proxy = false;
-        device = "none";
-        has_pi = true; # physics environment
-        pkgs-stable = import nixpkgs-stable {
-          inherit system;
-          config.allowUnfree = true;
+      hosts = {
+        nixos-xps13 = {
+          system = "x86_64-linux";
+          username = "fool";
+          device = "xps13";
+          homeModule = ./home/lightpad;
+          hasPi = true;
+          extraModules = {
+            beforeHome = [ nixos-hardware.nixosModules.dell-xps-13-9360 ];
+            afterHome = [ ];
+          };
+        };
+        nixos-gtr7 = {
+          system = "x86_64-linux";
+          username = "fool";
+          device = "gtr7";
+          homeModule = ./home/pc;
+          hasPi = true;
+          extraModules = {
+            beforeHome = [ ];
+            afterHome = with nixos-hardware.nixosModules; [
+              common-pc
+              # AMD Ryzen™ 7 7840HS (zen4)
+              common-cpu-amd
+              common-cpu-amd-pstate
+              # XXX zenpower abandoned zen4
+              common-cpu-amd-raphael-igpu
+              # nvme m2
+              common-pc-ssd
+            ];
+          };
+        };
+        nixos-pi4b = {
+          system = "aarch64-linux";
+          username = "pi";
+          device = "pi4b";
+          homeModule = ./home/micro-srv;
+          hasPi = false;
+          extraModules = {
+            beforeHome = [
+              nixos-hardware.nixosModules.raspberry-pi-4
+              ./os/atticd
+            ];
+            afterHome = [ ];
+          };
         };
       };
 
-      pi4b_config = (base_config "aarch64-linux") // {
-        username = "pi";
-        device = "pi4b";
-        has_pi = false;
-      };
-
-      x64_config = base_config "x86_64-linux";
-
-      add_basic_mods =
-        name: mods:
-        (
-          mods
-          ++ [
-            ./os
-            ./secrets
-            ./host/common.nix
-            ./host/${name}/configuration.nix
-            ./fool/overlays
-            nur.modules.nixos.default
-            inputs.agenix.nixosModules.default
-            home-manager.nixosModules.home-manager
-            (
-              { lib, ... }:
-              {
-                _module.args = {
-                  inherit nixos-hardware;
-                };
-                home-manager.sharedModules = [
-                  ./fool
-                  inputs.nixvim.homeModules.nixvim
-                ];
-              }
-            )
-          ]
-        );
-
-      pass_config =
-        config: override:
+      mkHost =
+        name: host:
         let
-          args = config // override;
-          home-nix = args.home-nix or ./home/pc;
+          args = {
+            inherit
+              gtr5_pubkey
+              inputs
+              nixpkgs
+              ;
+            inherit (host)
+              system
+              username
+              device
+              ;
+            all_proxy = false;
+            has_pi = host.hasPi;
+            pkgs-stable = import nixpkgs-stable {
+              inherit (host) system;
+              config.allowUnfree = true;
+            };
+          };
+
+          homeModule = {
+            _module.args = args;
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users."${host.username}" = import host.homeModule;
+            home-manager.extraSpecialArgs = args;
+          };
         in
-        {
-          _module.args = args;
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users."${args.username}" = import home-nix;
-          home-manager.extraSpecialArgs = args;
-          ## XXX failed _module.args, inputs missing
-          #home-manager.sharedModules = [ { _module.args = args; } ];
+        nixpkgs.lib.nixosSystem {
+          inherit (host) system;
+          modules =
+            host.extraModules.beforeHome
+            ++ [ homeModule ]
+            ++ host.extraModules.afterHome
+            ++ [
+              ./os
+              ./secrets
+              ./host/common.nix
+              ./host/${name}/configuration.nix
+              ./fool/overlays
+              nur.modules.nixos.default
+              inputs.agenix.nixosModules.default
+              home-manager.nixosModules.home-manager
+              (
+                { lib, ... }:
+                {
+                  _module.args = {
+                    inherit nixos-hardware;
+                  };
+                  home-manager.sharedModules = [
+                    ./fool
+                    inputs.nixvim.homeModules.nixvim
+                  ];
+                }
+              )
+            ];
         };
-
-      gtr7-hardware-list = with nixos-hardware.nixosModules; [
-        common-pc
-        # AMD Ryzen™ 7 7840HS (zen4)
-        common-cpu-amd
-        common-cpu-amd-pstate
-        # XXX zenpower abandoned zen4
-        common-cpu-amd-raphael-igpu
-        # nvme m2
-        common-pc-ssd
-      ];
-
-      mods = builtins.mapAttrs add_basic_mods {
-        nixos-xps13 = [
-          nixos-hardware.nixosModules.dell-xps-13-9360
-          (pass_config x64_config {
-            username = "fool";
-            device = "xps13";
-            home-nix = ./home/lightpad;
-          })
-        ];
-        nixos-gtr7 = [
-          (pass_config x64_config {
-            username = "fool";
-            device = "gtr7";
-          })
-        ]
-        ++ gtr7-hardware-list;
-        nixos-pi4b = [
-          nixos-hardware.nixosModules.raspberry-pi-4
-          #inputs.attic.nixosModules.atticd
-          ./os/atticd
-          (pass_config pi4b_config { home-nix = ./home/micro-srv; })
-        ];
-      };
     in
     {
-      nixosConfigurations = with nixpkgs.lib; {
-        nixos-xps13 = nixosSystem {
-          system = "x86_64-linux";
-          modules = mods.nixos-xps13;
-        };
-        nixos-gtr7 = nixosSystem {
-          system = "x86_64-linux";
-          modules = mods.nixos-gtr7;
-        };
-        nixos-pi4b = nixosSystem {
-          system = "aarch64-linux";
-          modules = mods.nixos-pi4b;
-        };
-      };
+      nixosConfigurations = builtins.mapAttrs mkHost hosts;
     };
 }
