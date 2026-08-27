@@ -4,7 +4,7 @@
 
 ## 概述
 
-这是一个使用 Nix 管理的现代化 Neovim 配置，支持多种编程语言和开发工具。配置采用模块化设计，结合了传统 Vim 配置和现代 Lua 配置。
+这是一个使用 Nixvim 管理的现代化 Neovim 配置，支持多种编程语言和开发工具。配置采用模块化设计，基础行为已迁入 `base.nix`，LSP 仍在迁移期保留少量 Lua 兼容配置。
 
 ## 配置文件结构
 
@@ -13,18 +13,18 @@ fool/nvim/
 ├── base.nix          # Nixvim 基础插件和兼容配置
 ├── lsp.nix           # LSP 插件、工具和 Lua 配置
 ├── ai.nix            # AI 插件
-├── init.vim          # 主配置文件（Vimscript）
-├── init.lua          # Lua 配置文件
-├── vimrc             # 传统 Vim 配置
+├── init.vim          # 旧主配置文件，待删除
+├── init.lua          # 旧 Lua 基础配置，已迁入 base.nix，待删除
+├── vimrc             # 旧 Vim 基础配置，已迁入 base.nix，待删除
 ├── workman-p.vim     # Workman 键盘布局映射
-├── lsp.lua           # LSP 配置
+├── lsp.lua           # LSP 兼容配置，待迁入 lsp.nix
 └── default.nix       # Nix 模块配置
 ```
 
 ## 核心功能
 
 ### 1. 插件管理
-- **插件管理器**: minpac
+- **插件管理器**: Nixvim 管理插件闭包，minpac 仅保留为可选兼容命令
 - **Nix 集成**: 通过 Nix 包管理器安装和管理插件
 - **可选插件**: 支持按需加载插件
 - **主要插件**:
