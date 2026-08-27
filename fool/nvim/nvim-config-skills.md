@@ -4,20 +4,20 @@
 
 ## 概述
 
-这是一个使用 Nixvim 管理的现代化 Neovim 配置，支持多种编程语言和开发工具。配置采用模块化设计，基础行为已迁入 `base.nix`，LSP 仍在迁移期保留少量 Lua 兼容配置。
+这是一个使用 Nixvim 管理的现代化 Neovim 配置，支持多种编程语言和开发工具。配置采用模块化设计，基础行为在 `base.nix`，LSP server 与条件能力在 `lsp.nix`，AI 插件在 `ai.nix`。
 
 ## 配置文件结构
 
 ```
 fool/nvim/
 ├── base.nix          # Nixvim 基础插件和兼容配置
-├── lsp.nix           # LSP 插件、工具和 Lua 配置
+├── lsp.nix           # LSP server、attach 行为和 treesitter 配置
 ├── ai.nix            # AI 插件
 ├── init.vim          # 旧主配置文件，待删除
 ├── init.lua          # 旧 Lua 基础配置，已迁入 base.nix，待删除
 ├── vimrc             # 旧 Vim 基础配置，已迁入 base.nix，待删除
 ├── workman-p.vim     # Workman 键盘布局映射
-├── lsp.lua           # LSP 兼容配置，待迁入 lsp.nix
+├── lsp.lua           # 旧 LSP 源文件，已迁入 lsp.nix，待删除
 └── default.nix       # Nix 模块配置
 ```
 
