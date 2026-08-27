@@ -18,7 +18,6 @@
   fool.desktop.heavy-apps.enable = true;
   fool.nvim = {
     ai = true;
-    nightly = false;
   };
   fool.alacritty.font-size = 11;
   fool.wezterm.enable = true;

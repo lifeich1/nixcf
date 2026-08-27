@@ -5,7 +5,6 @@
   inputs,
   ...
 }:
-with lib;
 let
   cfg = config.fool.nvim;
   minpac = pkgs.vimUtils.buildVimPlugin {
@@ -13,73 +12,44 @@ let
     version = inputs.minpac.lastModifiedDate;
     src = inputs.minpac;
   };
-  optionalPlug =
-    plugs:
-    (map (plug: {
-      plugin = plug;
-      optional = true;
-    }) plugs);
 in
 {
   options.fool.nvim = {
-    # default enabled
-    lsp = mkEnableOption "Language Server Protocol";
-    nightly = mkEnableOption "use nightly neovim";
-    ai = mkEnableOption "use aider";
+    lsp = lib.mkEnableOption "Language Server Protocol";
+    ai = lib.mkEnableOption "AI editor plugins";
   };
 
-  config = mkMerge [
-    {
-      programs.neovim = {
-        enable = true;
-        defaultEditor = true;
-        viAlias = true;
-        vimAlias = true;
-        vimdiffAlias = true;
-        withRuby = true;
-        withPython3 = true;
-        plugins =
-          with pkgs.vimPlugins;
-          ([
-            catppuccin-nvim
-            vim-dispatch
-            vim-obsession
-            vim-projectionist
-            vim-fugitive
-            bufexplorer
-            plenary-nvim
-            promise-async
-            nvim-ufo
-            nvim-coverage
-            fzf-vim
-          ])
-          ++ (optionalPlug [
-            vim-polyglot
-            minpac
-            gruvbox
-            vim-startuptime
-            nerdtree
-            seoul256-vim
-            vim-grepper
-          ]);
-      };
+  config = {
+    programs.nixvim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+      withRuby = true;
+      withPython3 = true;
+      wrapRc = true;
+      impureRtp = false;
+      enablePrintInit = true;
+      imports = [
+        (import ./base.nix {
+          inherit pkgs lib minpac;
+        })
+        ./lsp.nix
+        ./ai.nix
+      ];
+    };
 
-      home.packages = with pkgs; [
+    home.packages =
+      with pkgs;
+      [
         fzf
         fd # for fzf respect gitignore
         lemonade
         neovim-remote
         gitmoji-cli
-      ];
-
-      home.file.".vimrc".source = ./vimrc;
-      home.file.".vim/init.lua".source = ./init.lua;
-      home.file.".vim/pack/custom/start/myft/keymap/workman-p.vim".source = ./workman-p.vim;
-      xdg.enable = true;
-      xdg.configFile."nvim/init.vim".source = ./init.vim;
-    }
-    (mkIf cfg.lsp {
-      home.packages = with pkgs; [
+      ]
+      ++ lib.optionals cfg.lsp [
         nil
         nixfmt
         rust-analyzer
@@ -93,37 +63,6 @@ in
         ccls
       ];
 
-      programs.neovim.plugins = with pkgs.vimPlugins; [
-        nvim-lspconfig
-        fzf-lsp-nvim
-        (nvim-treesitter.withPlugins (
-          plugins: with plugins; [
-            lalrpop
-            just
-            toml
-            textproto
-          ]
-        ))
-      ];
-
-      home.file.".lintd/nvim/lsp.lua".source = ./lsp.lua;
-    })
-    (mkIf cfg.ai {
-      programs.neovim.plugins = [
-        {
-          plugin = pkgs.vimPlugins.avante-nvim;
-          # type = "lua";
-          # config = ''
-          #   --require("avante_lib").load()
-          #   --require("avante").setup()
-          # ''; # or builtins.readFile ./plugins/avante.lua
-        }
-      ];
-    })
-    (mkIf cfg.nightly {
-      # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-      programs.neovim.package =
-        inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    })
-  ];
+    xdg.enable = true;
+  };
 }

@@ -44,9 +44,6 @@ nnoremap <leader>W :match none<cr>
 
 
 " vimrc high-lv map ---- {{{
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
 nnoremap <leader>kj :set keymap=workman-p<cr>
 nnoremap <leader>kk :set keymap=<cr>
 nnoremap <leader>ya :%y<cr>

@@ -10,6 +10,9 @@
 
 ```
 fool/nvim/
+├── base.nix          # Nixvim 基础插件和兼容配置
+├── lsp.nix           # LSP 插件、工具和 Lua 配置
+├── ai.nix            # AI 插件
 ├── init.vim          # 主配置文件（Vimscript）
 ├── init.lua          # Lua 配置文件
 ├── vimrc             # 传统 Vim 配置
@@ -82,8 +85,6 @@ fool/nvim/
   - `<M-=>`: 切换到下一个标签页
 
 - **文件操作**:
-  - `<leader>ev`: 编辑 vimrc
-  - `<leader>sv`: 重新加载 vimrc
   - `<F2>`: 保存文件
 
 - **搜索和导航**:
@@ -153,7 +154,6 @@ fool/nvim/
 {
   fool.nvim = {
     lsp = true;      # 启用 LSP
-    nightly = false; # 使用 nightly Neovim
     ai = false;      # 启用 AI 助手
   };
 }
@@ -184,11 +184,9 @@ fool/nvim/
 
 ## 使用技巧
 
-1. **快速配置编辑**: 使用 `<leader>ev` 编辑配置，`<leader>sv` 重新加载
-2. **代码导航**: 结合 fzf 和 LSP 实现快速导航
-3. **代码审查**: 使用覆盖率工具检查测试覆盖
-4. **远程开发**: SSH 环境下的剪贴板无缝工作
-5. **多语言开发**: 支持多种编程语言的现代化开发体验
+1. **代码导航**: 结合 fzf 和 LSP 实现快速导航
+2. **代码审查**: 使用覆盖率工具检查测试覆盖
+3. **远程开发**: SSH 环境下的剪贴板无缝工作
+4. **多语言开发**: 支持多种编程语言的现代化开发体验
 
 这个配置为开发者提供了完整的现代化编辑器体验，结合了 Vim 的高效性和现代 IDE 的功能。
-
