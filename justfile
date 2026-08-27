@@ -1,145 +1,208 @@
 default: nixos
 
-update:
-  nix flake update --debug
+set shell := ["bash", "-euo", "pipefail", "-c"]
+
+NOM_FLAGS := "--log-format internal-json -v |& nom --json"
+XPS_TARGET := "root@192.168.3.21"
+GTR7_TARGET := "root@10.42.0.2" # direct connection
+DU_RESULT := "/tmp/nix-du-result.svg"
+HOST_NO_PROXY := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn,gitee.com"
 
 alias u := update
-
-chk *flags:
-  nix flake check {{flags}}
-
-NOM_FLAG := "--log-format internal-json -v |& nom --json"
-
-nixos *flags:
-  rm -f .prev-system
-  ln -s /nix/var/nix/profiles/`readlink /nix/var/nix/profiles/system` .prev-system
-  -sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}}
-  test "$(readlink .prev-system)" != "$(readlink /nix/var/nix/profiles/system)"
-  nvd diff .prev-system /nix/var/nix/profiles/system
-
-continue *flags:
-  sudo nixos-rebuild switch --flake . {{flags}} {{NOM_FLAG}} || echo "error code $?"
-  test "$(readlink .prev-system)" != "$(readlink /nix/var/nix/profiles/system)" && \
-  nvd diff .prev-system /nix/var/nix/profiles/system
-
 alias cont := continue
 alias g := nixos-debug
 alias pi := rebuild-pi
 alias xps := rebuild-xps
 alias gtr7 := rebuild-gtr7
+alias hi := update-history
 
-all: chk && rebuild-pi rebuild-xps
-  test $(hostname) = "nixos-gtr7"
+# Update all flake inputs.
+[group('build')]
+update:
+    nix flake update --debug
 
+# Evaluate every flake check.
+[group('build')]
+chk *flags:
+    nix flake check {{ flags }}
+
+# Activate the local host and show the system closure diff.
+[group('build')]
+nixos *flags:
+    just snapshot-system
+    sudo nixos-rebuild switch --flake . {{ flags }} {{ NOM_FLAGS }}
+    just system-diff
+
+# Retry local activation using the snapshot created by `nixos`.
+[group('build')]
+continue *flags:
+    test -L .prev-system
+    sudo nixos-rebuild switch --flake . {{ flags }} {{ NOM_FLAGS }}
+    just system-diff
+
+# Check and activate the local host with verbose logs.
+[group('build')]
 nixos-debug: chk
-  sudo nixos-rebuild switch --flake . --verbose --show-trace --print-build-logs
+    sudo nixos-rebuild switch --flake . --verbose --show-trace --print-build-logs
 
-rebuild-pi *flags: && (tag-deploy "pi")
-  nixos-rebuild switch --flake .{{"#nixos-pi4b"}} --target-host root@my-pi {{flags}} {{NOM_FLAG}}
+[private]
+snapshot-system:
+    rm -f .prev-system
+    ln -s /nix/var/nix/profiles/`readlink /nix/var/nix/profiles/system` .prev-system
 
-my_xps := "192.168.3.21"
+[private]
+system-diff:
+    nvd diff .prev-system /nix/var/nix/profiles/system
 
-rebuild-xps *flags: && (tag-deploy "xps")
-  nixos-rebuild switch --flake .{{"#nixos-xps13"}} --target-host root@{{my_xps}} {{flags}} {{NOM_FLAG}}
+# Check, deploy Pi and XPS sequentially; only run from GTR7.
+[group('deploy')]
+all:
+    test "$(hostname)" = "nixos-gtr7"
+    just chk
+    just rebuild-pi
+    just rebuild-xps
 
-#my_gtr7 := "192.168.31.67"
-my_gtr7 := "10.42.0.2" # direct connect
+# Deploy Pi4B and tag the successful revision.
+[group('deploy')]
+rebuild-pi *flags:
+    nixos-rebuild switch --flake .{{ "#nixos-pi4b" }} --target-host root@my-pi {{ flags }} {{ NOM_FLAGS }}
+    just tag-deploy pi
 
-rebuild-gtr7 *flags: && (tag-deploy "gtr7")
-  nixos-rebuild switch --flake .{{"#nixos-gtr7"}} --target-host root@{{my_gtr7}} {{flags}} {{NOM_FLAG}}
+# Deploy XPS13 and tag the successful revision.
+[group('deploy')]
+rebuild-xps *flags:
+    nixos-rebuild switch --flake .{{ "#nixos-xps13" }} --target-host {{ XPS_TARGET }} {{ flags }} {{ NOM_FLAGS }}
+    just tag-deploy xps
 
-# hardlink nvim config files for fast dev
-nvim:
-  #!/usr/bin/env bash
-  set -euxo pipefail
-  cd ./fool/nvim
-  cp -lb vimrc ~/.vimrc
-  cp -lb init.lua ~/.vim/init.lua
-  cp -lb init.vim ~/.config/nvim/init.vim
-  [ -f ~/.lintd/nvim/lsp.lua ] && cp -lb lsp.lua ~/.lintd/nvim/lsp.lua || echo "skip lsp"
-  [ -f ~/.lintd/nvim/ai.lua ] && cp -lb ai.lua ~/.lintd/nvim/ai.lua || echo "skip ai"
-
-# hardlink zsh config files for fast dev
-zsh:
-  #!/usr/bin/env bash
-  set -euxo pipefail
-  cd ./fool/zsh
-  cp -lb zshrc zshenv p10k.zsh ~/.lintd/zsh/
-
-# some recorded fix ops after upgrade
-fix: fix-alsa-store
-
-# fix alsa hardware params
-fix-alsa-store:
-  sudo alsactl store
-
-du_result := "/tmp/nix-du-result.svg"
-
-# run & show nix-du result
-du:
-  nix-du -s=500MB | dot -Tsvg > {{du_result}}
-  gwenview {{du_result}}
-
-temp_tag := `date +%N`
-host_no_proxy := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn,gitee.com"
-# NOTE not helpful if get in source not by pkgs
-proxy host="127.0.0.1" tmpfile=("/tmp/111nixdae.override.conf." + temp_tag): && daemon-restart
-  echo "[Service]" > {{tmpfile}}
-  echo "Environment=\"https_proxy=socks5h://{{host}}:10809\"" >> {{tmpfile}}
-  echo "Environment=\"no_proxy={{host_no_proxy}}\"" >> {{tmpfile}}
-  sudo mkdir -p /run/systemd/system/nix-daemon.service.d/
-  sudo mv -v {{tmpfile}} /run/systemd/system/nix-daemon.service.d/override.conf
-
-no-proxy: && daemon-restart
-  sudo rm -f /run/systemd/system/nix-daemon.service.d/override.conf
-
-# show nix-daemon.service environ vars
-daemon-env:
-  sudo cat /proc/`pidof nix-daemon|awk '{print $1}'`/environ|tr '\0' '\n'
-
-daemon-restart:
-  sudo systemctl daemon-reload
-  sudo systemctl restart nix-daemon
-
-# temporarily remove nix-community.cachix.org from substituters
-disable-commu: && daemon-restart
-  test ! -e /etc/nix/nix.conf.bak
-  sed 's/https:\/\/nix-community.cachix.org//' < /etc/nix/nix.conf > /tmp/nix.conf
-  perl -pi -e 's/https:\/\/mirrors?\.\S+//g' /tmp/nix.conf
-  sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.bak
-  sudo mv /tmp/nix.conf /etc/nix/nix.conf
-
-cfg-rollback: && daemon-restart
-  test -e /etc/nix/nix.conf.bak
-  sudo rm /etc/nix/nix.conf
-  sudo mv /etc/nix/nix.conf.bak /etc/nix/nix.conf
+# Deploy GTR7 and tag the successful revision.
+[group('deploy')]
+rebuild-gtr7 *flags:
+    nixos-rebuild switch --flake .{{ "#nixos-gtr7" }} --target-host {{ GTR7_TARGET }} {{ flags }} {{ NOM_FLAGS }}
+    just tag-deploy gtr7
 
 [private]
 tag-deploy type:
-  #!/usr/bin/env perl
-  my $n = 0;
-  foreach(split /\n/,qx/git tag -l/) {
-    if (/{{type}}-r(\d+)/) {
-      $n = $1 if $n < $1;
+    #!/usr/bin/env perl
+    use strict;
+    use warnings;
+
+    my $latest = 0;
+    foreach (split /\n/, qx/git tag -l '{{ type }}-r*'/) {
+      $latest = $1 if /^{{ type }}-r(\d+)$/ && $latest < $1;
     }
-  }
-  print "-- found latest revision number: $n\n";
-  $n += 1;
-  print "-- tagging '{{type}}-r$n'\n";
-  exec qq/git tag {{type}}-r$n/;
 
-# test: try prefetch github
-test:
-  proxychains4 nix flake prefetch github:numtide/flake-utils
+    my $tag = '{{ type }}-r' . ($latest + 1);
+    print "-- tagging '$tag'\n";
+    exec 'git', 'tag', $tag or die "failed to create tag '$tag': $!\n";
 
-print-nix-ver:
-  nix eval .#nixosConfigurations.nixos-gtr7.config.nix.package.version
+# Link Neovim configuration files for fast development.
+[group('dev')]
+nvim:
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    cd ./fool/nvim
+    cp -lb vimrc ~/.vimrc
+    cp -lb init.lua ~/.vim/init.lua
+    cp -lb init.vim ~/.config/nvim/init.vim
+    [ -f ~/.lintd/nvim/lsp.lua ] && cp -lb lsp.lua ~/.lintd/nvim/lsp.lua || echo "skip lsp"
+    [ -f ~/.lintd/nvim/ai.lua ] && cp -lb ai.lua ~/.lintd/nvim/ai.lua || echo "skip ai"
 
-update-history:
-  git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" flake.lock
+# Link Zsh configuration files for fast development.
+[group('dev')]
+zsh:
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    cd ./fool/zsh
+    cp -lb zshrc zshenv p10k.zsh ~/.lintd/zsh/
 
-alias hi := update-history
-
+# Create a Home Manager module skeleton and open it.
+[group('dev')]
 add-app name:
-  mkdir fool/{{ name }}
-  nvr -p fool/{{ name }}/default.nix fool/default.nix
+    mkdir fool/{{ name }}
+    nvr -p fool/{{ name }}/default.nix fool/default.nix
+
+# Prefetch a GitHub flake through proxychains.
+[group('dev')]
+test:
+    proxychains4 nix flake prefetch github:numtide/flake-utils
+
+# Run recorded post-upgrade fixes.
+[group('maintenance')]
+fix: fix-alsa-store
+
+# Persist current ALSA hardware parameters.
+[group('maintenance')]
+fix-alsa-store:
+    sudo alsactl store
+
+# Render and open the Nix store size graph.
+[group('maintenance')]
+du:
+    nix-du -s=500MB | dot -Tsvg > {{ DU_RESULT }}
+    gwenview {{ DU_RESULT }}
+
+# Configure a temporary SOCKS5 proxy for nix-daemon.
+[group('maintenance')]
+proxy host="127.0.0.1":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    tmpfile="$(mktemp /tmp/nix-daemon-proxy.XXXXXX)"
+    trap 'rm -f "$tmpfile"' EXIT
+    {
+      echo "[Service]"
+      echo 'Environment="https_proxy=socks5h://{{ host }}:10809"'
+      echo 'Environment="no_proxy={{ HOST_NO_PROXY }}"'
+    } > "$tmpfile"
+    sudo install -Dm0644 "$tmpfile" /run/systemd/system/nix-daemon.service.d/override.conf
+    just daemon-restart
+
+# Remove the temporary nix-daemon proxy.
+[group('maintenance')]
+no-proxy:
+    sudo rm -f /run/systemd/system/nix-daemon.service.d/override.conf
+    just daemon-restart
+
+# Print nix-daemon environment variables.
+[group('maintenance')]
+daemon-env:
+    sudo cat /proc/`pidof nix-daemon | awk '{print $1}'`/environ | tr '\0' '\n'
+
+[private]
+daemon-restart:
+    sudo systemctl daemon-reload
+    sudo systemctl restart nix-daemon
+
+# Temporarily remove community and mirror substituters from nix.conf.
+[group('maintenance')]
+disable-commu:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    config=/etc/nix/nix.conf
+    backup=/etc/nix/nix.conf.bak
+    test ! -e "$backup"
+    tmpfile="$(mktemp /tmp/nix-conf.XXXXXX)"
+    trap 'rm -f "$tmpfile"' EXIT
+    sed 's|https://nix-community.cachix.org||' "$config" > "$tmpfile"
+    perl -pi -e 's/https:\/\/mirrors?\.\S+//g' "$tmpfile"
+    sudo cp -a "$config" "$backup"
+    sudo install -m0644 "$tmpfile" "$config"
+    just daemon-restart
+
+# Restore nix.conf saved by `disable-commu`.
+[group('maintenance')]
+cfg-rollback:
+    test -e /etc/nix/nix.conf.bak
+    sudo mv -f /etc/nix/nix.conf.bak /etc/nix/nix.conf
+    just daemon-restart
+
+# Print the evaluated Nix version for GTR7.
+[group('info')]
+print-nix-ver:
+    nix eval .#nixosConfigurations.nixos-gtr7.config.nix.package.version
+
+# Show commits that changed flake.lock.
+[group('info')]
+update-history:
+    git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" flake.lock

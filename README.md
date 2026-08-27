@@ -21,4 +21,4 @@
 - `tools/`：运维辅助脚本；常用构建/部署命令集中在 `justfile`。
 - `skill/`：项目本地维护约定，包括 Gitmoji commit message。
 
-常用校验为 `just chk`（`nix flake check`）；部署命令为 `just pi`、`just xps` 和 `just gtr7`。输入源与具体版本以 `flake.nix`、`flake.lock` 为准。
+常用校验为 `just chk`（`nix flake check`）；部署命令为 `just pi`、`just xps` 和 `just gtr7`。运行 `just --list` 可按 build、deploy、dev、maintenance、info 分组查看其他操作。输入源与具体版本以 `flake.nix`、`flake.lock` 为准。
