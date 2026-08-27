@@ -95,17 +95,25 @@ tag-deploy type:
     print "-- tagging '$tag'\n";
     exec 'git', 'tag', $tag or die "failed to create tag '$tag': $!\n";
 
-# Link Neovim configuration files for fast development.
+# Build and run the Nixvim wrapper for fast Neovim config development.
 [group('dev')]
-nvim:
+nvim host="nixos-gtr7":
     #!/usr/bin/env bash
     set -euxo pipefail
-    cd ./fool/nvim
-    cp -lb vimrc ~/.vimrc
-    cp -lb init.lua ~/.vim/init.lua
-    cp -lb init.vim ~/.config/nvim/init.vim
-    [ -f ~/.lintd/nvim/lsp.lua ] && cp -lb lsp.lua ~/.lintd/nvim/lsp.lua || echo "skip lsp"
-    [ -f ~/.lintd/nvim/ai.lua ] && cp -lb ai.lua ~/.lintd/nvim/ai.lua || echo "skip ai"
+    case "{{ host }}" in
+      nixos-gtr7|nixos-xps13)
+        user=fool
+        ;;
+      nixos-pi4b)
+        user=pi
+        ;;
+      *)
+        echo "unknown host: {{ host }}" >&2
+        exit 2
+        ;;
+    esac
+    nix build ".#nixosConfigurations.{{ host }}.config.home-manager.users.${user}.programs.nixvim.build.package"
+    exec ./result/bin/nvim
 
 # Link Zsh configuration files for fast development.
 [group('dev')]

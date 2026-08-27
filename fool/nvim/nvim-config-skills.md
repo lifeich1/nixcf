@@ -1,152 +1,42 @@
-# Neovim 配置技能总结
-
-基于 `fool/nvim/` 目录的配置分析
+# Neovim 配置维护提示
 
 ## 概述
 
-这是一个使用 Nixvim 管理的现代化 Neovim 配置，支持多种编程语言和开发工具。配置采用模块化设计，基础行为在 `base.nix`，LSP server 与条件能力在 `lsp.nix`，AI 插件在 `ai.nix`。
+本目录使用 Nixvim 管理 Neovim wrapper、插件闭包和最终 init 配置。Home Manager 仍负责外围 CLI 包和主机级开关。
 
 ## 配置文件结构
 
-```
+```text
 fool/nvim/
-├── base.nix          # Nixvim 基础插件和兼容配置
-├── lsp.nix           # LSP server、attach 行为和 treesitter 配置
-├── ai.nix            # AI 插件
-├── init.vim          # 旧主配置文件，待删除
-├── init.lua          # 旧 Lua 基础配置，已迁入 base.nix，待删除
-├── vimrc             # 旧 Vim 基础配置，已迁入 base.nix，待删除
+├── default.nix       # fool.nvim options、外围包、programs.nixvim 入口
+├── base.nix          # 基础插件、选项、键位、autocmd 和兼容片段
+├── lsp.nix           # LSP server、attach 行为、diagnostic、treesitter
+├── ai.nix            # AI 插件条件安装
 ├── workman-p.vim     # Workman 键盘布局映射
-├── lsp.lua           # 旧 LSP 源文件，已迁入 lsp.nix，待删除
-└── default.nix       # Nix 模块配置
+├── readme.md
+└── nvim-config-skills.md
 ```
 
-## 核心功能
+## 模块职责
 
-### 1. 插件管理
-- **插件管理器**: Nixvim 管理插件闭包，minpac 仅保留为可选兼容命令
-- **Nix 集成**: 通过 Nix 包管理器安装和管理插件
-- **可选插件**: 支持按需加载插件
-- **主要插件**:
-  - catppuccin-nvim (主题)
-  - nvim-ufo (代码折叠)
-  - nvim-lspconfig (LSP 配置)
-  - nvim-treesitter (语法高亮)
-  - fzf-vim (模糊查找)
-  - vim-fugitive (Git 集成)
-  - nvim-coverage (代码覆盖率)
+- `default.nix`：
+  - 声明 `fool.nvim.lsp` 和 `fool.nvim.ai`。
+  - 启用 `programs.nixvim`、alias、provider、`impureRtp = false` 和 `enablePrintInit = true`。
+  - 维护 `home.packages` 中的 Neovim 外围 CLI 与 LSP 工具。
+- `base.nix`：
+  - 声明基础插件、主题、UFO、coverage、全局变量、选项、键位、autocmd。
+  - 用 `files."keymap/workman-p.vim"` 安装 Workman keymap。
+  - 保留 minpac 命令、abbreviation、本地 provider 探测、SSH clipboard 和 `~/.lintd/nvim/addon.lua` 加载等兼容片段。
+- `lsp.nix`：
+  - 只在 `hmConfig.fool.nvim.lsp` 为真时启用。
+  - 声明 `jsonls`、`html`、`cssls`、`pylsp`、`bashls`、`clangd`、`eslint`、`vimls`、`marksman`、`perlpls`、`nil_ls`、`rust_analyzer`、`lua_ls`。
+  - 所有 server 使用 `package = null`，工具包仍由 Home Manager 显式安装。
+  - 限定 Treesitter grammar 为 `lalrpop`、`just`、`toml`、`textproto`。
+- `ai.nix`：
+  - 只在 `hmConfig.fool.nvim.ai` 为真时安装 `avante-nvim`。
+  - 当前不调用 setup，不声明 provider 或密钥。
 
-### 2. 语言服务器协议 (LSP)
-- **支持的语言服务器**:
-  - Rust: rust-analyzer
-  - Nix: nil + nixfmt
-  - Lua: lua-language-server
-  - Python: python-lsp-server
-  - C/C++: ccls/clangd
-  - Bash: bash-language-server
-  - Perl: PLS
-  - Markdown: marksman
-  - Web: vscode-langservers-extracted
-
-- **LSP 功能**:
-  - 自动补全
-  - 代码格式化
-  - 错误检查
-  - 代码导航
-  - 悬停文档
-  - 重命名重构
-
-### 3. 代码折叠 (UFO)
-- 支持高级代码折叠
-- 折叠预览窗口
-- 快捷键:
-  - `zR`: 打开所有折叠
-  - `zM`: 关闭所有折叠
-  - `zr`: 打开除特定类型外的折叠
-  - `zm`: 关闭特定类型的折叠
-  - `K`: 预览折叠内容或显示悬停文档
-
-### 4. 主题和外观
-- **主题**: Catppuccin (frappe 风格)
-- **透明背景**: 支持透明终端背景
-- **状态栏定制**: 自定义状态栏颜色
-- **语法高亮**: Tree-sitter 提供精确的语法高亮
-
-### 5. 键盘映射和快捷键
-
-#### 领导键 (Leader)
-- `<leader>` = 空格键
-- `<localleader>` = `\`
-
-#### 常用快捷键
-- **窗口管理**:
-  - `<M-h/j/k/l>`: 窗口间导航
-  - `<M-->`: 切换到前一个标签页
-  - `<M-=>`: 切换到下一个标签页
-
-- **文件操作**:
-  - `<F2>`: 保存文件
-
-- **搜索和导航**:
-  - `<leader>o`: 文件搜索 (fzf)
-  - `<leader>zb`: 缓冲区列表
-  - `<leader>zw`: 窗口列表
-  - `<leader>gg`: Grepper 搜索
-
-- **LSP 相关**:
-  - `gD`: 转到声明
-  - `gd`: 转到定义
-  - `<leader>e`: 打开诊断浮窗
-  - `[d`/`]d`: 导航诊断
-  - `<leader>f`: 格式化代码
-
-#### Workman 键盘布局
-- 支持 Workman-P 键盘布局
-- 通过 `set keymap=workman-p` 启用
-- 快捷键: `<leader>kj` 启用, `<leader>kk` 禁用
-
-### 6. 文件类型支持
-- **自定义文件类型**:
-  - `.lalrpop`: LALR 解析器生成器
-  - `.json.age`: 加密的 JSON 文件
-  - `.pb.txt`: Protocol Buffers 文本格式
-
-- **Tree-sitter 支持**:
-  - lalrpop
-  - just
-  - toml
-  - textproto
-
-### 7. Git 集成
-- **vim-fugitive**: Git 命令集成
-- **Git commit emoji**: 提交时选择 emoji (`<leader>j` 或 `<C-J>`)
-- **变更状态**: 集成到状态栏
-
-### 8. 特殊功能
-
-#### SSH 环境支持
-- 在 SSH 会话中自动使用 OSC52 剪贴板
-- 通过 lemonade 工具实现远程剪贴板共享
-
-#### 代码覆盖率
-- 支持 Rust 代码覆盖率
-- 使用 cargo-llvm-cov 生成覆盖率报告
-- 可视化显示覆盖/未覆盖的代码行
-
-#### 自动补全
-- 模糊匹配补全
-- 自动触发补全（在 `.` 和 `>` 字符后）
-- 快捷键: `<C-M-i>` 手动触发补全
-
-#### 代码格式化
-- 保存时自动格式化
-- 支持多种格式化工具:
-  - nixfmt (Nix)
-  - rustfmt (Rust)
-  - Lua 格式化器
-  - 其他语言的 LSP 格式化
-
-### 9. 配置选项
+## 公开开关
 
 通过 Nix 配置模块提供选项：
 
@@ -159,34 +49,18 @@ fool/nvim/
 }
 ```
 
-## 依赖工具
+## 维护规则
 
-- **必需工具**:
-  - fzf (模糊查找)
-  - fd (文件查找)
-  - lemonade (远程剪贴板)
-  - neovim-remote
-  - gitmoji-cli
+- 不恢复 Home Manager 旧 Neovim module 或旧的用户目录配置复制流程。
+- 不新增 nightly 空壳开关；如需 nightly，必须先添加真实 flake input 并单独验证。
+- 不把 API key、token 或本地 addon 内容写入 Nix store 或 Git。
+- 新增插件或语言能力时，优先在 Nixvim module 中声明；只有 Nixvim 当前无法等价表达时才使用小段 raw Vimscript/Lua。
+- 修改本目录 Nix 配置后优先运行 `just chk`；快速检查 wrapper 可运行 `just nvim` 或 `just nvim <host>`。
 
-- **LSP 工具** (可选):
-  - nil (Nix LSP)
-  - rust-analyzer
-  - lua-language-server
-  - 各种语言服务器
+## 常用行为
 
-## 配置特点
-
-1. **模块化设计**: 通过 Nix 模块实现配置的模块化
-2. **环境感知**: 自动检测 SSH 环境并调整配置
-3. **性能优化**: 延迟加载可选插件
-4. **跨平台**: 支持本地和远程开发环境
-5. **可扩展**: 易于添加新的语言支持和插件
-
-## 使用技巧
-
-1. **代码导航**: 结合 fzf 和 LSP 实现快速导航
-2. **代码审查**: 使用覆盖率工具检查测试覆盖
-3. **远程开发**: SSH 环境下的剪贴板无缝工作
-4. **多语言开发**: 支持多种编程语言的现代化开发体验
-
-这个配置为开发者提供了完整的现代化编辑器体验，结合了 Vim 的高效性和现代 IDE 的功能。
+- `<leader>` 是空格，`<localleader>` 是 `\`。
+- `<leader>o` 打开 fzf 文件搜索，`<leader>gg` 按需加载 Grepper。
+- `zR`、`zM`、`zr`、`zm` 控制 UFO 折叠；`K` 优先预览折叠，否则走 LSP hover。
+- `fool.nvim.lsp` 开启时，`gD`、`gd`、`<localleader>f`、`<localleader>e`、`[d`、`]d` 等 LSP/diagnostic 键位生效。
+- Workman-P 通过 runtime keymap 提供，`<leader>kj` 启用，`<leader>kk` 关闭。
