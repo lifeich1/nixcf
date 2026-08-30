@@ -22,6 +22,7 @@ with lib;
     ./kitty
     ./misc
     ./nvim
+    ./reasonix
     ./wezterm
     ./xray
     ./zsh

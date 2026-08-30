@@ -9,6 +9,7 @@
   fool.desktop.programs.enable = true;
   fool.misc.nixbuild = true;
   fool.com-lemonade.enable = true;
+  fool.reasonix.enable = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;
   fool.proxy.use-pi = true;
   fool.git.github-proxy = true;

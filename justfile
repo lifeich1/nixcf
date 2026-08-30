@@ -16,10 +16,15 @@ alias xps := rebuild-xps
 alias gtr7 := rebuild-gtr7
 alias hi := update-history
 
-# Update all flake inputs.
+# Update Reasonix, then all flake inputs.
 [group('build')]
-update:
+update: update-reasonix
     nix flake update --debug
+
+# Update the pinned stable Reasonix CLI release.
+[group('build')]
+update-reasonix:
+    ./fool/reasonix/update.py
 
 # Evaluate every flake check.
 [group('build')]
