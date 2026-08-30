@@ -1,0 +1,4 @@
+interface:
+  display_name: "nixcf Flake Packages"
+  short_description: "Safely evolve nixcf flake inputs and packages"
+  default_prompt: "Use $nixcf-flake-package to safely change a flake input or external package in this repository."

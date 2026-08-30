@@ -1,0 +1,4 @@
+interface:
+  display_name: "nixcf Module Change"
+  short_description: "Route and validate nixcf module changes safely"
+  default_prompt: "Use $nixcf-module-change to implement and validate a scoped NixOS or Home Manager module change."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nixcf Nixvim"
+  short_description: "Safely maintain this flake’s Nixvim configuration"
+  default_prompt: "Use $nixcf-nixvim to add or review a Nixvim change across the affected Home Manager profiles."

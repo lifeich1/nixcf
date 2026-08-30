@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nixcf Service and Firewall"
+  short_description: "Refactor nixcf services and firewall ownership"
+  default_prompt: "Use $nixcf-service-firewall to safely refactor a NixOS service and its firewall ownership."

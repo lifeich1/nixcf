@@ -1,0 +1,4 @@
+interface:
+  display_name: "nixcf Agenix Secrets"
+  short_description: "Safely audit and wire nixcf Agenix secrets"
+  default_prompt: "Use $nixcf-secrets-agenix to safely audit or update Agenix secret wiring in this repository."

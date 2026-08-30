@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nixcf Deploy"
+  short_description: "Safely validate, deploy, verify, and roll back nixcf hosts"
+  default_prompt: "Use $nixcf-deploy to plan and safely execute a deployment for one nixcf host."
