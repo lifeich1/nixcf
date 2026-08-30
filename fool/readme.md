@@ -4,6 +4,7 @@
 
 - 各功能模块通常在 `fool/<name>/default.nix` 中声明 option，并用 `mkIf` 按主机启用。
 - `desktop/` 将通用桌面应用、大型应用与独立程序配置分为三个显式开关。
+- `bililiverecorder/` 运行固定稳定版本的 GHCR 录播容器，并提供标签更新脚本。
 - `reasonix/` 打包固定版本的 x86_64 Linux CLI，并提供稳定版更新脚本。
 - 主机侧开关集中在 `home/<profile>/default.nix`，不要在聚合入口硬编码某台机器的选择。
 - `overlays/` 例外：它由系统模块列表直接导入，用于把外部 flake 包放入 `pkgs`。

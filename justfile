@@ -16,10 +16,15 @@ alias xps := rebuild-xps
 alias gtr7 := rebuild-gtr7
 alias hi := update-history
 
-# Update Reasonix, then all flake inputs.
+# Update pinned packages, then all flake inputs.
 [group('build')]
-update: update-reasonix
+update: update-bililiverecorder update-reasonix
     nix flake update --debug
+
+# Update the pinned stable BililiveRecorder container tag.
+[group('build')]
+update-bililiverecorder:
+    ./fool/bililiverecorder/update.py
 
 # Update the pinned stable Reasonix CLI release.
 [group('build')]
