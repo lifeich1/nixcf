@@ -25,7 +25,7 @@ If a requested step crosses this boundary, stop that step. Explain the safe user
 
 1. Read root `README.md` and `flake.nix`.
 2. Read the `readme.md` files for `secrets/` and every affected `host/`, `home/`, `os/`, or `fool/` directory.
-3. Run `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` before opening a potential credential source or running any command that evaluates, builds, checks, locks, activates, or deploys this flake. A nonzero result is a hard stop for those operations, not permission to inspect the flagged file.
+3. Run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` before opening a potential credential source or running any command that evaluates, builds, checks, locks, activates, or deploys this flake. A nonzero result is a hard stop for those operations, not permission to inspect the flagged file.
 4. Read only non-secret source needed to trace declarations and consumers. While the gate is blocked, use filename/status metadata and safe non-secret sources; do not scan or open flagged sources broadly.
 5. Read [references/repo-map-and-checks.md](references/repo-map-and-checks.md) before tracing Attic, Xray, password, recipient, migration, or validation work.
 6. Treat documentation as navigation; verify current hosts, imports, inputs, and enabled state only through sources that the gate permits.

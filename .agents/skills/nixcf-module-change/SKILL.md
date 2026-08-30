@@ -11,7 +11,7 @@ Route each change through the repository's host/profile/module graph, keep machi
 
 1. Work from the repository root and inspect `git status --short`. Preserve unrelated user changes and do not reformat or revert them.
 2. Read `README.md` and `flake.nix`. Derive the current host names, architectures, usernames, Home profiles, module arguments, and import graph from source rather than memory.
-3. Before opening `host/common.nix` or another potential credential source, run `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`. If blocked, treat every reported path as opaque and continue only with path/status metadata and permitted sources.
+3. Before opening `host/common.nix` or another potential credential source, run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`. If blocked, treat every reported path as opaque and continue only with path/status metadata and permitted sources.
 4. Read the `readme.md` in the target directory and its parent. Open only the target host/profile and modules implicated by the request and permitted by the source-safety gate.
 5. Trace the option definition, every enablement site, and any shared dependency before deciding where to edit. When changing proxy behavior, inspect both the user and system definitions of `fool.proxy` only when the gate permits their sources; otherwise report the blocked dependency.
 6. Identify the affected `nixosConfigurations` and architectures. Pay particular attention to external packages and overlays reachable by `aarch64-linux` hosts.
@@ -52,7 +52,7 @@ Move behavior used by multiple hosts or profiles into `os/` or `fool/` instead o
 Run validation in proportion to the change:
 
 1. Run `git diff --check` for every change, including documentation-only work.
-2. Before any repo-consuming Nix command, run `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`. Stop and report its path/category-only output if blocked; do not open reported sources or bypass it with a narrower attribute.
+2. Before any repo-consuming Nix command, run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`. Stop and report its path/category-only output if blocked; do not open reported sources or bypass it with a narrower attribute.
 3. Run `just chk` for Nix configuration changes only after the source-safety gate succeeds. Do not substitute a deployment command for local validation.
 4. If validation cannot complete because of the environment or the source-safety gate, report the exact command, failure, and unverified configurations. Do not claim success from partial evaluation.
 5. Summarize changed files, routing decisions, affected hosts and architectures, completed checks, and any remaining manual or runtime verification. Mention explicitly that no deployment occurred.

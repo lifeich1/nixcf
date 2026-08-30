@@ -38,7 +38,7 @@ Default to stopping when no safe assumption is available. Prefer a single-host r
 
 ## Read live sources
 
-Read the repository `README.md` and `flake.nix`, then the target host and Home profile `readme.md` files. Read `justfile` before proposing or executing any recipe. Before opening `host/common.nix`, another potential credential source, or a content diff that may include one, run `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`; keep reported paths opaque while blocked. For operational work, read [references/deployment-reference.md](references/deployment-reference.md), but use its table only as a navigation aid: source code wins if it has changed where the gate permits inspection.
+Read the repository `README.md` and `flake.nix`, then the target host and Home profile `readme.md` files. Read `justfile` before proposing or executing any recipe. Before opening `host/common.nix`, another potential credential source, or a content diff that may include one, run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`; keep reported paths opaque while blocked. For operational work, read [references/deployment-reference.md](references/deployment-reference.md), but use its table only as a navigation aid: source code wins if it has changed where the gate permits inspection.
 
 Extract and report before any activation:
 
@@ -68,7 +68,7 @@ Refuse a tagged deployment by default when any deployed source is dirty, untrack
 
 Surface pending `flake.lock` and `secrets/` path changes separately. Do not update inputs or inspect secret contents. If either affects the deployment, require the user to acknowledge it before a live switch.
 
-Run `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` before every repo-consuming Nix evaluation, build, check, activation, or deployment command. A nonzero result is a hard stop: do not open reported sources, bypass the gate with a narrower attribute, activate a previously unchecked dirty source, or deploy it. Report only the gate's path/category output.
+Run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` before every repo-consuming Nix evaluation, build, check, activation, or deployment command. A nonzero result is a hard stop: do not open reported sources, bypass the gate with a narrower attribute, activate a previously unchecked dirty source, or deploy it. Report only the gate's path/category output.
 
 Before live activation:
 

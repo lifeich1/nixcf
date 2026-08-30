@@ -11,7 +11,7 @@ Change service and network boundaries from current evidence. Keep local configur
 
 - Treat source and `flake.lock` as current truth. Treat README files as navigation and dated refactor plans as historical recommendations to revalidate.
 - Never inspect, decrypt, print, copy, or synthesize secret values. Read Agenix declarations and runtime paths only.
-- Treat `host/common.nix` and the credential candidates identified by the Agenix reference as opaque while `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` fails. Do not open them directly or use a content-producing search.
+- Treat `host/common.nix` and the credential candidates identified by the Agenix reference as opaque while `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` fails. Do not open them directly or use a content-producing search.
 - Run that source-safety gate before every repo-consuming Nix evaluation, build, check, lock, activation, or deployment command. Stop on a nonzero result; a narrower attribute does not bypass the risk of copying tracked source into `/nix/store`.
 - Never deploy, restart or stop a service, migrate or delete data, alter a live firewall, pull a live container image, update inputs, commit, or tag unless the user explicitly authorizes that exact action.
 - Do not edit `hardware-configuration.nix`, `system.stateVersion`, or `home.stateVersion` for a service change.
@@ -127,7 +127,7 @@ For containers, expose image, digest, bind/listen address, host/container ports,
 
 - Update the affected module or directory `readme.md` so options, ownership, and enablement match source.
 - Run `git diff --check`.
-- Before any Nix command, run `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`; if blocked, skip Nix validation and report the path/category-only result.
+- Before any Nix command, run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`; if blocked, skip Nix validation and report the path/category-only result.
 - For Nix changes, run `just chk` only after the gate succeeds.
 - Evaluate or build each affected host, including `nixos-pi4b` for `aarch64-linux` changes, only after the gate succeeds.
 - Inspect final evaluated `allowedTCPPorts`, `allowedUDPPorts`, and ranges to detect duplicates or unexpected broad access.

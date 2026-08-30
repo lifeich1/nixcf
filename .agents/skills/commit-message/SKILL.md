@@ -1,3 +1,8 @@
+---
+name: commit-message
+description: Compose commit messages in the nixcf repository following its established Gitmoji convention (`<emoji> <component>: <short description>`, imperative, ≤50 chars, optional body). Use when preparing any commit message for this repository.
+---
+
 # Commit Message 技能总结
 
 基于 nixcf 仓库 483 条 commit 历史分析。

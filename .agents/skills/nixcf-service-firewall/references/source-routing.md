@@ -42,7 +42,7 @@ Confirm this table against `flake.nix` each time.
 Run the source-safety gate before opening any routed source or invoking Nix:
 
 ```console
-skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
+.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
 ```
 
 While it is blocked, do not open `host/common.nix` or reported credential candidates. Search only permitted sources for additional owners before deciding:
@@ -56,11 +56,11 @@ Do not open `.age` files or print environment/token files while tracing dependen
 
 ## Dated references
 
-- [`skill/refactor-audit.md`](../../refactor-audit.md) is the 2026-08-30 audit baseline.
-- [`skill/refactor-plan-01-credentials.md`](../../refactor-plan-01-credentials.md) covers runtime credentials and Agenix sequencing.
-- [`skill/refactor-plan-03-host-endpoints.md`](../../refactor-plan-03-host-endpoints.md) covers host registry, endpoint, proxy, cache, and package ownership that services consume.
-- [`skill/refactor-plan-04-firewall-services.md`](../../refactor-plan-04-firewall-services.md) proposes the firewall/service migration order, validation, and rollback.
-- [`skill/refactor-plan-05-home-operations.md`](../../refactor-plan-05-home-operations.md) covers Home Manager container and operational follow-up.
+- [`.plans/refactor-audit.md`](.plans/refactor-audit.md) is the 2026-08-30 audit baseline.
+- [`.plans/refactor-plan-01-credentials.md`](.plans/refactor-plan-01-credentials.md) covers runtime credentials and Agenix sequencing.
+- [`.plans/refactor-plan-03-host-endpoints.md`](.plans/refactor-plan-03-host-endpoints.md) covers host registry, endpoint, proxy, cache, and package ownership that services consume.
+- [`.plans/refactor-plan-04-firewall-services.md`](.plans/refactor-plan-04-firewall-services.md) proposes the firewall/service migration order, validation, and rollback.
+- [`.plans/refactor-plan-05-home-operations.md`](.plans/refactor-plan-05-home-operations.md) covers Home Manager container and operational follow-up.
 
 Use these documents to recover rationale and known risks. Verify every stated path, option, enablement, and dependency against current source and `flake.lock`; do not automatically execute their sequence.
 

@@ -66,7 +66,7 @@ For overlays:
 
 ## Reconcile the lockfile narrowly
 
-1. Run `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` before any repo-consuming Nix command. Stop on a nonzero result; do not open reported sources or bypass the gate with a narrower update/evaluation.
+1. Run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` before any repo-consuming Nix command. Stop on a nonzero result; do not open reported sources or bypass the gate with a narrower update/evaluation.
 2. Read the installed Nix version and the local help for `nix flake update` and `nix flake lock` immediately before choosing a command. Their experimental CLI has changed; do not reuse deprecated forms from memory. Commands that only display installed-version or CLI help may run before the source-safety gate because they do not consume the repository.
 3. Prefer the current supported named-input update form for an existing input. For a newly declared or removed input, use the currently documented lock reconciliation that preserves already-current entries.
 4. Do not use the repository's all-input update recipe for a targeted change.

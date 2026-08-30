@@ -19,6 +19,6 @@
 - `fool/`：`fool.*` Home Manager 模块、用户工具和 overlays。
 - `secrets/`：Agenix 声明、接收者与加密文件；不要输出或提交明文。
 - `tools/`：运维辅助脚本；常用构建/部署命令集中在 `justfile`。
-- `skill/`：仓库专用 Codex skill bundle 与项目维护约定，包括模块、secret、服务、flake、Nixvim、部署和 Gitmoji workflow。
+- `.agents/skills/`：仓库专用 skill bundle 与项目维护约定，包括模块、secret、服务、flake、Nixvim、部署和 Gitmoji workflow。
 
 常用校验为 `just chk`（`nix flake check`）；`just update` 会先更新固定的 BililiveRecorder 容器标签与 Reasonix CLI 包，再更新全部 flake inputs。单独更新可运行 `just update-bililiverecorder` 或 `just update-reasonix`。部署命令为 `just pi`、`just xps` 和 `just gtr7`。运行 `just --list` 可按 build、deploy、dev、maintenance、info 分组查看其他操作。输入源与具体版本以 `flake.nix`、`flake.lock` 为准。

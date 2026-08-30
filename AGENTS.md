@@ -54,4 +54,4 @@
 - Nix 配置改动：优先运行 `just chk`；若无法完成，明确报告未验证项和原因。
 - 部署命令为 `just pi`、`just xps`、`just gtr7`，会连接远端并创建部署 tag；除非用户明确要求，不要执行部署。
 - 不要提交、打 tag 或更新 flake inputs，除非用户明确要求。
-- 需要提交信息时遵循 `skill/commit-message.md`：`<emoji> <component>: <short description>`。
+- 需要提交信息时遵循 `.agents/skills/commit-message/SKILL.md`：`<emoji> <component>: <short description>`。

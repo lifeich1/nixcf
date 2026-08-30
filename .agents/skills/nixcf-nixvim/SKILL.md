@@ -53,7 +53,7 @@ Never ask for secret plaintext. Offer only repository-compatible runtime choices
 Run non-interactive checks from the repository root. Replace `HOST` and `USER` below with values derived from the current `flake.nix`.
 
 1. Always run `git diff --check` and inspect the scoped diff.
-2. Before any repo-consuming Nix command, run `skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`. Stop and report its path/category-only output if blocked; do not open reported sources or bypass it with a narrower wrapper attribute.
+2. Before any repo-consuming Nix command, run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`. Stop and report its path/category-only output if blocked; do not open reported sources or bypass it with a narrower wrapper attribute.
 3. Prefer `just chk` for a Nix configuration change only after the source-safety gate succeeds. Report a gate, cache, network, builder, or architecture limitation instead of claiming success from evaluation alone.
 4. For a mechanical refactor, compare the captured derivation paths or evaluated configuration with the post-change result. Investigate any difference; do not treat a successful build alone as proof of behavioral equivalence.
 5. Build each affected wrapper without launching it:

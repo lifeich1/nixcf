@@ -24,7 +24,7 @@ The Attic path crosses Home Manager, shared NixOS cache configuration, the syste
 Run this bundled gate before opening a potential credential source and before any repo-consuming `nix`, `nixos-rebuild`, or `just` command:
 
 ```sh
-skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
+.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
 ```
 
 The gate emits only fixed categories and repository paths. It never prints matched lines or values. A nonzero result means:
@@ -41,7 +41,7 @@ Run from the repository root. These commands return paths, names, status, or fil
 
 ```sh
 git status --short
-skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
+.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
 git ls-files 'secrets/*' 'os/atticd/*' 'host/nixos-pi4b/*' 'fool/attic/*'
 find secrets -maxdepth 1 -type f -printf '%f\n' | sort
 stat -c '%A %U:%G %n' secrets/*.age
@@ -57,7 +57,7 @@ Replace the last placeholder only with explicit changed files already confirmed 
 Evaluate only known structural attributes and only after the source-safety gate succeeds. Never evaluate a `.text`, credential, token, environment contents, or an entire config subtree.
 
 ```sh
-skill/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
+.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
 # Continue only after PASS.
 nix eval --raw '.#nixosConfigurations.nixos-gtr7.config.age.secrets.xray-config.path'
 nix eval --raw '.#nixosConfigurations.nixos-xps13.config.services.xray.settingsFile'
