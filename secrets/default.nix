@@ -23,7 +23,7 @@ with lib;
         xray-config = {
           file = ./xray-config.json.age;
           path = "/usr/local/etc/xray/config.json";
-          mode = "444";
+          mode = "0400";
           symlink = false;
         };
       };
