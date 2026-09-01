@@ -41,12 +41,8 @@ with lib;
       "nix-command"
       "flakes"
     ];
-    netrc-file = "/etc/fool/nix/netrc";
+    netrc-file = "/run/agenix/attic-netrc";
   };
-  environment.etc."fool/nix/netrc".text = ''
-    machine my-pi
-    password eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE4NzcxMDM5NjgsInN1YiI6Imd0cjciLCJodHRwczovL2p3dC5hdHRpYy5ycy92MSI6eyJjYWNoZXMiOnsiKiI6eyJyIjoxLCJ3IjoxLCJjYyI6MX19fX0.wT1DIf58mQ2Jnitp8gzgwfiCP_kOHLV0xDZ3VhJHCFY
-  ''; # homelab used only, expose ok
 
   services.xray.settingsFile = config.age.secrets.xray-config.path;
 }

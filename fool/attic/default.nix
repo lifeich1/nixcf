@@ -28,11 +28,12 @@ in
         WantedBy = [ "default.target" ];
       };
       Service = {
-        ExecStart = "${pkgs.attic-client}/bin/attic watch-store my-pi_attic";
+        ExecStart = "${lib.getExe pkgs.attic-client} watch-store my-pi_attic";
         RestartSec = "10min";
         Restart = "always";
       };
     };
-    xdg.configFile."attic/config.toml".source = ./attic-client.toml;
+    xdg.configFile."attic/config.toml".source =
+      config.lib.file.mkOutOfStoreSymlink "/run/agenix/attic-client-config";
   };
 }

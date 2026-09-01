@@ -16,4 +16,9 @@ in
   "pi-pass.age".publicKeys = all;
   "gtr-pass.age".publicKeys = builders;
   "xps-pass.age".publicKeys = builders;
+  "atticd-env.age".publicKeys = [ pi-host ];
+  "attic-netrc-pi4b.age".publicKeys = [ pi-host ];
+  "attic-netrc-gtr7.age".publicKeys = [ gtr-host ];
+  "attic-netrc-xps13.age".publicKeys = [ xps-host ];
+  "attic-client-config.age".publicKeys = [ gtr-host ];
 }

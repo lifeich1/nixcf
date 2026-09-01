@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable {
     services.atticd = {
       enable = true;
-      environmentFile = "/etc/fool/attic/atticd.env";
+      environmentFile = "/run/agenix/atticd-env";
       settings = {
         listen = "[::]:8080";
 
@@ -41,7 +41,5 @@ in
         garbage-collection.default-retention-period = "6 months";
       };
     };
-    environment.etc."fool/attic/atticd.env".source = ./atticd.env; # homelab only, secret expose ok
-
   };
 }
