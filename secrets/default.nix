@@ -27,10 +27,7 @@ with lib;
           symlink = false;
         };
       };
-      age.identityPaths = [
-        "/etc/ssh/ssh_host_ed25519_key"
-        "/home/${username}/.ssh/id_ed25519"
-      ];
+      age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     }
     (mkIf (isString config.fool.secrets.pass) {
       age.secrets."${config.fool.secrets.pass}".file = ./${config.fool.secrets.pass}.age;
