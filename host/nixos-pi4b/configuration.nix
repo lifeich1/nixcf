@@ -1,7 +1,7 @@
 {
   pkgs,
   username,
-  gtr5_pubkey,
+  adminKeys,
   ...
 }:
 {
@@ -66,7 +66,7 @@
     users."${username}" = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
-      openssh.authorizedKeys.keys = [ gtr5_pubkey ];
+      openssh.authorizedKeys.keys = [ adminKeys ];
       shell = pkgs.zsh;
     };
   };

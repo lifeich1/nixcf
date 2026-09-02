@@ -52,7 +52,7 @@
       ...
     }@inputs:
     let
-      gtr5_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM90PqsqQZW7/LKOq9lhIQWk0ASsdhoXBxdOjYqq86Ze fool@nixos-gtr5";
+      adminKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM90PqsqQZW7/LKOq9lhIQWk0ASsdhoXBxdOjYqq86Ze fool@nixos-gtr5";
       hosts = import ./hosts.nix { inherit nixos-hardware; };
 
       mkHost =
@@ -60,7 +60,7 @@
         let
           # 系统模块 specialArgs：按各模块真实形参声明裁剪
           sysArgs = {
-            inherit gtr5_pubkey inputs;
+            inherit adminKeys inputs;
             inherit (host) username device;
           };
           # Home Manager extraSpecialArgs：只传 home 树实际使用的参数
