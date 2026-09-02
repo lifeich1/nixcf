@@ -58,7 +58,6 @@
     homeModule = ./home/micro-srv;
     modules = [
       nixos-hardware.nixosModules.raspberry-pi-4
-      ./os/atticd
     ];
     deploy = {
       target = "root@my-pi";

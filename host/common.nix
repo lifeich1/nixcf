@@ -6,8 +6,6 @@
 }:
 with lib;
 {
-  boot.loader.systemd-boot.configurationLimit = mkDefault 50;
-
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -42,6 +40,4 @@ with lib;
     ];
     netrc-file = "/run/agenix/attic-netrc";
   };
-
-  services.xray.settingsFile = config.age.secrets.xray-config.path;
 }

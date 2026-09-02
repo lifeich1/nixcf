@@ -17,6 +17,7 @@ with lib;
 
   config = mkMerge [
     {
+      services.xray.settingsFile = config.age.secrets.xray-config.path;
       age.secrets = {
         xray-config = {
           file = ./xray-config.json.age;
