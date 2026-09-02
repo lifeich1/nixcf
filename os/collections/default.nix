@@ -4,12 +4,9 @@
     ./gtr.nix
   ];
 
-  # basic collection
+  # collection 特有 package；基础工具 vim/wget/git 由 os/default.nix 统一提供
   config = {
     environment.systemPackages = with pkgs; [
-      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      wget
-      git
       dmidecode
     ];
   };
