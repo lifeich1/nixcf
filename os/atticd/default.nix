@@ -2,6 +2,7 @@
 with lib;
 let
   cfg = config.fool.atticd;
+  atticPort = config.fool.homelab.attic.port;
 in
 {
   options.fool.atticd = {
@@ -13,7 +14,7 @@ in
       enable = true;
       environmentFile = "/run/agenix/atticd-env";
       settings = {
-        listen = "[::]:8080";
+        listen = "[::]:${toString atticPort}";
 
         # Data chunking
         #

@@ -41,10 +41,8 @@
   };
 
   fool.collections.gtr = true;
-  fool.proxy = {
-    has-pi = true;
-    use-pi = false;
-  };
+  # 系统 proxychains 保持本机；my-pi 的 hosts 解析由 fool.homelab.pi.resolvable 默认提供
+  fool.homelab.proxy.use-pi = false;
   fool.sudo.nopass = true;
   services.xray.enable = true;
   fool.syncthing.enable = true;

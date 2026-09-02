@@ -79,7 +79,8 @@
     overlay = true;
     sys-service = true;
   };
-  fool.proxy.has-pi = false;
+  # Pi 本机解析 my-pi 到 loopback 由 networking.extraHosts 维护，不注入共享 LAN hosts 条目
+  fool.homelab.pi.resolvable = false;
   services.xray.enable = true;
   fool.gitea.enable = true;
   fool.vlmcsd = {

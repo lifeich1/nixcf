@@ -1,13 +1,4 @@
 {
-  config,
-  lib,
-  ...
-}:
-with lib;
-let
-  cfg = config.fool.proxy;
-in
-{
   imports = [
     ./access
     ./atticd
@@ -16,6 +7,7 @@ in
     ./firewall
     ./gitea
     ./hobob
+    ./homelab
     ./nix
     ./plasma
     ./proxychains
@@ -24,17 +16,4 @@ in
     ./virtualbox
     ./vlmcsd
   ];
-
-  options.fool.proxy = {
-    has-pi = mkEnableOption "add `my-pi` to hosts";
-    use-pi = mkOption {
-      type = types.bool;
-      default = cfg.has-pi;
-      description = "enable use `my-pi` as proxy";
-    };
-  };
-
-  config = mkIf cfg.has-pi {
-    networking.hosts."192.168.3.6" = [ "my-pi" ];
-  };
 }

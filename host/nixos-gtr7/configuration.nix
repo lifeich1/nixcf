@@ -48,7 +48,7 @@
   services.teamviewer.enable = true;
 
   fool.collections.gtr = true;
-  fool.proxy.has-pi = true;
+  fool.homelab.proxy.use-pi = true;
   services.xray.enable = true;
   fool.syncthing.enable = true;
   fool.virtualbox.enable = true;

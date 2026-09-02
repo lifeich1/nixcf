@@ -1,7 +1,9 @@
+# Gitea 服务：域名、migration proxy 从 os/homelab 派生。
 { config, lib, ... }:
 with lib;
 let
   cfg = config.fool.gitea;
+  homelab = config.fool.homelab;
 in
 {
   options.fool.gitea = {
@@ -15,11 +17,11 @@ in
       lfs.enable = true;
       settings = {
         server = {
-          DOMAIN = "my-pi";
+          DOMAIN = homelab.pi.hostName;
         };
         proxy = {
           PROXY_ENABLED = true;
-          PROXY_URL = "http://127.0.0.1:10819";
+          PROXY_URL = "http://127.0.0.1:${toString homelab.proxy.migrationPort}";
           PROXY_HOSTS = "*.github.com";
         };
         migrations = {

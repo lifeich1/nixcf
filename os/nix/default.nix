@@ -3,8 +3,12 @@
 # substituters / trusted-public-keys / netrc-file 与 Pi 的 Attic 服务相互依赖，
 # 修改时与 os/atticd、fool/attic 一起核对；netrc-file 指向 Agenix 运行时文件
 # `/run/agenix/attic-netrc`，文档中不复制令牌。
-{ lib, username, ... }:
+# Attic endpoint/cache/public key 从 os/homelab 的类型化配置派生。
+{ config, lib, username, ... }:
 with lib;
+let
+  attic = config.fool.homelab.attic;
+in
 {
   nix.gc = {
     automatic = true;
@@ -16,7 +20,7 @@ with lib;
     auto-optimise-store = true;
     trusted-users = [ username ];
     substituters = mkBefore [
-      "http://my-pi:8080/my-pi_attic" # homelab
+      "${attic.endpoint}/${attic.cacheName}" # homelab
       # XXX THU block social heavy thoughtput
       #"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://mirrors.ustc.edu.cn/nix-channels/store"
@@ -30,7 +34,7 @@ with lib;
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       # nix community's cache server public key
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "my-pi_attic:ryUjSxUOb7D+cBc7Q7MfUXdd0isJWo8kteKETy9x2X0=" # homelab
+      attic.publicKey # homelab
       "rewine.cachix.org-1:aOIg9PvwuSefg59gVXXxGIInHQI9fMpskdyya2xO+7I="
     ];
     trace-verbose = true;
