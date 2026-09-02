@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, osConfig, ... }:
 with lib;
 let
   cfg = config.fool.cfg-ssh;
@@ -66,7 +66,7 @@ in
     (mkIf cfg.soc {
       programs.ssh.settings = {
         lclpi = {
-          HostName = "192.168.3.6";
+          HostName = osConfig.fool.homelab.pi.lanAddress;
           User = "pi";
         };
         opi1 = {

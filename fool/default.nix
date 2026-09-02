@@ -3,9 +3,18 @@
   pkgs,
   lib,
   username,
+  osConfig,
   ...
 }:
 with lib;
+let
+  hmCfg = config.fool.proxy;
+  # SOCKS host/port 的唯一来源是系统侧 os/homelab；HM 只保留 use-pi profile 选择，
+  # 不再接收可覆盖的 host/URL option。
+  hl = osConfig.fool.homelab;
+  proxyHost = if hmCfg.use-pi then hl.pi.hostName else "127.0.0.1";
+  tcpUrl = "${proxyHost}:${toString hl.proxy.socksPort}";
+in
 {
   imports = [
     ./alacritty
@@ -28,23 +37,15 @@ with lib;
   options.fool = {
     proxy = {
       use-pi = mkEnableOption "use `my-pi` as proxy server";
-      port = mkOption {
-        type = types.int;
-        default = 10809;
-        description = "socks5 port of proxy server";
-      };
-      host = mkOption {
-        internal = true;
-        default = "127.0.0.1";
-        type = types.str;
-      };
       tcp_url = mkOption {
         internal = true;
         type = types.str;
+        description = "派生 host:port，供 SSH ProxyCommand 等使用";
       };
       socks5_url = mkOption {
         internal = true;
         type = types.str;
+        description = "派生 socks5:// URL，供 git 等使用";
       };
     };
 
@@ -80,15 +81,9 @@ with lib;
         enableCompletion = true;
       };
 
-      fool.proxy.tcp_url =
-        let
-          inherit (config.fool.proxy) host;
-          port = toString config.fool.proxy.port;
-        in
-        "${host}:${port}";
-      fool.proxy.socks5_url = "socks5://${config.fool.proxy.tcp_url}";
+      fool.proxy.tcp_url = tcpUrl;
+      fool.proxy.socks5_url = "socks5://${tcpUrl}";
     }
-    (mkIf config.fool.proxy.use-pi { fool.proxy.host = "my-pi"; })
     {
       programs.gpg = {
         enable = true;

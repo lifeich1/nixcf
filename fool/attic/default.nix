@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }:
 with lib;
@@ -28,7 +29,8 @@ in
         WantedBy = [ "default.target" ];
       };
       Service = {
-        ExecStart = "${lib.getExe pkgs.attic-client} watch-store my-pi_attic";
+        ExecStart =
+          "${lib.getExe pkgs.attic-client} watch-store ${osConfig.fool.homelab.attic.cacheName}";
         RestartSec = "10min";
         Restart = "always";
       };
