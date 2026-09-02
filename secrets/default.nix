@@ -5,9 +5,6 @@
   device,
   ...
 }:
-let
-  cfg = config.fool.secrets;
-in
 with lib;
 {
   options.fool.secrets = {

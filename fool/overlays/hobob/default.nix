@@ -14,7 +14,7 @@ in
   };
   config = mkIf cfg.overlay {
     nixpkgs.overlays = [
-      (final: prev: { hobob = inputs.hobob.packages."${prev.stdenv.hostPlatform.system}".default; })
+      (_: prev: { hobob = inputs.hobob.packages."${prev.stdenv.hostPlatform.system}".default; })
     ];
 
   };
