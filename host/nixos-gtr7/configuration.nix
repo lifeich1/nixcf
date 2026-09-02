@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   imports = [
@@ -30,7 +30,7 @@
   fool.sudo.nopass = true;
   fool.secrets.pass = "gtr-pass";
 
-  users.users.fool = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "fool-gtr7";
     extraGroups = [
@@ -44,7 +44,7 @@
   };
 
   # Enable automatic login for the user.
-  services.getty.autologinUser = "fool";
+  services.getty.autologinUser = username;
   services.teamviewer.enable = true;
 
   fool.collections.gtr = true;

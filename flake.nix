@@ -53,50 +53,7 @@
     }@inputs:
     let
       gtr5_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM90PqsqQZW7/LKOq9lhIQWk0ASsdhoXBxdOjYqq86Ze fool@nixos-gtr5";
-      hosts = {
-        nixos-xps13 = {
-          system = "x86_64-linux";
-          username = "fool";
-          device = "xps13";
-          homeModule = ./home/lightpad;
-          extraModules = {
-            beforeHome = [ nixos-hardware.nixosModules.dell-xps-13-9360 ];
-            afterHome = [ ];
-          };
-        };
-        nixos-gtr7 = {
-          system = "x86_64-linux";
-          username = "fool";
-          device = "gtr7";
-          homeModule = ./home/pc;
-          extraModules = {
-            beforeHome = [ ];
-            afterHome = with nixos-hardware.nixosModules; [
-              common-pc
-              # AMD Ryzen™ 7 7840HS (zen4)
-              common-cpu-amd
-              common-cpu-amd-pstate
-              # XXX zenpower abandoned zen4
-              common-cpu-amd-raphael-igpu
-              # nvme m2
-              common-pc-ssd
-            ];
-          };
-        };
-        nixos-pi4b = {
-          system = "aarch64-linux";
-          username = "pi";
-          device = "pi4b";
-          homeModule = ./home/micro-srv;
-          extraModules = {
-            beforeHome = [
-              nixos-hardware.nixosModules.raspberry-pi-4
-              ./os/atticd
-            ];
-            afterHome = [ ];
-          };
-        };
-      };
+      hosts = import ./hosts.nix { inherit nixos-hardware; };
 
       mkHost =
         name: host:
@@ -123,10 +80,9 @@
           inherit (host) system;
           specialArgs = sysArgs;
           modules =
-            host.extraModules.beforeHome
-            ++ [ homeModule ]
-            ++ host.extraModules.afterHome
+            host.modules
             ++ [
+              homeModule
               ./os
               ./secrets
               ./host/common.nix
@@ -136,6 +92,7 @@
               inputs.agenix.nixosModules.default
               home-manager.nixosModules.home-manager
               {
+                networking.hostName = nixpkgs.lib.mkForce name;
                 home-manager.sharedModules = [
                   ./fool
                   inputs.nixvim.homeModules.nixvim
@@ -146,5 +103,7 @@
     in
     {
       nixosConfigurations = builtins.mapAttrs mkHost hosts;
+      # 不含 secret 的部署元数据，供 justfile 等运维入口查询 target/tag。
+      deployTargets = builtins.mapAttrs (name: host: host.deploy) hosts;
     };
 }

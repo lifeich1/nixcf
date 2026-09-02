@@ -4,6 +4,7 @@
 
 {
   pkgs,
+  username,
   ...
 }:
 
@@ -29,7 +30,7 @@
 
   fool.secrets.pass = "xps-pass";
 
-  users.users.fool = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "lintd";
     extraGroups = [
