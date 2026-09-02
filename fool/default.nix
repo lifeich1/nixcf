@@ -18,8 +18,6 @@ with lib;
     ./desktop
     ./fastfetch
     ./git
-    ./hobob
-    ./kitty
     ./misc
     ./nvim
     ./reasonix
