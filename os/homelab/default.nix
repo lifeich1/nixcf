@@ -7,18 +7,20 @@
 with lib;
 let
   cfg = config.fool.homelab;
+  # 默认值来自同一数据文件；flake 的 `homelabEndpoints` output 也读它
+  endpoints = import ./endpoints.nix;
 in
 {
   options.fool.homelab = {
     pi = {
       hostName = mkOption {
         type = types.str;
-        default = "my-pi";
+        default = endpoints.pi.hostName;
         description = "Pi 的 DNS name（LAN 内由 networking.hosts 解析）";
       };
       lanAddress = mkOption {
         type = types.str;
-        default = "192.168.3.6";
+        default = endpoints.pi.lanAddress;
         description = "Pi 的 LAN 地址";
       };
       resolvable = mkOption {
@@ -31,34 +33,34 @@ in
       use-pi = mkEnableOption "system proxychains 使用 Pi 的 SOCKS proxy（false 时指向 127.0.0.1）";
       socksPort = mkOption {
         type = types.port;
-        default = 10809;
+        default = endpoints.proxy.socksPort;
         description = "SOCKS5 proxy 端口";
       };
       migrationPort = mkOption {
         type = types.port;
-        default = 10819;
+        default = endpoints.proxy.migrationPort;
         description = "Gitea migration 用 HTTP proxy 端口，独立于 SOCKS 端口";
       };
     };
     attic = {
       scheme = mkOption {
         type = types.str;
-        default = "http";
+        default = endpoints.attic.scheme;
         description = "Attic binary cache 协议";
       };
       port = mkOption {
         type = types.port;
-        default = 8080;
+        default = endpoints.attic.port;
         description = "Attic 服务端口";
       };
       cacheName = mkOption {
         type = types.str;
-        default = "my-pi_attic";
+        default = endpoints.attic.cacheName;
         description = "Attic cache 名称";
       };
       publicKey = mkOption {
         type = types.str;
-        default = "my-pi_attic:ryUjSxUOb7D+cBc7Q7MfUXdd0isJWo8kteKETy9x2X0=";
+        default = endpoints.attic.publicKey;
         description = "Attic 签名 public key（非 secret）";
       };
       endpoint = mkOption {

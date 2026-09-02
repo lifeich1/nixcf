@@ -11,12 +11,16 @@
 
 ## 配置边界
 
-- `flake.nix`：组装 `nixosConfigurations`，传递 `username`、`device`、`home-nix` 等主机参数。
+- `flake.nix`：导入 `hosts.nix` 组装 `nixosConfigurations`，暴露 `deployTargets` 与
+  `homelabEndpoints` output。
+- `hosts.nix`：主机稳定元数据（hostname、username、system、homeModule、硬件模块、
+  deploy target/tagPrefix）的唯一来源。
 - `host/<hostname>/`：硬件、启动、用户以及该主机的系统服务开关。
 - `home/<profile>/`：该主机启用的 Home Manager 功能；不要在这里实现通用模块。
-- `os/<module>/`：可复用的 NixOS 系统模块。
-- `fool/<module>/`：可复用的 Home Manager 用户模块。
-- `fool/overlays/`：从 flake inputs 向 `pkgs` 注入个人包。
+- `os/<module>/`：可复用的 NixOS 系统模块；`os/homelab/` 拥有端点 options 与
+  `endpoints.nix` 数据文件，非敏感 endpoint 的唯一来源。
+- `fool/<module>/`：可复用的 Home Manager 用户模块；外部 flake package 经模块
+  `package` option 在启用点显式注入。
 - `secrets/`：Agenix 声明、接收者和加密载荷。
 
 主机对应关系：
@@ -37,7 +41,8 @@
 4. 在对应 `home/<profile>` 或 `host/<hostname>` 中选择启用。
 5. 同步更新新目录或受影响目录的 `readme.md`。
 
-共享逻辑应下沉到模块；不要复制到多个 host/profile。修改代理时同时检查用户态和系统态的 `fool.proxy` 定义。
+共享逻辑应下沉到模块；不要复制到多个 host/profile。修改代理时以 `os/homelab` 为端点
+唯一来源，Home 侧只保留 `fool.proxy.use-pi` 的 profile 选择（经 `osConfig` 只读消费）。
 
 ## 安全与兼容性
 
@@ -45,7 +50,7 @@
 - 修改 secret 时使用 Agenix，并同步检查 `secrets/secrets.nix` 的接收者。
 - `hardware-configuration.nix` 是硬件扫描结果，除非任务明确涉及硬件变化，否则不要改。
 - 不要随意修改 `system.stateVersion` 或 `home.stateVersion`；升级 input 不等于升级 state version。
-- `host/common.nix` 中的 substituters、public keys、netrc 与 Pi 上 Attic 服务相互依赖，修改时必须一起核对。
+- `os/nix/` 中的 substituters、public keys、netrc 与 Pi 上 Attic 服务相互依赖，修改时必须一起核对。
 - Pi 是 `aarch64-linux`；涉及外部包或 overlay 时确认目标架构存在对应 output。
 
 ## 验证与提交

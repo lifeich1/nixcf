@@ -103,5 +103,7 @@
       nixosConfigurations = builtins.mapAttrs mkHost hosts;
       # 不含 secret 的部署元数据，供 justfile 等运维入口查询 target/tag。
       deployTargets = builtins.mapAttrs (name: host: host.deploy) hosts;
+      # 非敏感 homelab endpoint（与 os/homelab option 默认值同源），供运维 recipe 查询。
+      homelabEndpoints = import ./os/homelab/endpoints.nix;
     };
 }

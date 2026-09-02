@@ -3,8 +3,6 @@ default: nixos
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
 NOM_FLAGS := "--log-format internal-json -v |& nom --json"
-XPS_TARGET := "root@192.168.3.21"
-GTR7_TARGET := "root@10.42.0.2" # direct connection
 DU_RESULT := "/tmp/nix-du-result.svg"
 HOST_NO_PROXY := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn,gitee.com"
 
@@ -73,22 +71,23 @@ all:
     just rebuild-xps
 
 # Deploy Pi4B and tag the successful revision.
+# target/tagPrefix 从 deployTargets output 读取（hosts.nix 为唯一来源）。
 [group('deploy')]
 rebuild-pi *flags:
-    nixos-rebuild switch --flake .{{ "#nixos-pi4b" }} --target-host root@my-pi {{ flags }} {{ NOM_FLAGS }}
-    just tag-deploy pi
+    nixos-rebuild switch --flake .{{ "#nixos-pi4b" }} --target-host "$(nix eval --raw .#deployTargets.nixos-pi4b.target)" {{ flags }} {{ NOM_FLAGS }}
+    just tag-deploy "$(nix eval --raw .#deployTargets.nixos-pi4b.tagPrefix)"
 
 # Deploy XPS13 and tag the successful revision.
 [group('deploy')]
 rebuild-xps *flags:
-    nixos-rebuild switch --flake .{{ "#nixos-xps13" }} --target-host {{ XPS_TARGET }} {{ flags }} {{ NOM_FLAGS }}
-    just tag-deploy xps
+    nixos-rebuild switch --flake .{{ "#nixos-xps13" }} --target-host "$(nix eval --raw .#deployTargets.nixos-xps13.target)" {{ flags }} {{ NOM_FLAGS }}
+    just tag-deploy "$(nix eval --raw .#deployTargets.nixos-xps13.tagPrefix)"
 
 # Deploy GTR7 and tag the successful revision.
 [group('deploy')]
 rebuild-gtr7 *flags:
-    nixos-rebuild switch --flake .{{ "#nixos-gtr7" }} --target-host {{ GTR7_TARGET }} {{ flags }} {{ NOM_FLAGS }}
-    just tag-deploy gtr7
+    nixos-rebuild switch --flake .{{ "#nixos-gtr7" }} --target-host "$(nix eval --raw .#deployTargets.nixos-gtr7.target)" {{ flags }} {{ NOM_FLAGS }}
+    just tag-deploy "$(nix eval --raw .#deployTargets.nixos-gtr7.tagPrefix)"
 
 [private]
 tag-deploy type:
@@ -160,16 +159,18 @@ du:
     gwenview {{ DU_RESULT }}
 
 # Configure a temporary SOCKS5 proxy for nix-daemon.
+# SOCKS 端口从 homelabEndpoints output 读取（os/homelab 为唯一来源）。
 [group('maintenance')]
 proxy host="127.0.0.1":
     #!/usr/bin/env bash
     set -euo pipefail
 
+    port="$(nix eval --raw .#homelabEndpoints.proxy.socksPort)"
     tmpfile="$(mktemp /tmp/nix-daemon-proxy.XXXXXX)"
     trap 'rm -f "$tmpfile"' EXIT
     {
       echo "[Service]"
-      echo 'Environment="https_proxy=socks5h://{{ host }}:10809"'
+      echo "Environment=\"https_proxy=socks5h://{{ host }}:${port}\""
       echo 'Environment="no_proxy={{ HOST_NO_PROXY }}"'
     } > "$tmpfile"
     sudo install -Dm0644 "$tmpfile" /run/systemd/system/nix-daemon.service.d/override.conf
