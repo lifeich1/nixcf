@@ -2,6 +2,7 @@
   pkgs,
   username,
   adminKeys,
+  inputs,
   ...
 }:
 {
@@ -76,7 +77,7 @@
     serve-friedegg = true;
   };
   fool.hobob = {
-    overlay = true;
+    package = inputs.hobob.packages.${pkgs.stdenv.hostPlatform.system}.default;
     sys-service = true;
   };
   # Pi 本机解析 my-pi 到 loopback 由 networking.extraHosts 维护，不注入共享 LAN hosts 条目

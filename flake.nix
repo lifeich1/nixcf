@@ -86,7 +86,6 @@
               ./os
               ./secrets
               ./host/${name}/configuration.nix
-              ./fool/overlays
               nur.modules.nixos.default
               inputs.agenix.nixosModules.default
               home-manager.nixosModules.home-manager

@@ -7,5 +7,7 @@
 - `bililiverecorder/` 运行固定稳定版本的 GHCR 录播容器，并提供标签更新脚本。
 - `reasonix/` 打包固定版本的 x86_64 Linux CLI，并提供稳定版更新脚本。
 - 主机侧开关集中在 `home/<profile>/default.nix`，不要在聚合入口硬编码某台机器的选择。
-- `overlays/` 例外：它由系统模块列表直接导入，用于把外部 flake 包放入 `pkgs`。
-- 修改代理逻辑时同时检查 `fool.proxy` 的用户态字段和 `os/default.nix` 的系统态字段。
+- 代理端点唯一来源是 `os/homelab`（经集成模式 `osConfig` 只读）；Home 侧只保留
+  `fool.proxy.use-pi` 的 profile 选择，不复制 host/URL。
+- 外部 flake package（hobob、cp-guard）由模块声明 `package` option、在启用点显式传入
+  input 的当前架构 package，不使用全局 overlay。
