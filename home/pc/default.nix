@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [ ../desktop-common.nix ];
@@ -14,7 +14,10 @@
   };
 
   fool.bililiverecorder.enable = true;
-  fool.cp-guard.enable = true;
+  fool.cp-guard = {
+    enable = true;
+    package = inputs.cp-guard.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  };
   fool.desktop.heavy-apps.enable = true;
   fool.nvim = {
     ai = true;

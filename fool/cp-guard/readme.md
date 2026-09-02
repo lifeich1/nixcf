@@ -1,7 +1,9 @@
 # Competitive Programming Guard
 
-`default.nix` 从 `inputs.cp-guard` 取当前架构的包，并以用户级 systemd 服务运行。
+`default.nix` 以用户级 systemd 服务运行 cp-guard。
 
 - `fool.cp-guard.enable` 控制服务。
+- `fool.cp-guard.package` 由启用点（`home/pc`）显式传入
+  `inputs.cp-guard.packages.${pkgs.stdenv.hostPlatform.system}.default`，模块本身不接收
+  完整 `inputs`。
 - `fool.cp-guard.dir` 指定竞赛源码目录，默认位于用户 home 下。
-- 外部包来源在根目录 `flake.nix`；当前由 `home/pc` 启用。
