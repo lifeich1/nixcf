@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   username,
   gtr5_pubkey,

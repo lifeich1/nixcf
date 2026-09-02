@@ -2,8 +2,9 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
-}@all:
+}:
 with lib;
 let
   cfg = config.fool.misc;
@@ -24,6 +25,6 @@ in
         nixpkgs-review
         nix-du
       ]
-      ++ [ all.inputs.agenix.packages."${all.system}".default ];
+      ++ [ inputs.agenix.packages."${pkgs.stdenv.hostPlatform.system}".default ];
   };
 }

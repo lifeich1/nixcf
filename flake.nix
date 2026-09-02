@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-unstable";
-    nixpkgs-stable.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git/?ref=nixos-26.05";
 
     ## manual mirrors
     home-manager = {
@@ -44,7 +43,6 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs-stable,
       home-manager,
       nixos-hardware,
       nur,
@@ -58,7 +56,6 @@
           username = "fool";
           device = "xps13";
           homeModule = ./home/lightpad;
-          hasPi = true;
           extraModules = {
             beforeHome = [ nixos-hardware.nixosModules.dell-xps-13-9360 ];
             afterHome = [ ];
@@ -69,7 +66,6 @@
           username = "fool";
           device = "gtr7";
           homeModule = ./home/pc;
-          hasPi = true;
           extraModules = {
             beforeHome = [ ];
             afterHome = with nixos-hardware.nixosModules; [
@@ -89,7 +85,6 @@
           username = "pi";
           device = "pi4b";
           homeModule = ./home/micro-srv;
-          hasPi = false;
           extraModules = {
             beforeHome = [
               nixos-hardware.nixosModules.raspberry-pi-4
@@ -103,35 +98,27 @@
       mkHost =
         name: host:
         let
-          args = {
-            inherit
-              gtr5_pubkey
-              inputs
-              nixpkgs
-              ;
-            inherit (host)
-              system
-              username
-              device
-              ;
-            all_proxy = false;
-            has_pi = host.hasPi;
-            pkgs-stable = import nixpkgs-stable {
-              inherit (host) system;
-              config.allowUnfree = true;
-            };
+          # 系统模块 specialArgs：按各模块真实形参声明裁剪
+          sysArgs = {
+            inherit gtr5_pubkey inputs;
+            inherit (host) username device;
+          };
+          # Home Manager extraSpecialArgs：只传 home 树实际使用的参数
+          homeArgs = {
+            inherit inputs;
+            inherit (host) username;
           };
 
           homeModule = {
-            _module.args = args;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."${host.username}" = import host.homeModule;
-            home-manager.extraSpecialArgs = args;
+            home-manager.extraSpecialArgs = homeArgs;
           };
         in
         nixpkgs.lib.nixosSystem {
           inherit (host) system;
+          specialArgs = sysArgs;
           modules =
             host.extraModules.beforeHome
             ++ [ homeModule ]
@@ -145,18 +132,12 @@
               nur.modules.nixos.default
               inputs.agenix.nixosModules.default
               home-manager.nixosModules.home-manager
-              (
-                { lib, ... }:
-                {
-                  _module.args = {
-                    inherit nixos-hardware;
-                  };
-                  home-manager.sharedModules = [
-                    ./fool
-                    inputs.nixvim.homeModules.nixvim
-                  ];
-                }
-              )
+              {
+                home-manager.sharedModules = [
+                  ./fool
+                  inputs.nixvim.homeModules.nixvim
+                ];
+              }
             ];
         };
     in
