@@ -24,7 +24,6 @@ with lib;
     ./nvim
     ./reasonix
     ./wezterm
-    ./xray
     ./zsh
   ];
 
