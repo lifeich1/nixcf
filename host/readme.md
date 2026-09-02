@@ -1,7 +1,7 @@
 # `host/`：主机配置
 
-`common.nix` 保存所有机器共享的 NixOS 设置；每个 `nixos-<device>/` 保存硬件、启动、用户和服务开关。
+每个 `nixos-<device>/` 保存硬件、启动、用户和服务开关；host 元数据（用户名、Home
+profile、硬件模块、deploy target）以根目录 `hosts.nix` 为唯一来源。
 
-根 `flake.nix` 会把 `common.nix` 与目标主机的 `configuration.nix` 一起加入模块列表。主机目录应只负责机器差异，通用可复用逻辑应下沉到 `os/` 或 `fool/`。
-
-注意：`common.nix` 含 homelab cache 的访问配置，`nix.settings.netrc-file` 指向 Agenix 运行时文件 `/run/agenix/attic-netrc`。文档中不要复制令牌；修改 cache 时检查 substituters、public keys、netrc 和 Attic 服务是否一致。
+共享的 NixOS 设置按职责下沉到 `os/`：基础系统在 `os/base/`、访问策略在 `os/access/`、
+Nix/cache 在 `os/nix/`。主机目录只负责机器差异；通用可复用逻辑不放在 `host/`。

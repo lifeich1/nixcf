@@ -85,7 +85,6 @@
               homeModule
               ./os
               ./secrets
-              ./host/common.nix
               ./host/${name}/configuration.nix
               ./fool/overlays
               nur.modules.nixos.default

@@ -1,9 +1,9 @@
-{
-  config,
-  lib,
-  username,
-  ...
-}:
+# Nix 守护进程配置：GC、substituter、trusted key、netrc 与诊断开关。
+#
+# substituters / trusted-public-keys / netrc-file 与 Pi 的 Attic 服务相互依赖，
+# 修改时与 os/atticd、fool/attic 一起核对；netrc-file 指向 Agenix 运行时文件
+# `/run/agenix/attic-netrc`，文档中不复制令牌。
+{ lib, username, ... }:
 with lib;
 {
   nix.gc = {
