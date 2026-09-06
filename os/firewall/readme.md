@@ -15,6 +15,7 @@
 | 1688/tcp (vlmcsd) | `os/vlmcsd` | `fool.vlmcsd.openFirewall` |
 | 22000/tcp、21027/udp (syncthing) | 上游 `services.syncthing` | `fool.syncthing.openFirewall` |
 | 1714-1764/tcp+udp (KDE Connect) | 上游 `programs.kdeconnect`（enable 自动开放） | 随 `fool.plasma.enable` 启用 |
+| 9090/tcp (calibre wireless/content server) | gtr7 host（calibre 为用户层 GUI 服务，无系统 module） | 仅 GTR7；xps13 不开放 |
 | 22/tcp (OpenSSH) | NixOS OpenSSH module | 不在此处 |
 
 收紧策略时注意默认 `non-strict = true`，仅添加单端口规则并不会关闭宽端口范围；

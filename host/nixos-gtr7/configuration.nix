@@ -49,6 +49,11 @@
   services.getty.autologinUser = username;
   services.teamviewer.enable = true;
 
+  # Calibre 无线设备连接 / content server（用户层 GUI 服务，calibre 运行时监听
+  # 0.0.0.0:9090）。无系统 service module，规则由 gtr7 host 单一拥有；仅此机对
+  # LAN 设备开放，xps13 不开放（见 os/firewall/readme.md 端口表）。
+  networking.firewall.allowedTCPPorts = [ 9090 ];
+
   # desktop + audio + pro-audio（GTR7 有 JACK/实时工作流，拆分自 fool.collections.gtr）
   fool.collections = {
     desktop = true;
