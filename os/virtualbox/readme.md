@@ -1,5 +1,5 @@
 # VirtualBox
 
-`default.nix` 提供 `fool.virtualbox.enable`，启用 host、Extension Pack 与 KVM backend。
-
-GTR7 使用该开关。启用时用户还需在对应 host 配置中加入 `vboxusers` 组。
+`default.nix` 提供 `fool.virtualbox.enable`，启用 host、Extension Pack 与 KVM backend；
+`fool.virtualbox.users` 列出加入 `vboxusers` 组的用户（module 统一派生，host 不再手写
+extraGroups，refactor-plan-04 阶段 9）。GTR7 使用：`enable = true; users = [ "fool" ];`。

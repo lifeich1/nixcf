@@ -12,6 +12,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    # Syncthing 个人拓扑（folders/devices，refactor-plan-04 阶段 7）
+    ../../os/syncthing/topology.nix
   ];
 
   # Bootloader.
@@ -40,10 +42,18 @@
     shell = pkgs.zsh;
   };
 
-  fool.collections.gtr = true;
+  # desktop + audio + pro-audio（XPS13 有 JACK/实时工作流；拆分自 fool.collections.gtr）
+  fool.collections = {
+    desktop = true;
+    audio = true;
+    pro-audio = true;
+  };
   # 系统 proxychains 保持本机；my-pi 的 hosts 解析由 fool.homelab.pi.resolvable 默认提供
   fool.homelab.proxy.use-pi = false;
   fool.sudo.nopass = true;
   services.xray.enable = true;
-  fool.syncthing.enable = true;
+  fool.syncthing = {
+    enable = true;
+    openFirewall = true; # 22000/tcp + 21027/udp（上游 services.syncthing.openFirewall）
+  };
 }

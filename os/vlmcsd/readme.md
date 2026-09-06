@@ -1,8 +1,9 @@
 # vlmcsd
 
-`default.nix` 通过 `fool.vlmcsd.enable` 运行 KMS 服务并开放 TCP 1688。`invokeType` 可选：
+`default.nix` 通过 `fool.vlmcsd.enable` 以 NixOS OCI container（backend=podman）运行 KMS
+服务（`docker.io/mikolatero/vlmcsd:latest`，映射 `1688:1688`）。TCP 1688 入站规则由本
+module 拥有，host 需显式设置 `fool.vlmcsd.openFirewall = true`（Pi 已开启）。
 
-- `cmd`：自定义 systemd service 直接执行 Podman，便于设置拉取代理。
-- `nix`：使用 NixOS OCI container 声明。
-
-Pi 当前选择 `nix`。镜像使用 `latest`，升级行为并非完全可复现，变更前应测试容器启动和端口监听。
+`cmd` 分支与 `invokeType` option 已删除（refactor-plan-04 阶段 8）：Pi 只用 OCI 声明。
+镜像仍为 `latest`；固定 digest 需先在 Pi/aarch64 pull 验证 manifest 后单独切换
+（提交 8，部署序列）。

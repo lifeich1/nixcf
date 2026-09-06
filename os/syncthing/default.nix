@@ -11,123 +11,24 @@ in
 {
   options.fool.syncthing = {
     enable = mkEnableOption "service syncthing";
+    # 打开 syncthing 默认端口（上游 services.syncthing.openDefaultPorts：
+    # TCP/UDP 22000 + UDP 21027 discovery）。规则由上游 module 拥有，本 wrapper 只做
+    # passthrough。
+    openFirewall = mkEnableOption "open syncthing firewall ports";
   };
 
   config = mkIf cfg.enable {
-    services.syncthing =
-      let
-        datadir = "/home/${username}";
-        pubdir = "${datadir}/公共";
-      in
-      {
-        enable = true;
-        user = username;
-        dataDir = pubdir;
-        configDir = datadir + "/.config/syncthing";
-        overrideFolders = false;
-        overrideDevices = false;
-        settings = {
-          folders = {
-            "${pubdir}/default" = {
-              id = "default";
-              label = "default";
-              devices = [
-                "gtr7"
-                "xps13_9360"
-                "matepad23"
-              ];
-            };
-            "${pubdir}/drawings" = {
-              id = "ptwgc-xwsas";
-              label = "drawings";
-              devices = [
-                "gtr7"
-                "xps13_9360"
-                "matepad23"
-                "pce_w30"
-              ];
-            };
-            "${pubdir}/priv-films" = {
-              id = "vzezm-upy2v";
-              label = "priv-films";
-              devices = [
-                "gtr7"
-                "xps13_9360"
-                "matepad23"
-                "ala_an70"
-              ];
-            };
-            "${pubdir}/priv-fast" = {
-              id = "skc9k-3qpf5";
-              label = "priv-fast";
-              devices = [
-                "gtr7"
-                "xps13_9360"
-                "matepad23"
-                "ala_an70"
-              ];
-            };
-            "${pubdir}/ala-an70/default" = {
-              id = "ggt3o-3c0ib";
-              label = "ala-an70/default";
-              devices = [ "ala_an70" ];
-            };
-            "${pubdir}/ala-an70/pics" = {
-              id = "mjwxp-9joch";
-              type = "receiveonly";
-              label = "ala-an70/pics";
-              devices = [ "ala_an70" ];
-            };
-            "${pubdir}/ala-an70/camera" = {
-              id = "ala-an70_pam5-照片";
-              type = "receiveonly";
-              label = "ala-an70/camera";
-              devices = [ "ala_an70" ];
-            };
-            "${pubdir}/matepad23/camera" = {
-              id = "dbr-w10_qv9a-照片";
-              type = "receiveonly";
-              label = "matepad23/camera";
-              devices = [ "matepad23" ];
-            };
-            "${pubdir}/matepad23/screenshots" = {
-              id = "qe97y-ilta4";
-              type = "receiveonly";
-              label = "matepad23/screenshots";
-              devices = [ "matepad23" ];
-            };
-            "${pubdir}/hw-p60/camera" = {
-              id = "lna-al00_pyqc-照片";
-              type = "receiveonly";
-              label = "hw-p60/camera";
-              devices = [ "hw_p60" ];
-            };
-            "${pubdir}/hw-p60/pics" = {
-              id = "dfyrd-94rbb";
-              type = "receiveonly";
-              label = "hw-p60/pics";
-              devices = [ "hw_p60" ];
-            };
-            "${pubdir}/hw-p60/default" = {
-              id = "jzbvp-ayv9p";
-              label = "hw-p60/default";
-              devices = [ "hw_p60" ];
-            };
-            "${pubdir}/pce-w30/default" = {
-              id = "hdh9h-89r9b";
-              label = "pce-w30/default";
-              devices = [ "pce_w30" ];
-            };
-          };
-          devices = {
-            gtr7.id = "FNPFOIJ-UEYLCNH-55ITPFU-4XMILCE-UWBSR5O-JYOGGN2-B5DEM7W-3EXERQX";
-            matepad23.id = "VQKKXIY-JESAFSW-TE5MXQF-ND3H7IR-FKL357O-ZWNYPTP-O5OSKUC-Y4XK2AU";
-            ala_an70.id = "6EBVCNG-JWOCLAQ-QWLUM73-4E3C2GY-FGDVWP3-P563Q3D-X62YMIN-5FILAA5";
-            xps13_9360.id = "HJBCABV-UZBQV5P-V552XA2-B4D7DH5-T2WCHRS-I55ONAS-V6AB332-GKQ67Q4";
-            hw_p60.id = "DVCK2UK-VYORBXG-LUR3444-OOYIEUU-P7E6KPD-5KTFNCZ-SFUIDXI-27LUFQO";
-            pce_w30.id = "NOWMD2Q-UTUSP6O-UIA5NFL-7ANZUPV-AC2BI2Y-2DVKSQJ-5VD3JJU-J7RXTQN";
-          };
-        };
-      };
+    services.syncthing = {
+      enable = true;
+      # 上游 option 名为 openDefaultPorts（tcp/udp 22000 + udp 21027 discovery）
+      openDefaultPorts = cfg.openFirewall;
+      user = username;
+      dataDir = "/home/${username}/公共";
+      configDir = "/home/${username}/.config/syncthing";
+      overrideFolders = false;
+      overrideDevices = false;
+      # folders/devices 个人拓扑见 ./topology.nix，由 GTR7/XPS13 host 显式 imports
+      #（refactor-plan-04 阶段 7）。
+    };
   };
 }

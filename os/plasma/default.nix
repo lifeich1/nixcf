@@ -25,6 +25,10 @@ in
       variant = "";
     };
 
+    # KDE Connect：上游 programs.kdeconnect 在 enable 时自动开放 TCP/UDP 1714-1764
+    # （无需额外 option，求值验证见 refactor-plan-04 阶段 2）。规则单一所有者 =
+    # 上游 kdeconnect module，随 plasma/desktop profile（fool.plasma.enable）启用；
+    # 不在 host/通用 firewall 重复写端口。
     programs.kdeconnect.enable = true;
 
     i18n.inputMethod = {

@@ -72,21 +72,27 @@
     };
   };
 
-  fool.firewall = {
-    serve-hobob = true;
-    serve-friedegg = true;
-  };
   fool.hobob = {
     package = inputs.hobob.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    sys-service = true;
+    enable = true;
+    openFirewall = true; # hobob tcp:3731 LAN
+    # 资源本体位置（现场核查）；目录属主/可读性调整在部署序列执行
+    dataDir = "/home/pi/hub/hobob";
   };
   # Pi 本机解析 my-pi 到 loopback 由 networking.extraHosts 维护，不注入共享 LAN hosts 条目
   fool.homelab.pi.resolvable = false;
   services.xray.enable = true;
-  fool.gitea.enable = true;
+  fool.gitea = {
+    enable = true;
+    openFirewall = true; # gitea tcp:3000 LAN
+    migrationProxy = true; # GitHub migration 经 127.0.0.1:10819
+  };
   fool.vlmcsd = {
     enable = true;
-    invokeType = "nix";
+    openFirewall = true; # KMS tcp:1688 LAN
   };
-  fool.atticd.enable = true;
+  fool.atticd = {
+    enable = true;
+    openFirewall = true; # atticd tcp:8080（gtr7/xps13 substituter）
+  };
 }

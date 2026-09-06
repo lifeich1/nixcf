@@ -8,6 +8,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    # Syncthing 个人拓扑（folders/devices，refactor-plan-04 阶段 7）
+    ../../os/syncthing/topology.nix
   ];
 
   # Bootloader.
@@ -36,7 +38,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "vboxusers"
+      # vboxusers 由 fool.virtualbox.users 派生（阶段 9）
       "jackaudio"
       "audio"
     ];
@@ -47,9 +49,20 @@
   services.getty.autologinUser = username;
   services.teamviewer.enable = true;
 
-  fool.collections.gtr = true;
+  # desktop + audio + pro-audio（GTR7 有 JACK/实时工作流，拆分自 fool.collections.gtr）
+  fool.collections = {
+    desktop = true;
+    audio = true;
+    pro-audio = true;
+  };
   fool.homelab.proxy.use-pi = true;
   services.xray.enable = true;
-  fool.syncthing.enable = true;
-  fool.virtualbox.enable = true;
+  fool.syncthing = {
+    enable = true;
+    openFirewall = true; # 22000/tcp + 21027/udp（上游 services.syncthing.openFirewall）
+  };
+  fool.virtualbox = {
+    enable = true;
+    users = [ "fool" ];
+  };
 }

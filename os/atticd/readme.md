@@ -1,8 +1,15 @@
-# Attic daemon
+# Atticd
 
-`default.nix` 提供 `fool.atticd.enable`，监听 8080 端口，配置分块去重和六个月默认保留期；环境文件通过 Agenix 在运行时解密到 `/run/agenix/atticd-env`（`services.atticd.environmentFile`）。
+`default.nix` 提供：
 
-- 本模块由 `os/default.nix` 聚合导入，Pi4B 在 `host/nixos-pi4b/configuration.nix` 中通过
-  `fool.atticd.enable` 启用。
-- 签名 secret 与网络代理变量由 `secrets/atticd-env.age` 管理（仅 Pi host key 可解密）；不要把内容复制到文档或日志。
-- 客户端与 substituter 分别在 `fool/attic`、`host/common.nix`。
+- `fool.atticd.enable`：启用 atticd 服务。
+- `fool.atticd.port`：服务端口，默认 `fool.homelab.attic.port`（8080）。
+- `fool.atticd.listenAddress`：listen 地址，默认 `[::]`。
+- `fool.atticd.package`：atticd package，默认 `pkgs.attic-server`。
+- `fool.atticd.retention`：`garbage-collection.default-retention-period`，默认 `6 months`。
+- `fool.atticd.openFirewall`：开放 8080/tcp 入站（gtr7/xps13 substituter 经 LAN 访问），
+  收紧宽范围前须由 host 显式开启。
+
+chunking 参数（nar-size-threshold 64KiB、min 16KiB、avg 64KiB、max 256KiB）与现有数据
+格式绑定，保持原值、不做 option。环境文件通过 Agenix 在运行时解密到
+`/run/agenix/atticd-env`（`services.atticd.environmentFile`）。

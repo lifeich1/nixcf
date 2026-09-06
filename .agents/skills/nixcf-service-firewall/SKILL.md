@@ -115,13 +115,43 @@ For containers, expose image, digest, bind/listen address, host/container ports,
 ### 8. Apply service-specific checks
 
 - **Attic:** Preserve existing storage and chunking unless explicitly changing them; coordinate runtime credentials, cache endpoint, retention, and firewall ownership.
-- **Gitea:** Preserve database, repository, LFS, domain, registration, and clone behavior; keep migration proxy separate from public serving; verify current upstream options before retaining workarounds.
-- **Hobob:** Check whether `/opt/hobob` contains state before proposing `StateDirectory` or another data path; require a decision for root or capabilities.
-- **Syncthing:** Prefer upstream firewall options; preserve device IDs, folder IDs, paths, receive-only direction, and override semantics while separating reusable wrapper from personal topology.
-- **vlmcsd and recorders:** Generate mappings from typed ports, pin images by digest, verify architecture, and keep image and data changes separate.
-- **VirtualBox and desktop networking:** Review bridge/host-only interfaces, user groups, devices, KDE Connect, professional-audio ports, and application ownership independently; do not infer exposure merely from enablement.
+- **Gitea:** Preserve database, repository, LFS, domain, registration, and clone behavior;
+  keep migration proxy separate from public serving. The former
+  `mailer.SENDMAIL_PATH = "/fix-merged-wait-deploy"` workaround was removed (evaluated
+  2025-09-07: the upstream module owns that option and derives a safe default while mailer
+  is disabled) — do not reintroduce placeholder values; re-evaluate upstream options before
+  adding or retaining workarounds.
+- **Hobob:** The live resource root is `/home/pi/hub/hobob` (2025-09-07 inventory:
+  `/opt/hobob` only holds symlinks to it plus a writable `.cache`; the service ran as root).
+  Target a dedicated `hobob` system user, explicit `dataDir` at `/home/pi/hub/hobob`
+  (never move resources to `/var/lib/hobob`), `StateDirectory=hobob` for writable state,
+  and verify which paths the program actually writes before adding hardening or dropping
+  root. Require a decision for any remaining root or capability need.
+- **Syncthing:** Use the upstream `services.syncthing.openDefaultPorts` option (TCP/UDP
+  22000 + UDP 21027 discovery) through the wrapper's `fool.syncthing.openFirewall`
+  passthrough. Personal folders/devices topology lives in `os/syncthing/topology.nix`,
+  imported explicitly by GTR7/XPS13 hosts. Preserve device IDs, folder IDs, paths,
+  receive-only direction, and override semantics while separating reusable wrapper from
+  personal topology.
+- **vlmcsd and recorders:** vlmcsd uses the NixOS OCI container declaration only (the
+  `cmd` branch and `invokeType` were removed); the module owns its `openFirewall` rule.
+  Generate mappings from typed ports, pin images by digest, verify architecture, and keep
+  image and data changes separate. Validate on the actual runtime host: vlmcsd on
+  Pi (`aarch64-linux`), bililiverecorder on GTR7 (`x86_64-linux`, Home Manager) — do not
+  merge the two verification paths into one "Pi/aarch64" step.
+- **VirtualBox and desktop networking:** `fool.virtualbox.users` derives `vboxusers`
+  membership in the module; hosts no longer hand-write that group. Desktop stacks are
+  composable `fool.collections` profiles — `desktop`, `audio`, `pro-audio` — and both
+  GTR7 and XPS13 enable pro-audio (JACK + realtime loginLimits; 2025-09-07 decision).
+  Review bridge/host-only interfaces, user groups, devices, KDE Connect, professional-audio
+  ports, and application ownership independently; do not infer exposure merely from
+  enablement.
 - **Xray:** Determine listener/firewall needs from safe runtime inventory or sanitized configuration facts; never open the encrypted configuration. Loopback-only listeners need no inbound rule.
-- **OpenSSH and KDE Connect:** Prefer upstream firewall controls and verify their evaluated port/range effects. Require a recovery route before restricting remote SSH access.
+- **OpenSSH and KDE Connect:** Prefer upstream firewall controls and verify their evaluated
+  port/range effects. KDE Connect has no separate firewall option: enabling
+  `programs.kdeconnect` automatically opens TCP/UDP 1714-1764, owned solely by that upstream
+  module via the plasma/desktop collection. Require a recovery route before restricting
+  remote SSH access.
 
 ### 9. Validate local configuration
 

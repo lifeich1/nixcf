@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -13,50 +12,21 @@ in
 {
   options.fool.vlmcsd = {
     enable = mkEnableOption "vlmcsd";
-    invokeType = mkOption {
-      type = types.enum [
-        "cmd"
-        "nix"
-      ];
-      default = "cmd";
-      example = "nix";
-      description = ''
-        Select invoke vlmcsd container type:
-
-        - cmd: directly call podman, easily make proxied.
-        - nix: nix way oci-container.
-      '';
-    };
+    # KMS 1688 供 LAN 客户端访问，规则由本 module 拥有；收紧前须由 host 显式开启。
+    openFirewall = mkEnableOption "open vlmcsd port tcp:1688";
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
+  config = mkMerge [
+    (mkIf cfg.enable {
       virtualisation.podman.enable = true;
-      networking = {
-        firewall = {
-          allowedTCPPorts = [
-            1688 # vlmcsd
-          ];
-        };
-      };
-    }
-    (mkIf (cfg.invokeType == "cmd") {
-      systemd.services."podman-vlmcsd" = {
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
-        environment = {
-          https_proxy = "socks5://127.0.0.1:10809";
-        };
-        script = "${pkgs.podman}/bin/podman run -p ${port} --name vlmcsd --replace ${image}";
-      };
-    })
-    (mkIf (cfg.invokeType == "nix") {
       virtualisation.oci-containers.backend = "podman";
       virtualisation.oci-containers.containers."vlmcsd" = {
         inherit image;
         ports = [ port ];
       };
     })
-  ]);
+    (mkIf cfg.openFirewall {
+      networking.firewall.allowedTCPPorts = [ 1688 ];
+    })
+  ];
 }
