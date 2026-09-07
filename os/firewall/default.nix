@@ -1,34 +1,13 @@
-{ config, lib, ... }:
-with lib;
-let
-  cfg = config.fool.firewall;
-in
 {
-  options.fool.firewall = {
-    non-strict = mkOption {
-      type = types.bool;
-      default = true;
-      description = "non strict mode, allow tcp/udp 2048-*.";
-    };
+  config,
+  lib,
+  ...
+}:
+with lib;
+{
+  # 默认拒绝未声明的入站连接；各服务端口由服务 module / host 单一拥有
+  #（refactor-plan-04 阶段 3 完成，non-strict option 与宽 range 已删除）。
+  config = {
+    networking.firewall.enable = true;
   };
-
-  config = mkMerge [
-    { networking.firewall.enable = true; }
-    (mkIf cfg.non-strict {
-      networking.firewall = {
-        allowedTCPPortRanges = [
-          {
-            from = 2048;
-            to = 65535;
-          }
-        ];
-        allowedUDPPortRanges = [
-          {
-            from = 2048;
-            to = 65535;
-          }
-        ];
-      };
-    })
-  ];
 }

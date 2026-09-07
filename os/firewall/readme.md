@@ -1,11 +1,10 @@
 # 防火墙
 
-`default.nix` 始终开启 NixOS firewall，并提供：
+`default.nix` 始终开启 NixOS firewall，默认拒绝未声明的入站连接（refactor-plan-04 阶段 3
+完成后已删除 `fool.firewall.non-strict` 与宽端口范围）。
 
-- `fool.firewall.non-strict`：默认允许 TCP/UDP 2048–65535（重构计划阶段 3 前保持开启）。
-
-服务端口规则不在此处维护，由各服务 module 或上游 module 单一拥有（host 通过对应的
-`openFirewall` option 显式开启）：
+服务端口规则由各服务 module 或 host 单一拥有（host 通过对应的 `openFirewall` option
+显式开启，或直接声明无系统 module 的 host 特有端口）：
 
 | 端口 | 规则所有者 | host 开关 |
 |---|---|---|
@@ -19,5 +18,6 @@
 | 10809/tcp (xray SOCKS) | Pi host（xray 无系统 service module；gtr7 `use-pi` 出网依赖） | 仅 Pi 对 gtr7 开放；UDP 不开 |
 | 22/tcp (OpenSSH) | NixOS OpenSSH module | 不在此处 |
 
-收紧策略时注意默认 `non-strict = true`，仅添加单端口规则并不会关闭宽端口范围；
-关闭宽范围（阶段 3）前需逐台确认上表端口均已按需开放。
+新增网络服务时：优先让服务 module / 上游 module 拥有 typed `port`/`openFirewall`，
+host 只在无系统 module 时才直接声明端口（单一所有者），禁止退回 `serve-<app>` 式开关
+或宽 range。

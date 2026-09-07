@@ -85,7 +85,6 @@
   # gtr7（fool.homelab.proxy.use-pi=true）经 SOCKS TCP 走 Pi 的 xray 10809 出网
   #（os/proxychains + fool.proxy）；收紧后必须放行此入站。UDP 10809 无消费方不开。
   # xray 无系统 service module，规则由 Pi host 单一拥有（见 os/firewall/readme.md）。
-  fool.firewall.non-strict = false;
   networking.firewall.allowedTCPPorts = [ 10809 ];
   fool.gitea = {
     enable = true;

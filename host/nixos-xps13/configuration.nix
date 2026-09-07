@@ -52,9 +52,7 @@
   fool.homelab.proxy.use-pi = false;
   fool.sudo.nopass = true;
   services.xray.enable = true;
-  # 收紧 firewall：不再放行 TCP/UDP 2048-65535（阶段 3）；xray 10809 仅本机
-  # loopback 使用（use-pi=false），无需入站规则。
-  fool.firewall.non-strict = false;
+  # xray 10809 仅本机 loopback 使用（use-pi=false），无需入站规则。
   fool.syncthing = {
     enable = true;
     openFirewall = true; # 22000/tcp + 21027/udp（上游 services.syncthing.openFirewall）
