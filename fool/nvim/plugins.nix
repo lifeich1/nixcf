@@ -1,4 +1,4 @@
-{ pkgs, lib, minpac, ... }:
+{ pkgs, lib, ... }:
 let
   raw = expr: { __raw = expr; };
   opt = plugin: { inherit plugin; optional = true; };
@@ -15,7 +15,6 @@ in
     (start promise-async)
     (start fzf-vim)
     (opt vim-polyglot)
-    (opt minpac)
     (opt gruvbox)
     (opt vim-startuptime)
     (opt nerdtree)

@@ -77,20 +77,6 @@ with lib;
     iabbrev !sh! #!/usr/bin/env bash
     iabbrev !chk! i=1; while :; do python ./gen.py > c.in && ./force <c.in >c.ans && ./main.cc.exe <c.in >c.out && printf "%s ok\r" $i \|\| break; i=$((i+1)); done
 
-    function! s:MinpacPrepare() abort
-      packadd minpac
-      call minpac#init()
-      " manage by nix
-      "call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-      " minpac managing plugins (cannot manager by nix) {{{
-      " }}}
-    endfunction
-
-    command! PkgUpd call s:MinpacPrepare() | call minpac#update()
-    command! PkgCl call s:MinpacPrepare() | call minpac#clean()
-    command! PkgSt call s:MinpacPrepare() | call minpac#status()
-
     let $FZF_DEFAULT_COMMAND = "fd --type f --strip-cwd-prefix"
 
     command Tclr2m execute tabpagenr()+1 . ",$tabdo tabcl"

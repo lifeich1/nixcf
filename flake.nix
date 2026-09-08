@@ -23,10 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
     };
-    minpac = {
-      url = "git+https://gitee.com/zsbaozhilin/minpac.git";
-      flake = false;
-    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";

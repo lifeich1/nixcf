@@ -5,13 +5,6 @@
   inputs,
   ...
 }:
-let
-  minpac = pkgs.vimUtils.buildVimPlugin {
-    pname = "minpac";
-    version = inputs.minpac.lastModifiedDate;
-    src = inputs.minpac;
-  };
-in
 {
   options.fool.nvim = {
     lsp = lib.mkEnableOption "Language Server Protocol";
@@ -33,7 +26,7 @@ in
       enablePrintInit = true;
       imports = [
         (import ./base.nix {
-          inherit pkgs lib minpac;
+          inherit pkgs lib;
           inherit (config.home) homeDirectory;
         })
         ./lsp.nix

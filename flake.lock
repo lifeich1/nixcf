@@ -149,22 +149,6 @@
         "type": "github"
       }
     },
-    "minpac": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733472253,
-        "narHash": "sha256-RQZT0eZiZUErWLd3RU0iH6GC1n+sWTK9zuWoNdpBh8c=",
-        "ref": "refs/heads/master",
-        "rev": "1892fb91fc201b924991f7d0b568e7c0f1623741",
-        "revCount": 366,
-        "type": "git",
-        "url": "https://gitee.com/zsbaozhilin/minpac.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://gitee.com/zsbaozhilin/minpac.git"
-      }
-    },
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -261,7 +245,6 @@
         "cp-guard": "cp-guard",
         "hobob": "hobob",
         "home-manager": "home-manager_2",
-        "minpac": "minpac",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim",
