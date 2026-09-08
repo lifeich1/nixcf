@@ -9,17 +9,20 @@ let
 in
 {
   options.fool.fastfetch = {
-    configFile = mkOption {
-      type = types.nullOr types.path;
-      default = null;
-      description = "fastfetch jsonc config file";
+    enable = mkEnableOption "fastfetch";
+    settings = mkOption {
+      type = types.attrs;
+      default = { };
+      description = "fastfetch settings, passed to programs.fastfetch.settings";
     };
   };
 
-  config = mkIf (isPath cfg.configFile) {
-    xdg.enable = true;
-    xdg.configFile."fastfetch/config.jsonc" = {
-      source = cfg.configFile;
+  # 模块同时拥有 package 与 config（经由 Home Manager programs.fastfetch），
+  # 不再依赖其他模块安装 executable。
+  config = mkIf cfg.enable {
+    programs.fastfetch = {
+      enable = true;
+      settings = cfg.settings;
     };
   };
 }

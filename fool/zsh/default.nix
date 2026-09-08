@@ -20,9 +20,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      fastfetch
       zsh-powerlevel10k
-      eza
       dust
       bat
       cheat

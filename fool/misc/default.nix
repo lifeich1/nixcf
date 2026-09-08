@@ -13,7 +13,6 @@
       eza # A modern replacement for ‘ls’
       just
       fd # modern `find`
-      skim
       nnn
 
       # networking tools

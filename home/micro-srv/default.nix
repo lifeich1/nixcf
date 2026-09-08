@@ -11,7 +11,41 @@
 
   fool.git.github-proxy = true;
   fool.zsh.enable = true;
-  fool.fastfetch.configFile = ./fastfetch-config.jsonc;
+  fool.fastfetch = {
+    enable = true;
+    settings = {
+      modules = [
+        "title"
+        "separator"
+        "os"
+        "host"
+        "kernel"
+        "uptime"
+        "shell"
+        "display"
+        "de"
+        "wm"
+        "wmtheme"
+        "theme"
+        "icons"
+        "font"
+        "cursor"
+        "terminal"
+        "terminalfont"
+        "cpu"
+        "gpu"
+        "memory"
+        "swap"
+        "disk"
+        "localip"
+        "battery"
+        "poweradapter"
+        "locale"
+        "break"
+        "colors"
+      ];
+    };
+  };
   fool.cfg-ssh = {
     vultr = true;
   };

@@ -18,7 +18,6 @@ in
     ./alacritty
     ./attic
     ./bililiverecorder
-    ./cargo
     ./cfg-ssh
     ./com-lemonade
     ./cp-guard
