@@ -29,10 +29,14 @@ update-bililiverecorder:
 update-reasonix:
     ./fool/reasonix/update.py
 
-# Evaluate every flake check.
+# Evaluate every flake check, key eval assertions, and formatting precondition.
+# Formatting: nixfmt 1.4 lacks --check; baseline accepted.  To tighten later,
+# replace the placeholder with `nix fmt . && git diff --exit-code -- .` after
+# confirming the whole repo passes nixfmt.
 [group('build')]
 chk *flags:
     nix flake check {{ flags }}
+    bash ./tools/eval-assertions.sh .
 
 # Activate the local host and show the system closure diff.
 [group('build')]

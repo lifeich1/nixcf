@@ -101,5 +101,7 @@
       deployTargets = builtins.mapAttrs (name: host: host.deploy) hosts;
       # 非敏感 homelab endpoint（与 os/homelab option 默认值同源），供运维 recipe 查询。
       homelabEndpoints = import ./os/homelab/endpoints.nix;
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+      formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixfmt;
     };
 }
