@@ -195,7 +195,9 @@ proxy host="127.0.0.1":
     #!/usr/bin/env bash
     set -euo pipefail
 
-    port="$(nix eval --raw .#homelabEndpoints.proxy.socksPort)"
+    # socksPort 在 endpoints.nix 中为整数，--raw 只接受字符串，
+    # 故用 `tr -d '"'` 去引号（与 tools/proxy.sh 保持一致）。
+    port="$(nix eval .#homelabEndpoints.proxy.socksPort | tr -d '"')"
     tmpfile="$(mktemp /tmp/nix-daemon-proxy.XXXXXX)"
     trap 'rm -f "$tmpfile"' EXIT
     {
