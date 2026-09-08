@@ -1,0 +1,11 @@
+{
+  "**/readme.md": {
+    "type": "readme"
+  },
+  "README.md": {
+    "type": "readme"
+  },
+  "*.nix": {
+    "alternate": ["{dirname}/readme.md", "README.md"]
+  }
+}
