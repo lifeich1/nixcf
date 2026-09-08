@@ -22,8 +22,6 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      programs.zellij.enable = true;
-
       home.packages = with pkgs.nerd-fonts; [
         hack
       ];

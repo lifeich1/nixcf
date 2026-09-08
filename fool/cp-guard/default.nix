@@ -34,7 +34,9 @@ in
       };
       Service = {
         Environment = "RUST_LOG=info";
-        ExecStart = "${cfg.package}/bin/cp-guard ${cfg.dir}";
+        ExecStart = "${lib.getExe cfg.package} ${cfg.dir}";
+        Restart = "on-failure";
+        RestartSec = "5s";
       };
     };
   };

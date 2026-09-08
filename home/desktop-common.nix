@@ -32,4 +32,5 @@
   fool.nvim.lsp = true;
   fool.alacritty.enable = true;
   fool.fastfetch.enable = true;
+  programs.zellij.enable = true;
 }
