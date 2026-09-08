@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  imports = [ ../common.nix ];
+
   home.packages = with pkgs; [
     wiringpi
     i2c-tools

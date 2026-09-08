@@ -1,6 +1,9 @@
 # `fool/`：Home Manager 模块
 
-本目录定义用户态配置，统一挂在 `fool.*` 命名空间下。`default.nix` 是聚合入口，负责导入子模块、设置 Home Manager 基线，以及计算共享的代理地址。
+本目录定义用户态配置，统一挂在 `fool.*` 命名空间下。`default.nix` 是聚合入口，负责
+导入子模块、定义共享 option 以及计算跨模块的代理地址。始终启用的 Home 基线
+（stateVersion、Home Manager 自身、Bash、GPG agent）位于 `home/common.nix`，由三个
+profile 显式导入。
 
 - 各功能模块通常在 `fool/<name>/default.nix` 中声明 option，并用 `mkIf` 按主机启用。
 - `desktop/` 将通用桌面应用、大型应用与独立程序配置分为三个显式开关。

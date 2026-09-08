@@ -1,8 +1,6 @@
 {
   config,
-  pkgs,
   lib,
-  username,
   osConfig,
   ...
 }:
@@ -58,40 +56,13 @@ in
     };
   };
 
+  # username/homeDirectory/stateVersion、Home Manager、Bash 与 GPG 基线位于
+  # `home/common.nix`（由三个 profile 显式导入），这里只保留模块聚合、
+  # 共享 option 定义与跨模块派生的 proxy 地址。
   config = mkMerge [
     {
-      # This value determines the Home Manager release that your
-      # configuration is compatible with. This helps avoid breakage
-      # when a new Home Manager release introduces backwards
-      # incompatible changes.
-      #
-      # You can update Home Manager without changing this value. See
-      # the Home Manager release notes for a list of state version
-      # changes in each release.
-      home.stateVersion = "23.11";
-
-      # Let Home Manager install and manage itself.
-      programs.home-manager.enable = true;
-
-      home.username = username;
-      home.homeDirectory = "/home/${username}";
-
-      programs.bash = {
-        enable = true;
-        enableCompletion = true;
-      };
-
       fool.proxy.tcp_url = tcpUrl;
       fool.proxy.socks5_url = "socks5://${tcpUrl}";
-    }
-    {
-      programs.gpg = {
-        enable = true;
-      };
-      services.gpg-agent = {
-        enable = true;
-        pinentry.package = mkDefault pkgs.pinentry-curses;
-      };
     }
     (mkIf (!isNull config.fool.gpg.pinentry) {
       services.gpg-agent.pinentry.package = mkForce config.fool.gpg.pinentry;
