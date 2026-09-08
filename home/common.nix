@@ -24,4 +24,10 @@ with lib;
     enable = true;
     pinentry.package = mkDefault pkgs.pinentry-curses;
   };
+
+  # 个人 identity 数据：Git user/email 由 profile 层提供，不在 fool/git 模块写死
+  fool.git = {
+    user = "lifeich1";
+    email = "lifeich0@gmail.com";
+  };
 }

@@ -10,13 +10,13 @@ in
 {
   options.fool.git = {
     user = mkOption {
-      type = types.str;
-      default = "lifeich1";
+      type = types.nullOr types.str;
+      default = null;
       description = "git userName";
     };
     email = mkOption {
-      type = types.str;
-      default = "lifeich0@gmail.com";
+      type = types.nullOr types.str;
+      default = null;
       description = "git userEmail";
     };
     github-proxy = mkEnableOption "enable http(s) proxy for github cloned path.";
@@ -26,11 +26,9 @@ in
     programs.git = {
       enable = mkDefault true;
       lfs.enable = true;
-      settings = {
-        user = {
-          email = mkDefault cfg.email;
-          name = mkDefault cfg.user;
-        };
+      settings.user = mkIf (cfg.user != null && cfg.email != null) {
+        email = mkDefault cfg.email;
+        name = mkDefault cfg.user;
       };
       signing.format = "openpgp";
       includes = [

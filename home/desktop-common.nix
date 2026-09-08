@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, osConfig, ... }:
 
 {
   programs.helix.enable = true; # NOTICE learning
@@ -24,10 +24,34 @@
     enable = true;
     with-skim = true;
   };
-  fool.cfg-ssh = {
-    vultr = true;
-    qcraft = true;
-    soc = true;
+  fool.cfg-ssh.hosts = {
+    ayu = {
+      hostName = "64.176.41.80";
+      user = "root";
+      forwardAgent = true;
+    };
+    combk = {
+      hostName = "192.168.31.188";
+      user = "qcraft";
+      forwardAgent = true;
+    };
+    com = {
+      hostName = "172.18.20.103";
+      user = "qcraft";
+      proxyCommand = "ssh -W %h:%p combk";
+    };
+    lclpi = {
+      hostName = osConfig.fool.homelab.pi.lanAddress;
+      user = "pi";
+    };
+    opi1 = {
+      hostName = "192.168.3.60";
+      user = "root";
+    };
+    gtr = {
+      hostName = "192.168.3.4";
+      user = "fool";
+    };
   };
   fool.nvim.lsp = true;
   fool.alacritty.enable = true;

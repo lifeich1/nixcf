@@ -2,6 +2,7 @@
   pkgs,
   lib,
   minpac,
+  homeDirectory,
 }:
 let
   opt = plugin: {
@@ -324,11 +325,11 @@ in
     highlight CoverageUncovered ctermfg=darkred
     highlight CoveragePartial ctermfg=lightblue
 
-    if filereadable("/home/fool/opt/miniconda3/bin/python3")
-      let g:python3_host_prog="/home/fool/opt/miniconda3/bin/python3"
+    if filereadable("${homeDirectory}/opt/miniconda3/bin/python3")
+      let g:python3_host_prog="${homeDirectory}/opt/miniconda3/bin/python3"
     endif
-    if filereadable("/home/fool/opt/perl5/perlbrew/perls/perl-5.34.1/bin/perl")
-      let g:perl_host_prog="/home/fool/opt/perl5/perlbrew/perls/perl-5.34.1/bin/perl"
+    if filereadable("${homeDirectory}/opt/perl5/perlbrew/perls/perl-5.34.1/bin/perl")
+      let g:perl_host_prog="${homeDirectory}/opt/perl5/perlbrew/perls/perl-5.34.1/bin/perl"
     endif
 
     cnoremap <Bslash>at RSPCAutoTest<cr>

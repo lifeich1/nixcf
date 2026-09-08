@@ -46,7 +46,11 @@
       ];
     };
   };
-  fool.cfg-ssh = {
-    vultr = true;
+  fool.cfg-ssh.hosts = {
+    ayu = {
+      hostName = "64.176.41.80";
+      user = "root";
+      forwardAgent = true;
+    };
   };
 }

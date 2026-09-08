@@ -35,6 +35,7 @@ in
       imports = [
         (import ./base.nix {
           inherit pkgs lib minpac;
+          inherit (config.home) homeDirectory;
         })
         ./lsp.nix
         ./ai.nix
