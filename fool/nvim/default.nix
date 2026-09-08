@@ -8,7 +8,6 @@
 {
   options.fool.nvim = {
     lsp = lib.mkEnableOption "Language Server Protocol";
-    ai = lib.mkEnableOption "AI editor plugins";
   };
 
   config = {
@@ -30,7 +29,6 @@
           inherit (config.home) homeDirectory;
         })
         ./lsp.nix
-        ./ai.nix
       ];
     };
 
