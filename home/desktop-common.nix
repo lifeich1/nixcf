@@ -30,16 +30,6 @@
       user = "root";
       forwardAgent = true;
     };
-    combk = {
-      hostName = "192.168.31.188";
-      user = "qcraft";
-      forwardAgent = true;
-    };
-    com = {
-      hostName = "172.18.20.103";
-      user = "qcraft";
-      proxyCommand = "ssh -W %h:%p combk";
-    };
     lclpi = {
       hostName = osConfig.fool.homelab.pi.lanAddress;
       user = "pi";
