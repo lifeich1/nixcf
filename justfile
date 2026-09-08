@@ -71,23 +71,49 @@ all:
     just rebuild-xps
 
 # Deploy Pi4B and tag the successful revision.
-# target/tagPrefix 从 deployTargets output 读取（hosts.nix 为唯一来源）。
+# host/target/tagPrefix 从 deployTargets output 读取（hosts.nix 为唯一来源）。
 [group('deploy')]
 rebuild-pi *flags:
-    nixos-rebuild switch --flake .{{ "#nixos-pi4b" }} --target-host "$(nix eval --raw .#deployTargets.nixos-pi4b.target)" {{ flags }} {{ NOM_FLAGS }}
-    just tag-deploy "$(nix eval --raw .#deployTargets.nixos-pi4b.tagPrefix)"
+    just deploy-host nixos-pi4b {{ flags }}
 
 # Deploy XPS13 and tag the successful revision.
 [group('deploy')]
 rebuild-xps *flags:
-    nixos-rebuild switch --flake .{{ "#nixos-xps13" }} --target-host "$(nix eval --raw .#deployTargets.nixos-xps13.target)" {{ flags }} {{ NOM_FLAGS }}
-    just tag-deploy "$(nix eval --raw .#deployTargets.nixos-xps13.tagPrefix)"
+    just deploy-host nixos-xps13 {{ flags }}
 
 # Deploy GTR7 and tag the successful revision.
 [group('deploy')]
 rebuild-gtr7 *flags:
-    nixos-rebuild switch --flake .{{ "#nixos-gtr7" }} --target-host "$(nix eval --raw .#deployTargets.nixos-gtr7.target)" {{ flags }} {{ NOM_FLAGS }}
-    just tag-deploy "$(nix eval --raw .#deployTargets.nixos-gtr7.tagPrefix)"
+    just deploy-host nixos-gtr7 {{ flags }}
+
+# Internal unified deploy: clean-tree guard + remote switch + tag.
+[private]
+deploy-host host *flags:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    target="$(nix eval --raw .#deployTargets.{{ host }}.target)"
+    tagprefix="$(nix eval --raw .#deployTargets.{{ host }}.tagPrefix)"
+
+    # Clean-tree guard: refuse to deploy an unreproducible dirty worktree
+    # unless ALLOW_DIRTY=1 (emergency path, no normal deploy tag).
+    rev="$(ALLOW_DIRTY="${ALLOW_DIRTY:-0}" bash ./tools/deploy-guard.sh)"
+    if [[ "$rev" == *-dirty ]]; then
+      echo "warning: dirty deploy ({{ host }}); skipping normal tag" >&2
+    fi
+
+    nixos-rebuild switch --flake .{{ "#{{ host }}" }} --target-host "$target" {{ flags }} {{ NOM_FLAGS }}
+
+    # Only tag when the switch succeeded and the tree still points at the
+    # exact revision that was built.
+    if [[ "$rev" != *-dirty ]]; then
+      now="$(git rev-parse HEAD)"
+      if [[ "$now" != "$rev" ]]; then
+        echo "error: worktree moved during deploy ($now != $rev); not tagging" >&2
+        exit 1
+      fi
+      just tag-deploy "$tagprefix"
+    fi
 
 [private]
 tag-deploy type:
