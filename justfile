@@ -218,30 +218,6 @@ daemon-restart:
     sudo systemctl daemon-reload
     sudo systemctl restart nix-daemon
 
-# Temporarily remove community and mirror substituters from nix.conf.
-[group('maintenance')]
-disable-commu:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    config=/etc/nix/nix.conf
-    backup=/etc/nix/nix.conf.bak
-    test ! -e "$backup"
-    tmpfile="$(mktemp /tmp/nix-conf.XXXXXX)"
-    trap 'rm -f "$tmpfile"' EXIT
-    sed 's|https://nix-community.cachix.org||' "$config" > "$tmpfile"
-    perl -pi -e 's/https:\/\/mirrors?\.\S+//g' "$tmpfile"
-    sudo cp -a "$config" "$backup"
-    sudo install -m0644 "$tmpfile" "$config"
-    just daemon-restart
-
-# Restore nix.conf saved by `disable-commu`.
-[group('maintenance')]
-cfg-rollback:
-    test -e /etc/nix/nix.conf.bak
-    sudo mv -f /etc/nix/nix.conf.bak /etc/nix/nix.conf
-    just daemon-restart
-
 # Print the evaluated Nix version for GTR7.
 [group('info')]
 print-nix-ver:

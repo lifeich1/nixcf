@@ -2,4 +2,9 @@
 
 本目录放不适合直接写入 Nix module 的便携运维工具。
 
-`use-proxy.portable.sh` 用于调整 Nix daemon 的代理环境。它会涉及 systemd 和系统配置，执行前先阅读脚本并确认当前主机、代理端口及恢复方式；常规操作也可优先使用根 `justfile` 中的 `proxy`、`no-proxy` 和 `cfg-rollback` recipe。代理端口与 deploy target 分别来自 `homelabEndpoints`、`deployTargets` flake output，不要在本目录复制端口字符串。
+- `deploy-guard.sh`：deploy 前的 clean-tree guard，被 `justfile` 的通用
+  `deploy-host` recipe 调用；对应测试在 `tests/deploy-guard.t`。
+- 临时调整 nix-daemon 代理使用根 `justfile` 的 `proxy`/`no-proxy` recipe
+  （经 `/run/systemd/system` drop-in，mktemp + trap 保证恢复），不再直接改写
+  `/etc/nix/nix.conf`。代理端口与 deploy target 分别来自
+  `homelabEndpoints`、`deployTargets` flake output，不要在本目录复制端口字符串。
