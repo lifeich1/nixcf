@@ -6,7 +6,6 @@
   ...
 }:
 let
-  cfg = config.fool.nvim;
   minpac = pkgs.vimUtils.buildVimPlugin {
     pname = "minpac";
     version = inputs.minpac.lastModifiedDate;
@@ -50,19 +49,7 @@ in
         lemonade
         neovim-remote
         gitmoji-cli
-      ]
-      ++ lib.optionals cfg.lsp [
-        nil
-        nixfmt
-        rust-analyzer
-        lua-language-server
-        vim-language-server
-        bash-language-server
-        perl5Packages.PLS
-        marksman
-        vscode-langservers-extracted
-        python312Packages.python-lsp-server
-        ccls
+        nixfmt # formatter used by nil_ls
       ];
 
     xdg.enable = true;

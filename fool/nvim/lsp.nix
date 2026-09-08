@@ -7,11 +7,6 @@
 }:
 let
   raw = expr: { __raw = expr; };
-
-  noServerPackage = {
-    enable = true;
-    package = null;
-  };
 in
 lib.mkIf hmConfig.fool.nvim.lsp {
   extraPlugins = with pkgs.vimPlugins; [
@@ -21,20 +16,25 @@ lib.mkIf hmConfig.fool.nvim.lsp {
   plugins.lsp = {
     enable = true;
     servers = {
-      jsonls = noServerPackage;
-      html = noServerPackage;
-      cssls = noServerPackage;
-      pylsp = noServerPackage;
-      bashls = noServerPackage;
-      clangd = noServerPackage;
-      eslint = noServerPackage;
-      vimls = noServerPackage;
-      marksman = noServerPackage;
-      perlpls = noServerPackage;
-      nil_ls = noServerPackage // {
+      # 每个 server 启用 nixvim 默认 package（来自 packages.nix 映射），
+      # 不再设 package = null 或维护 home.packages 第二清单。
+      # ccls→clangd 已纠正：clangd 默认包为 clang-tools（含 clangd 二进制）。
+      jsonls = { enable = true; };
+      html = { enable = true; };
+      cssls = { enable = true; };
+      pylsp = { enable = true; };
+      bashls = { enable = true; };
+      clangd = { enable = true; };
+      eslint = { enable = true; };
+      vimls = { enable = true; };
+      marksman = { enable = true; };
+      perlpls = { enable = true; };
+      nil_ls = {
+        enable = true;
         settings.formatting.command = [ "nixfmt" ];
       };
-      rust_analyzer = noServerPackage // {
+      rust_analyzer = {
+        enable = true;
         installCargo = false;
         installRustc = false;
         installRustfmt = false;
@@ -58,7 +58,8 @@ lib.mkIf hmConfig.fool.nvim.lsp {
           };
         };
       };
-      lua_ls = noServerPackage // {
+      lua_ls = {
+        enable = true;
         settings = {
           runtime.version = "LuaJIT";
           diagnostics.globals = [ "vim" ];
