@@ -24,3 +24,21 @@ API key 不在这个文件里：provider 只声明 `api_key_env`（`DEEPSEEK_API
 ```
 nix eval --raw .#nixosConfigurations.nixos-gtr7.config.home-manager.users.fool.fool.reasonix.configFile
 ```
+
+## 全局 skill 的声明式部署
+
+`skills.nix` 把仓库内的全局 skill 链接到 Reasonix 的全局 skill 目录：
+
+- `fool.reasonix.skills.enable`：默认 `true`，随 `fool.reasonix.enable` 一起生效。
+- 源目录 `skills/labyrinth-dimension/`（`SKILL.md` + `references/egress-reference.md`）由
+  `home.file` 链接到 `~/.reasonix/skills/labyrinth-dimension`，内容来自 Nix store，随
+  activation 更新，不需要手工复制。
+- `~/.reasonix/skills/` 中的 skill 对任意项目生效；仓库 `.agents/skills/` 下的项目 skill
+  保持独立，不受本模块影响。
+- 模块只声明自己拥有的子目录，`~/.reasonix/skills/` 下其他未纳管内容（例如手工放置的
+  `commit-message`）不会被覆盖或删除。
+- 目标位置若已存在同名普通文件或目录，Home Manager 会报冲突，需先手工清理再切换。
+
+该 skill 内容与 nixcf 解耦：代理端点运行时探测，仅把本仓库的 `os/homelab` 派生值作为
+可选交叉核对来源。生效需要一次 Home Manager activation（`just gtr7` / `just xps`），
+本模块不修改 `config.toml`。

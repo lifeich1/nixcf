@@ -1,0 +1,4 @@
+interface:
+  display_name: "Labyrinth Dimension"
+  short_description: "Route blocked external access through a SOCKS5 proxy"
+  default_prompt: "Use $labyrinth-dimension to reach a blocked external resource through the discovered SOCKS5 proxy."

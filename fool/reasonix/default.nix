@@ -8,7 +8,10 @@ let
   cfg = config.fool.reasonix;
 in
 {
-  imports = [ ./config.nix ];
+  imports = [
+    ./config.nix
+    ./skills.nix
+  ];
 
   options.fool.reasonix.enable = lib.mkEnableOption "Reasonix CLI";
 
