@@ -24,6 +24,7 @@ in
     ./desktop
     ./fastfetch
     ./git
+    ./kdocs
     ./misc
     ./nvim
     ./reasonix

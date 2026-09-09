@@ -16,7 +16,7 @@ alias hi := update-history
 
 # Update pinned packages, then all flake inputs.
 [group('build')]
-update: update-bililiverecorder update-reasonix
+update: update-bililiverecorder update-reasonix update-kdocs
     nix flake update --debug
 
 # Update the pinned stable BililiveRecorder container tag.
@@ -28,6 +28,11 @@ update-bililiverecorder:
 [group('build')]
 update-reasonix:
     ./fool/reasonix/update.py
+
+# Update the pinned kdocs-cli binary and kdocs skill.
+[group('build')]
+update-kdocs:
+    ./fool/kdocs/update.py
 
 # Evaluate every flake check, key eval assertions, and formatting precondition.
 # Formatting: nixfmt 1.4 lacks --check; baseline accepted.  To tighten later,

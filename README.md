@@ -25,4 +25,4 @@
 - `tools/`：运维辅助脚本；常用构建/部署命令集中在 `justfile`。
 - `.agents/skills/`：仓库专用 skill bundle 与项目维护约定，包括模块、secret、服务、flake、Nixvim、部署和 Gitmoji workflow。
 
-常用校验为 `just chk`（`nix flake check`）；`just update` 会先更新固定的 BililiveRecorder 容器标签与 Reasonix CLI 包，再更新全部 flake inputs。单独更新可运行 `just update-bililiverecorder` 或 `just update-reasonix`。部署命令为 `just pi`、`just xps` 和 `just gtr7`，target/tag 从 `deployTargets` output 读取。运行 `just --list` 可按 build、deploy、dev、maintenance、info 分组查看其他操作。输入源与具体版本以 `flake.nix`、`flake.lock` 为准。
+常用校验为 `just chk`（`nix flake check`）；`just update` 会先更新固定的 BililiveRecorder 容器标签、Reasonix CLI 包与 kdocs CLI/skill，再更新全部 flake inputs。单独更新可运行 `just update-bililiverecorder`、`just update-reasonix` 或 `just update-kdocs`。部署命令为 `just pi`、`just xps` 和 `just gtr7`，target/tag 从 `deployTargets` output 读取。运行 `just --list` 可按 build、deploy、dev、maintenance、info 分组查看其他操作。输入源与具体版本以 `flake.nix`、`flake.lock` 为准。
