@@ -27,6 +27,7 @@ in
     ./kdocs
     ./misc
     ./nvim
+    ./podman
     ./reasonix
     ./wezterm
     ./zsh

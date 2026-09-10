@@ -14,6 +14,7 @@
   };
 
   fool.bililiverecorder.enable = true;
+  fool.podman.enable = true;
   fool.cp-guard = {
     enable = true;
     package = inputs.cp-guard.packages.${pkgs.stdenv.hostPlatform.system}.default;

@@ -8,6 +8,7 @@ profile 显式导入。
 - 各功能模块通常在 `fool/<name>/default.nix` 中声明 option，并用 `mkIf` 按主机启用。
 - `desktop/` 将通用桌面应用、大型应用与独立程序配置分为三个显式开关。
 - `bililiverecorder/` 运行固定稳定版本的 GHCR 录播容器，并提供标签更新脚本。
+- `podman/` 配置用户级 docker.io 仓库镜像（`~/.config/containers/registries.conf`）。
 - `reasonix/` 打包固定版本的 x86_64 Linux CLI，并提供稳定版更新脚本。
 - `kdocs/` 安装固定版本的 `kdocs-cli`，并把官方 skill 符号链接到 `~/.reasonix/skills/kdocs`；
   版本与两个 hash 记录在 `source.json`，由 `just update-kdocs` 刷新。
