@@ -33,6 +33,20 @@
     podman-compose
   ];
 
+  # docker.io 仓库镜像（经 containers-registries.conf(5) 生成 /etc/containers/registries.conf）
+  virtualisation.containers.registries.settings = {
+    unqualified-search-registries = [ "docker.io" ];
+    registry = [{
+      prefix = "docker.io";
+      location = "docker.io";
+      mirror = [
+        { location = "docker.xuanyuan.me"; }
+        { location = "docker.1ms.run"; }
+        { location = "docker.m.daocloud.io"; }
+      ];
+    }];
+  };
+
   fool.sudo.nopass = true;
   fool.secrets.pass = "gtr-pass";
 
