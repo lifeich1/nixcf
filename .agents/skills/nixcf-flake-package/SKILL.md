@@ -1,6 +1,6 @@
 ---
 name: nixcf-flake-package
-description: Safely add, change, pin, update, or remove flake inputs and external packages in the nixcf NixOS repository. Use for flake.nix or flake.lock changes; nixpkgs channel changes; input follows relationships; packages consumed from an input; fool/overlays package exposure; or wiring an external package or module into a host, Home Manager profile, NixOS module, or Home Manager module.
+description: Safely add, change, pin, update, or remove flake inputs and external packages in the nixcf NixOS repository. Use for flake.nix or flake.lock changes; nixpkgs channel changes; input follows relationships; packages consumed from an input; module package options; or wiring an external package or module into a host, Home Manager profile, NixOS module, or Home Manager module.
 ---
 
 # nixcf Flake Packages
@@ -19,7 +19,7 @@ Change inputs and external packages without broad lock churn, architecture regre
 | `flake.nix` input | Declare source, ref, `flake = false`, and nested `follows` relationships. |
 | `flake.lock` | Record resolved revisions and the transitive input graph; mutate only with Nix. |
 | Flake composition | Pass inputs through module arguments or import an input-provided NixOS/Home Manager module. |
-| `fool/overlays` | Expose a shared external package as one owned `pkgs.<name>` attribute. |
+| Module `package` option | Expose a shared external package as a typed `package` option injected at the enablement site. |
 | `os/` or `fool/` module | Implement reusable system or user behavior and declare options. |
 | `host/` or `home/` consumer | Select the hosts/profiles that enable or consume the feature. |
 
@@ -45,7 +45,7 @@ Do not treat permission for one input as permission for all-input updates. Never
 
 - Import an input-provided module in flake composition when the upstream output is itself a NixOS or Home Manager module. Preserve its existing `inputs.<name>.follows` relationships unless the requested compatibility change requires otherwise.
 - Consume `inputs.<name>.packages.${pkgs.stdenv.hostPlatform.system}.<output>` directly when one reusable module owns the package and no `pkgs.<name>` API is needed.
-- Add an overlay under `fool/overlays/<name>/` when system and user modules share the package, multiple consumers need a stable `pkgs.<name>` name, or package ownership otherwise belongs in the package set. Import it once from `fool/overlays/default.nix` and document the owning option and consumers.
+- Declare a typed `package` option in the owning `os/<name>/` or `fool/<name>/` module and inject `inputs.<name>.packages.${pkgs.stdenv.hostPlatform.system}.<output>` at the enablement site. This is the repository's default integration path; the former `fool/overlays` package-set exposure was removed. Add an overlay only if the request genuinely requires a stable global `pkgs.<name>` API, and document the owning option and every consumer.
 - Treat `flake = false` inputs as source trees, not flakes with `packages` or module outputs. Add an explicit packaging layer only if the request requires one.
 - Use the existing `pkgs-stable` module argument only when the chosen stability policy calls for it. Do not create a second ad-hoc nixpkgs import inside a consumer.
 

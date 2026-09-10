@@ -16,8 +16,6 @@ in
       default = 15;
       description = "alacritty terminal font size";
     };
-
-    # TODO option: alacritty package use config.lib.nixGL.wrap
   };
 
   config = mkMerge [

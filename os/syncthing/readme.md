@@ -1,8 +1,10 @@
 # Syncthing
 
 `os/syncthing/default.nix`（通用 wrapper）通过 `fool.syncthing.enable` 启用系统级
-Syncthing，数据根目录为用户的 `公共` 目录；`fool.syncthing.openFirewall` passthrough 到
-上游 `services.syncthing.openDefaultPorts`（TCP/UDP 22000 + UDP 21027）。
+Syncthing，数据根目录 `fool.syncthing.dataDir` 默认从
+`config.users.users.<username>.home` 派生的 `公共` 目录（不再硬编码 `/home/<username>`）；
+`fool.syncthing.openFirewall` passthrough 到上游
+`services.syncthing.openDefaultPorts`（TCP/UDP 22000 + UDP 21027）。
 
 `os/syncthing/topology.nix`（个人拓扑 data module）声明 folders、device ID 与
 receive-only 方向，由 GTR7/XPS13 host 在 `imports` 中显式引入。`overrideFolders` /

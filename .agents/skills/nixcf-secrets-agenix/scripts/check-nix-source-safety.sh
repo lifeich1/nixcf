@@ -28,6 +28,8 @@ for candidate in "${tracked_plaintext_candidates[@]}"; do
 done
 
 # Inspect fixed structural markers without emitting matching lines or values.
+# host/common.nix was removed by the credential refactor; keep this regression
+# guard so the inline-netrc pattern cannot silently return under that path.
 if [[ -f host/common.nix ]] \
   && rg -q -- 'environment\.etc\.[^[:space:]]*netrc[^[:space:]]*\.text[[:space:]]*=' host/common.nix; then
   printf '%s\n' 'BLOCKED: inline generated-file text in host/common.nix requires credential remediation.' >&2

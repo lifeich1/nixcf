@@ -25,7 +25,6 @@ in
       #"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
-      "https://mirror.sjtu.edu.cn/nix-channels/store" # XXX outdated
       # NOTE sometimes commu cache corrupted then broke home-manager
       "https://nix-community.cachix.org"
       "https://rewine.cachix.org"
@@ -37,7 +36,8 @@ in
       attic.publicKey # homelab
       "rewine.cachix.org-1:aOIg9PvwuSefg59gVXXxGIInHQI9fMpskdyya2xO+7I="
     ];
-    trace-verbose = true;
+    # trace-verbose 是临时诊断开关（audit §8）；默认关闭，排查构建/求值问题时
+    # 在对应 host 上临时设 `nix.settings.trace-verbose = true`。
     experimental-features = [
       "nix-command"
       "flakes"

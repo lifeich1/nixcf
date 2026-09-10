@@ -44,7 +44,6 @@
       nixpkgs,
       home-manager,
       nixos-hardware,
-      nur,
       ...
     }@inputs:
     let
@@ -82,7 +81,6 @@
               ./os
               ./secrets
               ./host/${name}/configuration.nix
-              nur.modules.nixos.default
               inputs.agenix.nixosModules.default
               home-manager.nixosModules.home-manager
               {

@@ -40,6 +40,8 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
+      # unit 名保留历史值 `programs-hobob`（2026-09-10 决策）：改名会变更 unit 名并
+      # 影响既有部署/日志/依赖，属于部署序列动作，不在本地收尾中执行。
       systemd.services."programs-hobob" = {
         description = "Autostart hobob";
         after = [ "network-online.target" ];

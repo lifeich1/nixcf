@@ -38,7 +38,7 @@ Default to stopping when no safe assumption is available. Prefer a single-host r
 
 ## Read live sources
 
-Read the repository `README.md` and `flake.nix`, then the target host and Home profile `readme.md` files. Read `justfile` before proposing or executing any recipe. Before opening `host/common.nix`, another potential credential source, or a content diff that may include one, run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`; keep reported paths opaque while blocked. For operational work, read [references/deployment-reference.md](references/deployment-reference.md), but use its table only as a navigation aid: source code wins if it has changed where the gate permits inspection.
+Read the repository `README.md` and `flake.nix`, then the target host and Home profile `readme.md` files. Read `justfile` before proposing or executing any recipe. Before opening a potential credential source or a content diff that may include one, run `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh`; keep reported paths opaque while blocked. For operational work, read [references/deployment-reference.md](references/deployment-reference.md), but use its table only as a navigation aid: source code wins if it has changed where the gate permits inspection.
 
 Extract and report before any activation:
 

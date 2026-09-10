@@ -15,6 +15,12 @@ in
     # TCP/UDP 22000 + UDP 21027 discovery）。规则由上游 module 拥有，本 wrapper 只做
     # passthrough。
     openFirewall = mkEnableOption "open syncthing firewall ports";
+    dataDir = mkOption {
+      type = types.path;
+      # 从用户 home 派生，不再硬编码 /home/<username>（audit §14）。
+      default = "${config.users.users.${username}.home}/公共";
+      description = "Syncthing 数据根目录（默认用户的 公共 目录）";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -23,7 +29,7 @@ in
       # 上游 option 名为 openDefaultPorts（tcp/udp 22000 + udp 21027 discovery）
       openDefaultPorts = cfg.openFirewall;
       user = username;
-      dataDir = "/home/${username}/公共";
+      dataDir = cfg.dataDir;
       configDir = "/home/${username}/.config/syncthing";
       overrideFolders = false;
       overrideDevices = false;

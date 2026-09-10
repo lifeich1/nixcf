@@ -14,7 +14,7 @@ Follow this low-freedom workflow. Protect credential material even when the user
 - Never run `agenix -e`, `agenix -r`, `age`, `rage`, `strings`, `cat`, `head`, `tail`, `sed`, `xxd`, or similar commands against a payload. Do not open it with a general file-reading tool.
 - Never place plaintext or a plaintext-bearing file in a Nix expression, interpolated command, derivation, `environment.etc.*.text`, Home Manager `*.text`, or `source = ./...`; these can copy it into `/nix/store`.
 - Never expose credentials in patches, logs, commentary, final answers, documentation, commit messages, process arguments, or shell history.
-- Treat `host/common.nix` and every path marked credential-bearing in the reference as opaque while the source-safety gate fails. Do not open them with `cat`, `sed`, an editor, a generic file-reading tool, or a content-producing search.
+- Treat every path marked credential-bearing in the reference as opaque while the source-safety gate fails. Do not open them with `cat`, `sed`, an editor, a generic file-reading tool, or a content-producing search.
 - Use only `scripts/check-nix-source-safety.sh` for automated inspection of known plaintext-source blockers. It performs fixed no-output marker checks; never modify or replace it with a command that prints matches.
 - Do not deploy, restart services, update inputs, commit, rekey, rotate, revoke, or rewrite Git history without separate explicit authorization for that action.
 - Preserve current recipients, credential values, runtime paths, ownership, modes, and consumers unless the approved task requires a specific change.

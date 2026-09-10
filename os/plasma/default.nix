@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib;
@@ -47,29 +48,32 @@ in
     environment.systemPackages =
       # sometimes curl causes problem, try switch to hotpot
       # https://discourse.nixos.org/t/nixos-install-returns-unable-to-download-cache-nixos-org/65488/4
+      # 字体来源单一化（audit §10）：保留 ttf-ms-win10（arial/calibri/微软雅黑/宋体等），
+      # 移除与它冲突的 ttf-wps-fonts；WPS 使用系统字体。
       (with pkgs.nur.repos.rewine; [
-        ttf-wps-fonts # for wps
-        ttf-ms-win10 # WARN: collision with ttf-wps-fonts
+        ttf-ms-win10
       ])
       ++ (with pkgs; [
         sarasa-gothic # 更纱黑体
       ]);
 
-    # FIX calibre ebook-viewer env, see also https://discussion.fedoraproject.org/t/calibre-and-wayland/100384/3
+    # NUR 只被这里的字体使用；仅在 plasma 启用时导入其 overlay，避免 Pi 等
+    # 非桌面 host 也承载 NUR 的 module/overlay 依赖（audit §10）。
     nixpkgs.overlays = [
-      (_: prev: {
-        calibre =
-          pkgs.runCommand "calibre-wayland"
-            {
-              buildInputs = [ prev.calibre ];
-              nativeBuildInputs = [ pkgs.makeWrapper ];
-            }
-            ''
-              mkdir -p $out/bin/
-              ln -s ${prev.calibre}/bin/calibre $out/bin/calibre
-              wrapProgram $out/bin/calibre --prefix QT_QPA_PLATFORM : xcb
-              ln -s ${prev.calibre}/share $out/share
-            '';
+      inputs.nur.overlays.default
+      # FIX calibre ebook-viewer env, see also https://discussion.fedoraproject.org/t/calibre-and-wayland/100384/3
+      # 用同一 overlay 的 `final` package set 重建完整 calibre（保留全部 bin/share），
+      # 只在入口 `calibre` 上强制 QT_QPA_PLATFORM=xcb；不再手工链接单个 binary
+      # 并绕过 overlay 的 package set（audit §10）。
+      (final: prev: {
+        calibre = prev.symlinkJoin {
+          name = "calibre-wayland";
+          paths = [ prev.calibre ];
+          nativeBuildInputs = [ final.makeWrapper ];
+          postBuild = ''
+            wrapProgram "$out/bin/calibre" --prefix QT_QPA_PLATFORM : xcb
+          '';
+        };
       })
     ];
   };

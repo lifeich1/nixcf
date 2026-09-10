@@ -11,27 +11,21 @@ in
 {
   options.fool.sudo = {
     nopass = mkEnableOption "option NOPASSWD";
-    extra-options = mkOption {
-      internal = true;
-      type = types.listOf types.str;
-      default = [ ];
-    };
   };
 
-  config = mkMerge [
-    {
-      security.sudo.extraRules = [
-        {
-          users = [ "${username}" ];
-          commands = [
-            {
-              command = "ALL";
-              options = cfg.extra-options;
-            }
-          ];
-        }
-      ];
-    }
-    (mkIf cfg.nopass { fool.sudo.extra-options = [ "NOPASSWD" ]; })
-  ];
+  # NOPASSWD 由本模块直接构造 rule，不再暴露内部拼接用的 extra-options
+  # （audit §16）。
+  config = {
+    security.sudo.extraRules = [
+      {
+        users = [ "${username}" ];
+        commands = [
+          {
+            command = "ALL";
+            options = optionals cfg.nopass [ "NOPASSWD" ];
+          }
+        ];
+      }
+    ];
+  };
 }

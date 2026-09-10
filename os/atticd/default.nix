@@ -7,7 +7,7 @@ in
 {
   options.fool.atticd = {
     enable = mkEnableOption "atticd";
-    # Attic 供 gtr7/xps13 客户端（host/common.nix substituter）访问；规则由本
+    # Attic 供 gtr7/xps13 客户端（os/nix 的 substituter）访问；规则由本
     # module 拥有，收紧前须显式开启。端口默认 8080（fool.homelab.attic.port）。
     openFirewall = mkEnableOption "open atticd port tcp:8080 (LAN access)";
     listenAddress = mkOption {

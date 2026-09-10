@@ -11,7 +11,7 @@ Change service and network boundaries from current evidence. Keep local configur
 
 - Treat source and `flake.lock` as current truth. Treat README files as navigation and dated refactor plans as historical recommendations to revalidate.
 - Never inspect, decrypt, print, copy, or synthesize secret values. Read Agenix declarations and runtime paths only.
-- Treat `host/common.nix` and the credential candidates identified by the Agenix reference as opaque while `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` fails. Do not open them directly or use a content-producing search.
+- Treat the credential candidates identified by the Agenix reference as opaque while `.agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh` fails. Do not open them directly or use a content-producing search.
 - Run that source-safety gate before every repo-consuming Nix evaluation, build, check, lock, activation, or deployment command. Stop on a nonzero result; a narrower attribute does not bypass the risk of copying tracked source into `/nix/store`.
 - Never deploy, restart or stop a service, migrate or delete data, alter a live firewall, pull a live container image, update inputs, commit, or tag unless the user explicitly authorizes that exact action.
 - Do not edit `hardware-configuration.nix`, `system.stateVersion`, or `home.stateVersion` for a service change.
@@ -24,7 +24,7 @@ Change service and network boundaries from current evidence. Keep local configur
 2. Identify every affected host and Home Manager profile. Read their `readme.md` and entry module.
 3. Read the service directory's `readme.md`, implementation, parent `os/readme.md` or `fool/readme.md`, and relevant aggregator.
 4. Read `os/firewall`, upstream option usage in source, and any direct host firewall rules that overlap.
-5. Read Agenix declarations without opening `.age` payloads when the service consumes credentials. Run the source-safety gate before following any route through `host/common.nix` or known credential candidates.
+5. Read Agenix declarations without opening `.age` payloads when the service consumes credentials. Run the source-safety gate before following any route through a reported credential candidate.
 6. Read [references/source-routing.md](references/source-routing.md) for repository-specific routing and links. Open only the dated plans relevant to the requested change and only sources the gate permits.
 
 Use `rg` and `rg --files` to locate options and consumers. Do not scan unrelated modules.

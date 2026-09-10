@@ -7,7 +7,7 @@ Use this file to find current sources; do not treat the observations below as pe
 | Concern | Current source |
 |---|---|
 | Host registry, architecture, Home profile, module assembly | [`flake.nix`](../../../flake.nix) |
-| Shared Nix/cache, netrc, Xray wiring | `host/common.nix`; while the source-safety gate fails, treat it as opaque and do not follow the link or open it directly |
+| Shared Nix/cache, netrc, Xray wiring | [`os/nix`](../../../os/nix) and [`secrets/default.nix`](../../../secrets/default.nix) (`host/common.nix` was removed by the credential refactor) |
 | GTR7 enablement | [`host/nixos-gtr7/configuration.nix`](../../../host/nixos-gtr7/configuration.nix) and its [`readme.md`](../../../host/nixos-gtr7/readme.md) |
 | XPS13 enablement | [`host/nixos-xps13/configuration.nix`](../../../host/nixos-xps13/configuration.nix) and its [`readme.md`](../../../host/nixos-xps13/readme.md) |
 | Pi enablement | [`host/nixos-pi4b/configuration.nix`](../../../host/nixos-pi4b/configuration.nix) and its [`readme.md`](../../../host/nixos-pi4b/readme.md) |
@@ -28,15 +28,15 @@ Confirm this table against `flake.nix` each time.
 | Service or boundary | Implementation and related source | Recheck before editing |
 |---|---|---|
 | Generic firewall | [`os/firewall`](../../../os/firewall) | broad ranges, application-named options, direct host rules |
-| Attic daemon | [`os/atticd`](../../../os/atticd), [`fool/attic`](../../../fool/attic), and opaque `host/common.nix` metadata while blocked | special flake import, listen address, state/chunking, runtime secret, cache coupling |
+| Attic daemon | [`os/atticd`](../../../os/atticd), [`fool/attic`](../../../fool/attic), [`os/nix`](../../../os/nix) | special flake import, listen address, state/chunking, runtime secret, cache coupling |
 | Gitea | [`os/gitea`](../../../os/gitea) | public port owner, domain, migration proxy, registration, state/LFS paths |
-| Hobob | [`os/hobob`](../../../os/hobob), [`fool/hobob`](../../../fool/hobob), [`fool/overlays/hobob`](../../../fool/overlays/hobob) | system versus user namespace, package source, root, `/opt/hobob`, state migration |
+| Hobob | [`os/hobob`](../../../os/hobob) | system versus user namespace, package injected at the enablement site, root, `dataDir`, state migration |
 | Syncthing | [`os/syncthing`](../../../os/syncthing) | upstream firewall options, personal topology, IDs, receive-only paths, override flags |
 | vlmcsd | [`os/vlmcsd`](../../../os/vlmcsd) | backend branches, image tag/digest, port typing, Pi architecture |
 | Bilibili Live Recorder | [`fool/bililiverecorder`](../../../fool/bililiverecorder) | Home Manager container boundary, image, bind/ports, recording path, system firewall owner |
 | VirtualBox | [`os/virtualbox`](../../../os/virtualbox) | host/guest split, group ownership, KVM and network interface behavior |
 | Desktop/KDE Connect | [`os/plasma`](../../../os/plasma), [`os/collections`](../../../os/collections) | upstream firewall effects, desktop/audio ownership, host differences |
-| Xray | opaque `host/common.nix` metadata while blocked, [`secrets/default.nix`](../../../secrets/default.nix), [`fool/xray`](../../../fool/xray) | system versus non-NixOS installer, runtime secret path, safe listener evidence |
+| Xray | [`secrets/default.nix`](../../../secrets/default.nix) and the affected host configuration | runtime secret path, safe listener evidence (the imperative `fool/xray` installer was removed) |
 | OpenSSH | [`os/default.nix`](../../../os/default.nix) and target host | upstream option ownership, access policy, recovery path |
 
 Run the source-safety gate before opening any routed source or invoking Nix:
@@ -45,11 +45,11 @@ Run the source-safety gate before opening any routed source or invoking Nix:
 .agents/skills/nixcf-secrets-agenix/scripts/check-nix-source-safety.sh
 ```
 
-While it is blocked, do not open `host/common.nix` or reported credential candidates. Search only permitted sources for additional owners before deciding:
+While it is blocked, do not open any reported credential candidate. Search only permitted sources for additional owners before deciding:
 
 ```console
-rg -n --glob '!*.env' --glob '!*.toml' --glob '!host/common.nix' 'openFirewall|allowedTCP|allowedUDP|PortRanges|ports =|listen|hostPort|containerPort' os host home fool
-rg -n --glob '!*.env' --glob '!*.toml' --glob '!host/common.nix' 'fool\.(firewall|gitea|atticd|hobob|syncthing|vlmcsd|virtualbox)|services\.(xray|openssh)' os host home fool
+rg -n --glob '!*.env' --glob '!*.toml' 'openFirewall|allowedTCP|allowedUDP|PortRanges|ports =|listen|hostPort|containerPort' os host home fool
+rg -n --glob '!*.env' --glob '!*.toml' 'fool\.(firewall|gitea|atticd|hobob|syncthing|vlmcsd|virtualbox)|services\.(xray|openssh)' os host home fool
 ```
 
 Do not open `.age` files or print environment/token files while tracing dependencies.

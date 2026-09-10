@@ -10,10 +10,10 @@ Read this reference when a task touches secrets, Xray, login passwords, Attic, r
 | Agenix declarations | `secrets/default.nix` | Secret names, encrypted file references, identity paths, runtime path, owner/group/mode, password consumer |
 | Recipient mapping | `secrets/secrets.nix` | Public-key identities and payload-to-recipient sets; do not reproduce key bodies |
 | Encrypted payloads | `secrets/*.age` | Names and filesystem metadata only; never contents or content diffs |
-| Xray system consumer | `host/common.nix`, affected host configuration | Treat `host/common.nix` as opaque while the source-safety gate fails; inspect only path/category metadata and safe consumers |
+| Xray system consumer | `secrets/default.nix`, affected host configuration | Runtime path and enablement only; never open the encrypted configuration |
 | User passwords | `secrets/default.nix`, affected host configuration | Host-selected logical password name and `hashedPasswordFile` consumer |
 | Attic client | `fool/attic/default.nix`, `home/pc/default.nix` | Client service enablement, runtime config reference, cache name |
-| Nix cache client | `host/common.nix` | Treat as credential-bearing while the gate fails; do not directly read it or attempt to display the netrc producer |
+| Nix cache client | `os/nix` (`nix.settings.netrc-file`) | Reference the runtime path `/run/agenix/attic-netrc`; never display netrc contents |
 | Attic server | `os/atticd/default.nix`, `host/nixos-pi4b/configuration.nix` | `environmentFile`, service identity, port and enablement |
 | Legacy/suspicious files | `os/atticd/atticd.env`, `host/nixos-pi4b/atticd.env`, `fool/attic/attic-client.toml` | Filename, tracking state and actual reference chain only; never contents |
 
@@ -29,7 +29,7 @@ Run this bundled gate before opening a potential credential source and before an
 
 The gate emits only fixed categories and repository paths. It never prints matched lines or values. A nonzero result means:
 
-- do not open `host/common.nix` or any reported credential-bearing source;
+- do not open any reported credential-bearing source;
 - do not run flake evaluation, build, check, lock mutation, activation, or deployment;
 - continue only with filename/status metadata, non-secret sources, and a user-operated or separately reviewed remediation path.
 

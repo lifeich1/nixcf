@@ -9,9 +9,17 @@ with lib;
 {
   options.fool.secrets = {
     pass = mkOption {
-      type = types.nullOr types.str;
+      # 只允许仓库中已声明的密码 secret，避免任意 string 动态拼出 secret 名
+      # 与文件路径（audit §2）。新增主机时在此枚举与 secrets/secrets.nix 同步。
+      type = types.nullOr (
+        types.enum [
+          "gtr-pass"
+          "pi-pass"
+          "xps-pass"
+        ]
+      );
       default = null;
-      description = "choose which password file to use";
+      description = "该主机的登录密码 secret（对应 secrets/<name>.age）";
     };
   };
 
@@ -71,6 +79,13 @@ with lib;
         {
           assertion = device != "pi4b" || (config.age.secrets ? atticd-env);
           message = "atticd-env must be declared on pi4b";
+        }
+        {
+          # 密码 secret 名必须对应仓库中真实存在的密文（audit §2）。
+          assertion =
+            !(isString config.fool.secrets.pass)
+            || builtins.pathExists (./. + "/${config.fool.secrets.pass}.age");
+          message = "fool.secrets.pass 指向的 secrets/${config.fool.secrets.pass}.age 不存在";
         }
       ];
     }

@@ -1,7 +1,8 @@
 # Hobob 系统服务
 
 `default.nix` 通过 `fool.hobob.enable` 创建系统级 `programs-hobob` service，以专用系统
-用户 `hobob`、`StateDirectory=hobob` 运行 `cfg.package`（`ExecStart = lib.getExe`）。
+用户 `hobob`、`StateDirectory=hobob` 运行 `cfg.package`（`ExecStart = lib.getExe' cfg.package "hobob"`，
+binary 名为 `hobob`）。
 
 options：
 
