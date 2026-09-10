@@ -62,9 +62,9 @@ in
     nixpkgs.overlays = [
       inputs.nur.overlays.default
       # FIX calibre ebook-viewer env, see also https://discussion.fedoraproject.org/t/calibre-and-wayland/100384/3
-      # 用同一 overlay 的 `final` package set 重建完整 calibre（保留全部 bin/share），
-      # 只在入口 `calibre` 上强制 QT_QPA_PLATFORM=xcb；不再手工链接单个 binary
-      # 并绕过 overlay 的 package set（audit §10）。
+      # 以 `prev.calibre` 为源重建完整包（保留全部 bin/share），只在入口 `calibre`
+      # 上强制 QT_QPA_PLATFORM=xcb；`makeWrapper` 取自 `final` 以跟随 overlay 组合；
+      # 不再手工链接单个 binary 并绕过 overlay 的 package set（audit §10）。
       (final: prev: {
         calibre = prev.symlinkJoin {
           name = "calibre-wayland";

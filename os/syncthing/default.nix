@@ -30,7 +30,8 @@ in
       openDefaultPorts = cfg.openFirewall;
       user = username;
       dataDir = cfg.dataDir;
-      configDir = "/home/${username}/.config/syncthing";
+      # configDir 同样从用户 home 派生，不再硬编码 /home/<username>（audit §14）。
+      configDir = "${config.users.users.${username}.home}/.config/syncthing";
       overrideFolders = false;
       overrideDevices = false;
       # folders/devices 个人拓扑见 ./topology.nix，由 GTR7/XPS13 host 显式 imports

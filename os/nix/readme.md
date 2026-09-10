@@ -4,6 +4,7 @@
 substituter、trusted public key、netrc-file 与诊断开关（`trace-verbose`）。
 
 `trace-verbose` 默认关闭；需要排查构建/求值问题时在对应 host 临时设
-`nix.settings.trace-verbose = true`。标为 outdated 的 mirror 需独立连通性验证后删除。
+`nix.settings.trace-verbose = true`。标为 outdated 的 `mirror.sjtu.edu.cn` substituter
+已移除；重新引入任何 mirror 前先做独立连通性验证。
 修改 substituter / public key / netrc 时与 Pi 的 Attic 服务（`os/atticd`、
 `fool/attic`）一起核对。

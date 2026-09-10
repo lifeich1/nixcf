@@ -49,10 +49,17 @@
   services.getty.autologinUser = username;
   services.teamviewer.enable = true;
 
-  # Calibre 无线设备连接 / content server（用户层 GUI 服务，calibre 运行时监听
-  # 0.0.0.0:9090）。无系统 service module，规则由 gtr7 host 单一拥有；仅此机对
-  # LAN 设备开放，xps13 不开放（见 os/firewall/readme.md 端口表）。
-  networking.firewall.allowedTCPPorts = [ 9090 ];
+  # 无系统 service module、由 host 单一拥有的入站端口（见 os/firewall/readme.md
+  # 端口表）。两者都只在本机对 LAN 开放，xps13 不开放：
+  # - 9090/tcp：Calibre 无线设备连接 / content server（用户层 GUI 服务，
+  #   calibre 运行时监听 0.0.0.0:9090）。
+  # - 9119/tcp：Hermes Agent dashboard backend（仓库外用 podman-compose 常驻的
+  #   容器，入口在 zsrc 的 gtr7/hermes-podman；dashboard 进程绑 0.0.0.0:9119），
+  #   Hermes 客户端「Remote gateway」与手机浏览器经它连入。
+  networking.firewall.allowedTCPPorts = [
+    9090
+    9119
+  ];
 
   # desktop + audio + pro-audio（GTR7 有 JACK/实时工作流，拆分自 fool.collections.gtr）
   fool.collections = {

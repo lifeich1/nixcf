@@ -4,7 +4,7 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 
 NOM_FLAGS := "--log-format internal-json -v |& nom --json"
 DU_RESULT := "/tmp/nix-du-result.svg"
-HOST_NO_PROXY := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirror.sjtu.edu.cn,mirrors.ustc.edu.cn,gitee.com"
+HOST_NO_PROXY := "127.0.0.1,localhost,internal.domain,my-pi,mirrors.tuna.tsinghua.edu.cn,mirrors.ustc.edu.cn,gitee.com"
 
 alias u := update
 alias cont := continue

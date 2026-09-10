@@ -82,6 +82,8 @@ with lib;
         }
         {
           # 密码 secret 名必须对应仓库中真实存在的密文（audit §2）。
+          # flakes 纯求值下 pathExists 只看 git 跟踪的内容：新增主机的 .age
+          # 必须先 `git add`，否则这里会误报为文件不存在。
           assertion =
             !(isString config.fool.secrets.pass)
             || builtins.pathExists (./. + "/${config.fool.secrets.pass}.age");
