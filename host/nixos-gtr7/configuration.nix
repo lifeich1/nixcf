@@ -29,6 +29,10 @@
 
   ## NOTE hardware above, userspace below
 
+  environment.systemPackages = with pkgs; [
+    podman-compose
+  ];
+
   fool.sudo.nopass = true;
   fool.secrets.pass = "gtr-pass";
 
