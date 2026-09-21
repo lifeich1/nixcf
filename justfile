@@ -111,7 +111,7 @@ deploy-host host *flags:
       echo "warning: dirty deploy ({{ host }}); skipping normal tag" >&2
     fi
 
-    nixos-rebuild switch --flake .{{ "#{{ host }}" }} --target-host "$target" {{ flags }} {{ NOM_FLAGS }}
+    nixos-rebuild switch --flake .#{{ host }} --target-host "$target" {{ flags }} {{ NOM_FLAGS }}
 
     # Only tag when the switch succeeded and the tree still points at the
     # exact revision that was built.
