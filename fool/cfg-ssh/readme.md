@@ -7,4 +7,6 @@
 
 - 公共默认值（`*` 与 `github.com`）在本文件中，与个人别名合并渲染为 `~/.ssh/config`。
 - 新增主机：在对应 profile 的 `fool.cfg-ssh.hosts` 增加条目即可，无需改模块。
+- 条目可选字段：`forwardAgent`、`proxyJump`（跳板，如 `root@jump-host`，渲染为
+  `ProxyJump`）与 `proxyCommand`（自定义转发）；两者互斥，同一条目只设其一。
 - 此处是客户端配置；系统 SSH 服务由 `os/default.nix` 管理。

@@ -32,6 +32,11 @@ in
             default = null;
             description = "ProxyCommand override (e.g. ssh -W %h:%p hop)";
           };
+          proxyJump = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = "ProxyJump hop (e.g. root@jump-host); exclusive with proxyCommand";
+          };
         };
       });
       default = { };
@@ -75,7 +80,8 @@ in
         HostName = h.hostName;
         User = h.user;
       } // lib.optionalAttrs h.forwardAgent { ForwardAgent = true; }
-        // lib.optionalAttrs (h.proxyCommand != null) { ProxyCommand = h.proxyCommand; })
+        // lib.optionalAttrs (h.proxyCommand != null) { ProxyCommand = h.proxyCommand; }
+        // lib.optionalAttrs (h.proxyJump != null) { ProxyJump = h.proxyJump; })
     ) cfg.hosts;
   };
 }

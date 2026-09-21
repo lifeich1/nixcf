@@ -30,6 +30,7 @@
       hostName = "64.176.41.80";
       user = "root";
       forwardAgent = true;
+      proxyJump = "root@199.19.105.185";
     };
     lclpi = {
       hostName = osConfig.fool.homelab.pi.lanAddress;
