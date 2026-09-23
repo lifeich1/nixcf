@@ -1,7 +1,10 @@
 { pkgs, lib, ... }:
 let
   raw = expr: { __raw = expr; };
-  opt = plugin: { inherit plugin; optional = true; };
+  opt = plugin: {
+    inherit plugin;
+    optional = true;
+  };
   start = plugin: { inherit plugin; };
 in
 {

@@ -115,28 +115,26 @@ let
     };
   };
 
-  renderProvider =
-    p:
-    ''
-      [[providers]]
-      ${renderFields [
-        (field "name" p.name)
-        (field "kind" p.kind)
-        (field "base_url" p.baseUrl)
-        (field "model" p.model)
-        (field "models" p.models)
-        (field "default" p.defaultModel)
-        (field "api_key_env" p.apiKeyEnv)
-        (field "balance_url" p.balanceUrl)
-        (field "context_window" p.contextWindow)
-        (field "max_output_tokens" p.maxOutputTokens)
-        (field "price" p.price)
-        (field "prices" p.prices)
-        (field "billing_currency" p.billingCurrency)
-        (field "vision_models" p.visionModels)
-        (field "effort" p.effort)
-      ]}
-    '';
+  renderProvider = p: ''
+    [[providers]]
+    ${renderFields [
+      (field "name" p.name)
+      (field "kind" p.kind)
+      (field "base_url" p.baseUrl)
+      (field "model" p.model)
+      (field "models" p.models)
+      (field "default" p.defaultModel)
+      (field "api_key_env" p.apiKeyEnv)
+      (field "balance_url" p.balanceUrl)
+      (field "context_window" p.contextWindow)
+      (field "max_output_tokens" p.maxOutputTokens)
+      (field "price" p.price)
+      (field "prices" p.prices)
+      (field "billing_currency" p.billingCurrency)
+      (field "vision_models" p.visionModels)
+      (field "effort" p.effort)
+    ]}
+  '';
 
   # 只覆盖核心项；bot/desktop/plugins 等交给 extraConfig 或 CLI 自身维护。
   # TOML 要求顶层标量键先于所有表，因此 extraConfig 只能追加表/数组表。
@@ -163,9 +161,9 @@ let
     bash    = ${tomlValue settings.sandbox.bash}
     network = ${tomlValue settings.sandbox.network}
 
-    ${concatMapStringsSep "\n" renderProvider settings.providers}${optionalString (
-      cfg.extraConfig != ""
-    ) cfg.extraConfig}
+    ${concatMapStringsSep "\n" renderProvider settings.providers}${
+      optionalString (cfg.extraConfig != "") cfg.extraConfig
+    }
   '';
 in
 {

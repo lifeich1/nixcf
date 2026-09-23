@@ -34,16 +34,14 @@
       ];
     };
 
-    home.packages =
-      with pkgs;
-      [
-        fzf
-        fd # for fzf respect gitignore
-        lemonade
-        neovim-remote
-        gitmoji-cli
-        nixfmt # formatter used by nil_ls
-      ];
+    home.packages = with pkgs; [
+      fzf
+      fd # for fzf respect gitignore
+      lemonade
+      neovim-remote
+      gitmoji-cli
+      nixfmt # formatter used by nil_ls
+    ];
 
     xdg.enable = true;
   };

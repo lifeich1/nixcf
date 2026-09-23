@@ -29,8 +29,7 @@ in
         WantedBy = [ "default.target" ];
       };
       Service = {
-        ExecStart =
-          "${lib.getExe pkgs.attic-client} watch-store ${osConfig.fool.homelab.attic.cacheName}";
+        ExecStart = "${lib.getExe pkgs.attic-client} watch-store ${osConfig.fool.homelab.attic.cacheName}";
         RestartSec = "10min";
         Restart = "always";
       };

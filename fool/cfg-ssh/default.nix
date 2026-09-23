@@ -11,34 +11,36 @@ in
   options.fool.cfg-ssh = {
     # 个人 SSH host 数据由 profile/data 层提供；模块只定义类型，不含真实 endpoint。
     hosts = mkOption {
-      type = types.attrsOf (types.submodule {
-        options = {
-          hostName = mkOption {
-            type = types.str;
-            description = "SSH HostName";
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            hostName = mkOption {
+              type = types.str;
+              description = "SSH HostName";
+            };
+            user = mkOption {
+              type = types.str;
+              default = "root";
+              description = "SSH user";
+            };
+            forwardAgent = mkOption {
+              type = types.bool;
+              default = false;
+              description = "enable ForwardAgent for this host";
+            };
+            proxyCommand = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "ProxyCommand override (e.g. ssh -W %h:%p hop)";
+            };
+            proxyJump = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "ProxyJump hop (e.g. root@jump-host); exclusive with proxyCommand";
+            };
           };
-          user = mkOption {
-            type = types.str;
-            default = "root";
-            description = "SSH user";
-          };
-          forwardAgent = mkOption {
-            type = types.bool;
-            default = false;
-            description = "enable ForwardAgent for this host";
-          };
-          proxyCommand = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-            description = "ProxyCommand override (e.g. ssh -W %h:%p hop)";
-          };
-          proxyJump = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-            description = "ProxyJump hop (e.g. root@jump-host); exclusive with proxyCommand";
-          };
-        };
-      });
+        }
+      );
       default = { };
       description = "personal ssh host aliases, keyed by alias name";
     };
@@ -74,14 +76,18 @@ in
           ForwardAgent = true;
           ProxyCommand = "nc -X 5 -x ${tcp_url} %h %p";
         };
-    } // mapAttrs' (
+    }
+    // mapAttrs' (
       name: h:
-      nameValuePair name ({
-        HostName = h.hostName;
-        User = h.user;
-      } // lib.optionalAttrs h.forwardAgent { ForwardAgent = true; }
+      nameValuePair name (
+        {
+          HostName = h.hostName;
+          User = h.user;
+        }
+        // lib.optionalAttrs h.forwardAgent { ForwardAgent = true; }
         // lib.optionalAttrs (h.proxyCommand != null) { ProxyCommand = h.proxyCommand; }
-        // lib.optionalAttrs (h.proxyJump != null) { ProxyJump = h.proxyJump; })
+        // lib.optionalAttrs (h.proxyJump != null) { ProxyJump = h.proxyJump; }
+      )
     ) cfg.hosts;
   };
 }

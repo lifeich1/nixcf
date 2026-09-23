@@ -73,8 +73,7 @@ in
 
   config = mkMerge [
     {
-      fool.homelab.attic.endpoint =
-        "${cfg.attic.scheme}://${cfg.pi.hostName}:${toString cfg.attic.port}";
+      fool.homelab.attic.endpoint = "${cfg.attic.scheme}://${cfg.pi.hostName}:${toString cfg.attic.port}";
     }
     (mkIf cfg.pi.resolvable {
       networking.hosts."${cfg.pi.lanAddress}" = [ cfg.pi.hostName ];

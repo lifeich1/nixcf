@@ -17,7 +17,10 @@ in
     home.packages = with pkgs; [
       (writeShellApplication {
         name = "com-lemonade";
-        runtimeInputs = [ lemonade openssh ];
+        runtimeInputs = [
+          lemonade
+          openssh
+        ];
         text = ''
           set -euo pipefail
           stdbuf -oL lemonade server &

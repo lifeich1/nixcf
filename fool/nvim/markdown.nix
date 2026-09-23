@@ -1,4 +1,9 @@
-{ config, lib, hmConfig, ... }:
+{
+  config,
+  lib,
+  hmConfig,
+  ...
+}:
 lib.mkIf hmConfig.fool.nvim.markdown {
   plugins.render-markdown = {
     enable = true;

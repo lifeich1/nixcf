@@ -1,7 +1,10 @@
 { pkgs, inputs, ... }:
 
 {
-  imports = [ ../common.nix ../desktop-common.nix ];
+  imports = [
+    ../common.nix
+    ../desktop-common.nix
+  ];
 
   home.packages = with pkgs; [
     # trials on one host

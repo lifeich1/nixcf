@@ -1,4 +1,8 @@
-{ pkgs, lib, homeDirectory }:
+{
+  pkgs,
+  lib,
+  homeDirectory,
+}:
 # base configuration aggregator: split by behavior into plugins.nix,
 # editor.nix, keymaps.nix and workflow.nix (see readme.md).
 # Fragments are merged inside one module so nixvim config option ordering

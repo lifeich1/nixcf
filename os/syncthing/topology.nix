@@ -4,7 +4,12 @@
 # （folder id/path/type、device id 均保持不变），由 host 显式 imports 导入。
 # 同步方向与设备不在此处变更；overrideFolders/overrideDevices 仍为 false
 # （refactor-plan-04 阶段 7：第一阶段保持运行态拓扑不变）。
-{ config, lib, username, ... }:
+{
+  config,
+  lib,
+  username,
+  ...
+}:
 with lib;
 let
   datadir = "/home/${username}";

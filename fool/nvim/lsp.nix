@@ -19,16 +19,36 @@ lib.mkIf hmConfig.fool.nvim.lsp {
       # 每个 server 启用 nixvim 默认 package（来自 packages.nix 映射），
       # 不再设 package = null 或维护 home.packages 第二清单。
       # ccls→clangd 已纠正：clangd 默认包为 clang-tools（含 clangd 二进制）。
-      jsonls = { enable = true; };
-      html = { enable = true; };
-      cssls = { enable = true; };
-      pylsp = { enable = true; };
-      bashls = { enable = true; };
-      clangd = { enable = true; };
-      eslint = { enable = true; };
-      vimls = { enable = true; };
-      marksman = { enable = true; };
-      perlpls = { enable = true; };
+      jsonls = {
+        enable = true;
+      };
+      html = {
+        enable = true;
+      };
+      cssls = {
+        enable = true;
+      };
+      pylsp = {
+        enable = true;
+      };
+      bashls = {
+        enable = true;
+      };
+      clangd = {
+        enable = true;
+      };
+      eslint = {
+        enable = true;
+      };
+      vimls = {
+        enable = true;
+      };
+      marksman = {
+        enable = true;
+      };
+      perlpls = {
+        enable = true;
+      };
       nil_ls = {
         enable = true;
         settings.formatting.command = [ "nixfmt" ];

@@ -74,23 +74,21 @@
         nixpkgs.lib.nixosSystem {
           inherit (host) system;
           specialArgs = sysArgs;
-          modules =
-            host.modules
-            ++ [
-              homeModule
-              ./os
-              ./secrets
-              ./host/${name}/configuration.nix
-              inputs.agenix.nixosModules.default
-              home-manager.nixosModules.home-manager
-              {
-                networking.hostName = nixpkgs.lib.mkForce name;
-                home-manager.sharedModules = [
-                  ./fool
-                  inputs.nixvim.homeModules.nixvim
-                ];
-              }
-            ];
+          modules = host.modules ++ [
+            homeModule
+            ./os
+            ./secrets
+            ./host/${name}/configuration.nix
+            inputs.agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              networking.hostName = nixpkgs.lib.mkForce name;
+              home-manager.sharedModules = [
+                ./fool
+                inputs.nixvim.homeModules.nixvim
+              ];
+            }
+          ];
         };
     in
     {

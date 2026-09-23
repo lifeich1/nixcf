@@ -9,7 +9,8 @@ let
   ];
   all = [
     pi-host
-  ] ++ builders;
+  ]
+  ++ builders;
 in
 {
   "xray-config.json.age".publicKeys = all;

@@ -4,7 +4,12 @@
 # 修改时与 os/atticd、fool/attic 一起核对；netrc-file 指向 Agenix 运行时文件
 # `/run/agenix/attic-netrc`，文档中不复制令牌。
 # Attic endpoint/cache/public key 从 os/homelab 的类型化配置派生。
-{ config, lib, username, ... }:
+{
+  config,
+  lib,
+  username,
+  ...
+}:
 with lib;
 let
   attic = config.fool.homelab.attic;

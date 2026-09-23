@@ -28,9 +28,11 @@ in
     };
     # vboxusers 组成员由本 module 统一派生（refactor-plan-04 阶段 9），
     # 避免 host 文件重复 group 约定。
-    users.users = listToAttrs (map (name: {
-      inherit name;
-      value.extraGroups = [ "vboxusers" ];
-    }) cfg.users);
+    users.users = listToAttrs (
+      map (name: {
+        inherit name;
+        value.extraGroups = [ "vboxusers" ];
+      }) cfg.users
+    );
   };
 }
