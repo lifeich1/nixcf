@@ -34,14 +34,23 @@ update-reasonix:
 update-kdocs:
     ./fool/kdocs/update.py
 
-# Evaluate every flake check, key eval assertions, and formatting precondition.
-# Formatting: nixfmt 1.4 lacks --check; baseline accepted.  To tighten later,
-# replace the placeholder with `nix fmt . && git diff --exit-code -- .` after
-# confirming the whole repo passes nixfmt.
+# Evaluate every flake check, key eval assertions, and the nixfmt formatting gate.
+# Scope: tracked *.nix only (flake formatter = nixfmt); fix violations with `just fmt`.
 [group('build')]
 chk *flags:
     nix flake check {{ flags }}
     bash ./tools/eval-assertions.sh .
+    just fmt-check
+
+# Assert every tracked Nix file is clean under the flake formatter (nixfmt).
+[group('build')]
+fmt-check:
+    nix fmt -- --check $(git ls-files '*.nix')
+
+# Format every tracked Nix file in place with the flake formatter.
+[group('build')]
+fmt:
+    nix fmt -- $(git ls-files '*.nix')
 
 # Activate the local host and show the system closure diff.
 [group('build')]
