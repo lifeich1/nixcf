@@ -46,6 +46,7 @@
     };
   };
   fool.nvim.lsp = true;
+  fool.nvim.markdown = true;
   fool.alacritty.enable = true;
   fool.fastfetch.enable = true;
   programs.zellij.enable = true;

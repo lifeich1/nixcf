@@ -4,19 +4,22 @@
 
 ## 模块边界
 
-- `default.nix`：声明 `fool.nvim.lsp`，启用 `programs.nixvim`，显式复用 flake 的主 nixpkgs，并保留 Neovim 外围 CLI 与 LSP 工具包。
+- `default.nix`：声明 `fool.nvim.lsp` 与 `fool.nvim.markdown`，启用 `programs.nixvim`，显式复用 flake 的主 nixpkgs，并保留 Neovim 外围 CLI 与 LSP 工具包。
 - `base.nix`：聚合 `plugins.nix`、`editor.nix`、`keymaps.nix`、`workflow.nix` 四个行为分片（在同一 module 内 `mkMerge`，保持 Nixvim `types.lines` 的合并顺序）。
 - `plugins.nix`：基础插件及其 setup（Catppuccin、UFO、coverage 等）。
 - `editor.nix`：编辑选项、autocmd 与 provider。
 - `keymaps.nix`：普通键位与 Workman runtime 接入。
 - `workflow.nix`：gitmoji、竞赛缩写、remote clipboard 等个人工作流。
 - `lsp.nix`：LSP server、LspAttach 行为、diagnostic 键位、`fzf-lsp-nvim` 和 Treesitter grammar，仅在 `fool.nvim.lsp` 开启时生效。
+- `markdown.nix`：render-markdown 插件与其样式，以及它依赖的 `markdown`、`markdown_inline` Treesitter 解析器，仅在 `fool.nvim.markdown` 开启时生效。
 - `workman-p.vim`：自定义键位文件，通过 Nixvim runtime 文件加载。
 - `nvim-config-skills.md`：本目录维护提示。
 
 ## 公开开关
 
 - `fool.nvim.lsp` 默认关闭，在桌面公共配置中开启；GTR7、XPS13 启用，Pi4B 关闭。
+- `fool.nvim.markdown` 默认关闭，在桌面公共配置中开启；GTR7、XPS13 启用，Pi4B 关闭。它自带
+  `markdown`/`markdown_inline` 解析器声明，可单独开启（不与 `fool.nvim.lsp` 绑定）。
 - 原 `fool.nvim.ai`（Avante）已删除：未完成 provider/secret 接入，不保留“启用但不可用”的开关
   （refactor-plan-05 阶段 7）。如需 AI 功能，应另立计划补齐 provider、runtime secret 与健康检查。
 

@@ -8,6 +8,7 @@
 {
   options.fool.nvim = {
     lsp = lib.mkEnableOption "Language Server Protocol";
+    markdown = lib.mkEnableOption "render-markdown (Markdown rendering)";
   };
 
   config = {
@@ -29,6 +30,7 @@
           inherit (config.home) homeDirectory;
         })
         ./lsp.nix
+        ./markdown.nix
       ];
     };
 

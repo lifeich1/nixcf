@@ -54,6 +54,11 @@ check nixos-gtr7 "config.home-manager.users.fool.programs.nixvim.build.package.n
 check nixos-xps13 "config.home-manager.users.fool.programs.nixvim.build.package.name" nixvim
 check nixos-pi4b "config.home-manager.users.pi.programs.nixvim.build.package.name" nixvim
 
+# render-markdown: desktop only (GTR7/XPS13)
+check nixos-gtr7 "config.home-manager.users.fool.programs.nixvim.plugins.render-markdown.enable" true
+check nixos-xps13 "config.home-manager.users.fool.programs.nixvim.plugins.render-markdown.enable" true
+check nixos-pi4b "config.home-manager.users.pi.programs.nixvim.plugins.render-markdown.enable" false
+
 echo "---"
 if (( fail )); then
   echo "some key eval assertions failed"
