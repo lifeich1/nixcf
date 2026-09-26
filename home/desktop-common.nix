@@ -26,11 +26,9 @@
     with-skim = true;
   };
   fool.cfg-ssh.hosts = {
-    ayu = {
-      hostName = "64.176.41.80";
+    emotions = {
+      hostName = "199.19.105.185";
       user = "root";
-      forwardAgent = true;
-      proxyJump = "root@199.19.105.185";
     };
     lclpi = {
       hostName = osConfig.fool.homelab.pi.lanAddress;
