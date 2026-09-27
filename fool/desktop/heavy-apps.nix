@@ -33,6 +33,9 @@ in
       tor-browser
       wpsoffice-cn
       calibre
+
+      # rss reader
+      kdePackages.akregator
     ];
   };
 }
