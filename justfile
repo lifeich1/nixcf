@@ -104,7 +104,7 @@ rebuild-xps *flags:
 rebuild-gtr7 *flags:
     just deploy-host nixos-gtr7 {{ flags }}
 
-# Internal unified deploy: clean-tree guard + remote switch + tag.
+# Internal unified deploy: clean-tree guard + local/remote switch + tag.
 [private]
 deploy-host host *flags:
     #!/usr/bin/env bash
@@ -120,7 +120,14 @@ deploy-host host *flags:
       echo "warning: dirty deploy ({{ host }}); skipping normal tag" >&2
     fi
 
-    nixos-rebuild switch --flake .#{{ host }} --target-host "$target" {{ flags }} {{ NOM_FLAGS }}
+    # Local target: activating over SSH to ourselves would need a reachable
+    # remote session for no benefit, so switch in place with sudo instead.
+    if [[ "$(hostname)" == "{{ host }}" ]]; then
+      echo "-- {{ host }} is this machine; switching locally" >&2
+      sudo nixos-rebuild switch --flake .#{{ host }} {{ flags }} {{ NOM_FLAGS }}
+    else
+      nixos-rebuild switch --flake .#{{ host }} --target-host "$target" {{ flags }} {{ NOM_FLAGS }}
+    fi
 
     # Only tag when the switch succeeded and the tree still points at the
     # exact revision that was built.
