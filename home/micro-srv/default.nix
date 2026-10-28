@@ -51,5 +51,9 @@
       hostName = "199.19.105.185";
       user = "root";
     };
+    scintilla = {
+      hostName = "64.176.38.71";
+      user = "root";
+    };
   };
 }
