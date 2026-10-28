@@ -14,9 +14,6 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # remote work
-      teamviewer
-
       # (multi)media
       vlc
       ffmpeg

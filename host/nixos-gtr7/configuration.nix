@@ -51,7 +51,6 @@
 
   # Enable automatic login for the user.
   services.getty.autologinUser = username;
-  services.teamviewer.enable = true;
 
   # 无系统 service module、由 host 单一拥有的入站端口（见 os/firewall/readme.md
   # 端口表）。两者都只在本机对 LAN 开放，xps13 不开放：
