@@ -27,7 +27,8 @@
   };
   fool.cfg-ssh.hosts = {
     emotions = {
-      hostName = "199.19.105.185";
+      hostName = "64.64.237.104";
+      port = 6027;
       user = "root";
     };
     scintilla = {

@@ -23,6 +23,11 @@ in
               default = "root";
               description = "SSH user";
             };
+            port = mkOption {
+              type = types.nullOr types.port;
+              default = null;
+              description = "SSH Port；null 表示使用 ssh 默认端口";
+            };
             forwardAgent = mkOption {
               type = types.bool;
               default = false;
@@ -84,6 +89,7 @@ in
           HostName = h.hostName;
           User = h.user;
         }
+        // lib.optionalAttrs (h.port != null) { Port = h.port; }
         // lib.optionalAttrs h.forwardAgent { ForwardAgent = true; }
         // lib.optionalAttrs (h.proxyCommand != null) { ProxyCommand = h.proxyCommand; }
         // lib.optionalAttrs (h.proxyJump != null) { ProxyJump = h.proxyJump; }
