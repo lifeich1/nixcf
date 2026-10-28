@@ -9,6 +9,25 @@
 3. 只打开任务涉及的 `host/`、`home/`、`os/` 或 `fool/` 源码，不要为了了解单个模块扫描整个仓库。
 4. 配置版本、input 和当前启用状态以源码及 `flake.lock` 为准，不要把 README 中的描述当作固定事实。
 
+## 工具与探索效率
+
+1. 文件读取、内容搜索、路径发现分别优先使用 `read`、`grep`、`glob` 工具；不要用
+   `cat`/`sed`/`grep -R`/`find` 代替。
+2. 递归搜索先限定路径与文件类型，用 `-l`/`-m` 缩小结果，再对具体文件 `read`；
+   避免 `grep -R ... | head` 这类在大目录上产生 broken pipe 的组合。
+3. 定位 flake input 或上游包源码时，用 `nix flake archive --json`、`nix eval`、
+   `nix-store -q --references` 等 Nix 入口；不要遍历 `/nix/store`。
+4. 运行 Nix 命令前先确认环境：缺少 `jq` 时用 `python3` 解析 JSON；`/` 只读或
+   Nix 缓存不可写时，先设置 `XDG_CACHE_HOME=/tmp/...`。
+5. 构建 Home Manager 配置的包前，先读模块 wiring 区分 `programs.*.package`（可能
+   只是 base）与 `home.packages` 中的 runtime 包；用 `nix eval --apply` 过滤后再
+   build，避免先构建错误目标。
+6. 凭据文件只做存在性检查（如 `grep -q '<REF>'`）或经凭据 API 查询；不要读取、
+   打印或记录密钥值、长度、字符模式。
+7. 泛化 `web_search` 命中率低时，直接 `web_fetch` 已知域名的 API、定价或文档端点；
+   与任务无关的泛化调研文档不要展开。
+8. 系统已注入的 `AGENTS.md`/指令不要用 `cat` 重复读取；需要细节时再 `read` 目标文件。
+
 ## 配置边界
 
 - `flake.nix`：导入 `hosts.nix` 组装 `nixosConfigurations`，暴露 `deployTargets` 与
@@ -57,6 +76,9 @@
 
 - 文档改动：至少运行 `git diff --check` 并检查路径/描述与源码一致。
 - Nix 配置改动：优先运行 `just chk`；若无法完成，明确报告未验证项和原因。
+- Nix 配置的运行时冒烟用临时 `DSH_HOME`/`mktemp -d`，删除临时目录前用 `readlink -f`
+  核对绝对路径；出现上游警告时，用去掉本次改动的对照组合确认是否既有问题。
+- 工作区有无关暂存改动时，用 `git commit --only <paths>` 只提交本次涉及的文件。
 - 部署命令为 `just pi`、`just xps`、`just gtr7`，会连接远端并创建部署 tag；除非用户明确要求，不要执行部署。
 - 不要提交、打 tag 或更新 flake inputs，除非用户明确要求。
 - 需要提交信息时遵循 `.agents/skills/commit-message/SKILL.md`：`<emoji> <component>: <short description>`。
