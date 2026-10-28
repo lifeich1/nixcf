@@ -55,9 +55,9 @@ API key 不写入 Nix：provider 只声明 `apiKeyEnv = "JUFLOW_API_KEY"`，值�
 - 协议：`openai-completions`（JuFlow 是 New API 中转，公开 `/v1/chat/completions`）
 - 端点：`https://juflowai.com/v1`
 - 凭据引用：`JUFLOW_API_KEY`；密钥值不进入 Nix
-- 模型：`DeepSeek-V4-Pro-0813`、`qwen3.8-max`、`glm-5.3`、`glm-5.3-flash`、
-  `DeepSeek-V4.1-flash`、`DeepSeek-V4.1-Flash-1017`、`kimi-k3.1-pro`、`kimi-k3`
-  （视频模型 `doubao-seedance-2-5-260628`、`wan3.0-video` 不纳入）
+- 模型：当前仅 `DeepSeek-V4.1-Flash-1017`（其余条目在配置中注释保留）
+- 上下文：该模型显式声明 `contextWindow = 1000000`。JuFlow 路由不在 pi-ai 内置目录
+  中，未声明时会回退到默认的 262,144 tokens。
 
 模型列表是 JuFlow 公开 `/api/pricing` 的快照；JuFlow 增删模型时需要同步修改
 `home/desktop-common.nix` 并重新 activation。因为 home patch 优先于 profile patch，

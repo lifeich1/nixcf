@@ -42,7 +42,12 @@
             # { id = "glm-5.3"; }
             # { id = "glm-5.3-flash"; }
             # { id = "DeepSeek-V4.1-flash"; }
-            { id = "DeepSeek-V4.1-Flash-1017"; }
+            # JuFlow 路由不在 pi-ai 内置目录中，未声明时回退到 262,144；
+            # 该模型官方上下文窗口为 1M。
+            {
+              id = "DeepSeek-V4.1-Flash-1017";
+              contextWindow = 1000000;
+            }
             # { id = "kimi-k3.1-pro"; }
             # { id = "kimi-k3"; }
           ];
