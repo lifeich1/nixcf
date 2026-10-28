@@ -20,7 +20,11 @@
   fool.dsh = {
     enable = true;
     package = pkgs.dsh.dsh;
-    bundles = [ pkgs.dsh.bundles.web-app ];
+    profiles = {
+      web.bundles = [ pkgs.dsh.bundles.web-app ];
+      tui.bundles = [ pkgs.dsh.bundles.tui ];
+    };
+    defaultProfile = "tui";
   };
   fool.kdocs.enable = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;

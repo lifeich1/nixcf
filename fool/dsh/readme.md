@@ -14,15 +14,20 @@
 
 - `fool.dsh.enable`：启用 dsh CLI 与 profile 管理。
 - `fool.dsh.package`：dsh CLI 包，由启用点传入 `pkgs.dsh.dsh`。
-- `fool.dsh.profileName`：Nix 管理的 profile key，默认 `web`；materialized 后为
-  `nix-web`。
-- `fool.dsh.bundles`：该 profile 的 bundle 列表，当前为
-  `[ pkgs.dsh.bundles.web-app ]`。
-- `fool.dsh.mode`：默认 `managed`。managed 会在 activation 时生成
-  `~/.dsh/profiles/nix-web`，并在每次运行 `dsh` 时恢复 `package.json` 与
+- `fool.dsh.profiles`：Nix 管理的 profile 集合，key 为 profile 名，materialized 后为
+  `nix-<name>`；每项支持 `bundles` 与 `mode`。当前声明：
+  - `web`：`[ pkgs.dsh.bundles.web-app ]`
+  - `tui`：`[ pkgs.dsh.bundles.tui ]`
+- `fool.dsh.defaultProfile`：默认 profile 的 key（不加 `nix-` 前缀），当前为 `tui`，
+  即 materialized 后的 `nix-tui`；必须是 `fool.dsh.profiles` 中已声明的 key。
+- `bundles` 的 `mode` 默认 `managed`。managed 会在 activation 时生成
+  `~/.dsh/profiles/nix-<name>`，并在每次运行 `dsh` 时恢复 `package.json` 与
   `cordis.patch.yml`；需要保留 Settings UI 或 `dsh plugin` 的运行时修改时改为
   `mutable`。
-- `defaultProfile` 由模块自动设为 `nix-web`，不要在 profile 参数里直接写 `web`。
+- `defaultProfile` 由模块自动加上 `nix-` 前缀，不要手写 `nix-tui`。
+- `tui` profile 的 bundle 带 `passthru.requiresTty`，构建期 `dshBundleCheckHook`
+  需要在伪终端中执行冒烟检查；模块会把这类 profile 名回传给
+  `dshBundleCheckTtyProfiles`，避免上游 runtime 包清空 `profiles` 后误走非 TTY 路径。
 
 当前由 `home/desktop-common.nix` 在 GTR7 与 XPS13 启用，Pi 不启用。
 
@@ -30,7 +35,8 @@
 
 ```sh
 dsh --version
-dsh web          # 首次启动会在 ~/.dsh 下初始化并打开 Web UI
+dsh              # 默认使用 nix-tui profile
+dsh --profile nix-web   # 显式使用 Web UI profile
 dsh --help
 ```
 
@@ -49,4 +55,4 @@ just chk
 nixpkgs pin 与社区 flake 验证过的 rev 保持一致，以复用
 `https://deepseek-harness-nix.cachix.org` 的预构建缓存；该缓存配置位于
 `os/nix/`。升级后需重新 activation，才能更新 `dsh` wrapper 与
-`~/.dsh/profiles/nix-web`。
+`~/.dsh/profiles/nix-{tui,web}`。

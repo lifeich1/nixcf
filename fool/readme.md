@@ -11,8 +11,8 @@ profile 显式导入。
 - `podman/` 配置用户级 docker.io 仓库镜像（`~/.config/containers/registries.conf`）。
 - `reasonix/` 打包固定版本的 x86_64 Linux CLI，并提供稳定版更新脚本。
 - `dsh/` 通过社区 flake `Moraxyc/deepseek-harness.nix` 的 overlay 安装固定版本
-  `dsh`，并用 `programs.dsh.profiles` 声明 `web` profile；overlay 仅对
-  `x86_64-linux` host 生效，Pi 不启用。
+  `dsh`，并用 `programs.dsh.profiles` 声明 `web` 与 `tui` profile（默认
+  `nix-tui`）；overlay 仅对 `x86_64-linux` host 生效，Pi 不启用。
 - `kdocs/` 安装固定版本的 `kdocs-cli`，并把官方 skill 符号链接到 `~/.reasonix/skills/kdocs`；
   版本与两个 hash 记录在 `source.json`，由 `just update-kdocs` 刷新。
 - 主机侧开关集中在 `home/<profile>/default.nix`，不要在聚合入口硬编码某台机器的选择。
