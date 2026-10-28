@@ -17,6 +17,11 @@
   fool.misc.nixbuild = true;
   fool.com-lemonade.enable = true;
   fool.reasonix.enable = true;
+  fool.dsh = {
+    enable = true;
+    package = pkgs.dsh.dsh;
+    bundles = [ pkgs.dsh.bundles.web-app ];
+  };
   fool.kdocs.enable = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;
   fool.proxy.use-pi = true;

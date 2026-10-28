@@ -81,6 +81,12 @@
             homeModule
             ./os
             ./secrets
+            {
+              # deepseek-harness 只对 x86_64 桌面 host 生效；Pi 不应用全局 overlay。
+              nixpkgs.overlays = nixpkgs.lib.optionals (host.system == "x86_64-linux") [
+                inputs.deepseek-harness.overlays.default
+              ];
+            }
             ./host/${name}/configuration.nix
             inputs.agenix.nixosModules.default
             home-manager.nixosModules.home-manager

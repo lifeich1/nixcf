@@ -22,6 +22,7 @@ in
     ./com-lemonade
     ./cp-guard
     ./desktop
+    ./dsh
     ./fastfetch
     ./git
     ./kdocs
