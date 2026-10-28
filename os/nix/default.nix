@@ -33,6 +33,8 @@ in
       # NOTE sometimes commu cache corrupted then broke home-manager
       "https://nix-community.cachix.org"
       "https://rewine.cachix.org"
+      # DeepSeek Harness 社区打包的只读预构建缓存，见 fool/dsh/readme.md
+      "https://deepseek-harness-nix.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -40,6 +42,7 @@ in
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       attic.publicKey # homelab
       "rewine.cachix.org-1:aOIg9PvwuSefg59gVXXxGIInHQI9fMpskdyya2xO+7I="
+      "deepseek-harness-nix.cachix.org-1:5NrkwLN9veNMhiINtU5ZeV4isXFhFsOwn6Ms7J1M+TA="
     ];
     # trace-verbose 是临时诊断开关（audit §8）；默认关闭，排查构建/求值问题时
     # 在对应 host 上临时设 `nix.settings.trace-verbose = true`。
