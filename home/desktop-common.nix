@@ -87,5 +87,8 @@
   fool.fastfetch.enable = true;
   programs.zellij.enable = true;
   # 备用交互 shell：安装 nushell，但不改变 users.nix 中 zsh 的默认登录 shell
-  programs.nushell.enable = true;
+  programs.nushell = {
+    enable = true;
+    loadSessionVariables = false;
+  };
 }
