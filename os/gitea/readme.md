@@ -4,7 +4,8 @@
 
 options：
 
-- `fool.gitea.domain`：`server.DOMAIN`，默认 `fool.homelab.pi.hostName`（my-pi）。
+- `fool.gitea.domain`：Gitea `server.ROOT_URL` 的主机部分，默认
+  `fool.homelab.pi.hostName`（my-pi）；模块生成 `http://<domain>:3000/`。
 - `fool.gitea.migrationProxy`：GitHub migration 经本机 HTTP migration proxy
   （127.0.0.1:`fool.homelab.proxy.migrationPort`）。
 - `fool.gitea.allowRegistration`：允许公开注册，默认 `false`（账户已在 Pi 创建）。

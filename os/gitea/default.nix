@@ -32,7 +32,7 @@ in
         lfs.enable = true;
         settings = {
           server = {
-            DOMAIN = cfg.domain;
+            ROOT_URL = "http://${cfg.domain}:3000/";
           };
           migrations = {
             ALLOW_LOCALNETWORKS = true;

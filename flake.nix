@@ -21,7 +21,10 @@
       url = "github:ryantm/agenix";
       #url = "git+https://gitee.com/sunn4mirror/agenix.git";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.darwin.follows = "";
+    };
+    deepseek-harness = {
+      url = "github:Moraxyc/deepseek-harness.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
       url = "github:nix-community/nixvim";
