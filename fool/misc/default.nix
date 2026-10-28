@@ -8,7 +8,7 @@
     home.packages = with pkgs; [
       # utils
       ripgrep # recursively searches directories for a regex pattern
-      #jq # A lightweight and flexible command-line JSON processor
+      jq # A lightweight and flexible command-line JSON processor
       #yq-go # yaml processer https://github.com/mikefarah/yq
       eza # A modern replacement for ‘ls’
       just

@@ -17,8 +17,9 @@
    避免 `grep -R ... | head` 这类在大目录上产生 broken pipe 的组合。
 3. 定位 flake input 或上游包源码时，用 `nix flake archive --json`、`nix eval`、
    `nix-store -q --references` 等 Nix 入口；不要遍历 `/nix/store`。
-4. 运行 Nix 命令前先确认环境：缺少 `jq` 时用 `python3` 解析 JSON；`/` 只读或
-   Nix 缓存不可写时，先设置 `XDG_CACHE_HOME=/tmp/...`。
+4. 运行 Nix 命令前先确认环境：`jq` 由 `fool/misc` 无条件安装，三台主机可直接用它
+   解析 JSON（临时环境没有 `jq` 时再用 `python3`）；`/` 只读或 Nix 缓存不可写时，先
+   设置 `XDG_CACHE_HOME=/tmp/...`。
 5. 构建 Home Manager 配置的包前，先读模块 wiring 区分 `programs.*.package`（可能
    只是 base）与 `home.packages` 中的 runtime 包；用 `nix eval --apply` 过滤后再
    build，避免先构建错误目标。
