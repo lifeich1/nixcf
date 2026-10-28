@@ -47,6 +47,26 @@ fool/nvim/
   - 样式保持无背景：标题 `backgrounds` 指向 `RenderMarkdownH1`..`H6` 前景组，代码块 `disable_background`/`border = "none"`/`highlight_border = false`，inline code 使用 `@markup.raw` 前景色；修改时不要引入整行底色或色块边框（WezTerm 半透明背景）。
   - 声明本开关所需的 Treesitter grammar（`markdown`、`markdown_inline`）；`plugins.treesitter.enable` 用 `mkDefault`，与 `lsp.nix` 的 `enable = true` 不冲突，`grammarPackages` 两个模块合并为并集。
 
+## Nixvim settings 序列化陷阱
+
+- `settings` 最终由 `lib.nixvim.toLuaObject` 生成 Lua；其中 `removeEmptyAttrValues` 会丢弃空 list/attrset（`[ ]`、`{ }`）。用空集合“清空”插件默认列表不会生效：`heading.backgrounds = [ ]` 会从生成的 `init.lua` 里消失，插件仍使用默认的 `RenderMarkdownH*Bg`。
+- 需要清空默认列表时，改用非空但语义等价的值（例如把 `backgrounds` 指向 `RenderMarkdownH1`..`H6` 前景组），或改高亮组；改完先看生成结果，不要先构建 wrapper：
+  ```sh
+  nix build --no-link --print-out-paths ".#nixosConfigurations.nixos-gtr7.config.home-manager.users.fool.programs.nixvim.build.initSource"
+  ```
+  在生成的 `init.lua` 中搜索对应 `require("...").setup` 块，确认键仍然存在。
+- `false`、`0` 和非空字符串会保留；只有空集合会被丢弃。
+
+## Markdown 渲染检查
+
+- 桌面样式改动后运行：
+  ```sh
+  out=$(nix build --no-link --print-out-paths ".#nixosConfigurations.nixos-gtr7.config.home-manager.users.fool.programs.nixvim.build.package")
+  .agents/skills/nixcf-nixvim/scripts/check-render-bg.sh "$out/bin/nvim"
+  ```
+  脚本会渲染含标题、inline code、代码块、引用和表格的 fixture；任何渲染标记带 `bg` 都会失败。`render-markdown` 未启用时退出码为 3，Pi 不适用。
+- 已知取舍：标题背景标记优先级为 4096，会覆盖标题内 inline code/link 的颜色；`heading.border` 目前关闭，因为边框颜色由背景色反推，透明背景下没有可用的前景色方案。若要恢复装饰，先确认这两点。
+
 ## 公开开关
 
 - `fool.nvim.lsp`：启用 LSP server 与 Treesitter（仅桌面 profile 启用）。
