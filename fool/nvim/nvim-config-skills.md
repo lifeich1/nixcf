@@ -44,6 +44,7 @@ fool/nvim/
 - `markdown.nix`：
   - 只在 `hmConfig.fool.nvim.markdown` 为真时启用。
   - 声明 `plugins.render-markdown` 及其样式（bullet/heading/code，取自插件 wiki）。
+  - 样式保持无背景：标题 `backgrounds` 指向 `RenderMarkdownH1`..`H6` 前景组，代码块 `disable_background`/`border = "none"`/`highlight_border = false`，inline code 使用 `@markup.raw` 前景色；修改时不要引入整行底色或色块边框（WezTerm 半透明背景）。
   - 声明本开关所需的 Treesitter grammar（`markdown`、`markdown_inline`）；`plugins.treesitter.enable` 用 `mkDefault`，与 `lsp.nix` 的 `enable = true` 不冲突，`grammarPackages` 两个模块合并为并集。
 
 ## 公开开关

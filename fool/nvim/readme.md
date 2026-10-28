@@ -11,7 +11,7 @@
 - `keymaps.nix`：普通键位与 Workman runtime 接入。
 - `workflow.nix`：gitmoji、竞赛缩写、remote clipboard 等个人工作流。
 - `lsp.nix`：LSP server、LspAttach 行为、diagnostic 键位、`fzf-lsp-nvim` 和 Treesitter grammar，仅在 `fool.nvim.lsp` 开启时生效。
-- `markdown.nix`：render-markdown 插件与其样式，以及它依赖的 `markdown`、`markdown_inline` Treesitter 解析器，仅在 `fool.nvim.markdown` 开启时生效。
+- `markdown.nix`：render-markdown 插件与其样式，以及它依赖的 `markdown`、`markdown_inline` Treesitter 解析器，仅在 `fool.nvim.markdown` 开启时生效。样式刻意不铺底色（标题、代码块均只用前景色/图标），因为 WezTerm 背景半透明。
 - `workman-p.vim`：自定义键位文件，通过 Nixvim runtime 文件加载。
 - `nvim-config-skills.md`：本目录维护提示。
 
