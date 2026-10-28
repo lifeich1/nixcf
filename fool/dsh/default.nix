@@ -59,6 +59,15 @@ in
       description = "Nix 管理的 dsh profile；key 为 profile 名称，materialized 后为 nix-<name>";
     };
 
+    patch = lib.mkOption {
+      type = lib.types.nullOr (lib.types.listOf lib.types.attrs);
+      default = null;
+      description = ''
+        Home 级 Cordis patch 层，写入 `$DSH_HOME/cordis.patch.yml`，透传给
+        `programs.dsh.patch`；它在 profile patch 之后应用，因此优先级更高。
+      '';
+    };
+
     defaultProfile = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
@@ -86,6 +95,7 @@ in
       profiles = lib.mapAttrs (_: profile: {
         inherit (profile) bundles mode;
       }) cfg.profiles;
+      patch = cfg.patch;
       defaultProfile = if cfg.defaultProfile == null then null else "nix-${cfg.defaultProfile}";
     };
   };

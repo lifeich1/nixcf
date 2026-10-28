@@ -25,6 +25,30 @@
       tui.bundles = [ pkgs.dsh.bundles.tui ];
     };
     defaultProfile = "tui";
+
+    # JuFlow 是 OpenAI 兼容中转；手写 pi-ai 路由必须同时声明协议、端点
+    # 和非空模型列表。密钥只引用凭据名，值不进入 Nix。
+    patch = [
+      {
+        id = "llm-pi-ai";
+        config.providers.juflow = {
+          displayName = "JuFlow";
+          api = "openai-completions";
+          baseURL = "https://juflowai.com/v1";
+          apiKeyEnv = "JUFLOW_API_KEY";
+          models = [
+            { id = "DeepSeek-V4-Pro-0813"; }
+            { id = "qwen3.8-max"; }
+            { id = "glm-5.3"; }
+            { id = "glm-5.3-flash"; }
+            { id = "DeepSeek-V4.1-flash"; }
+            { id = "DeepSeek-V4.1-Flash-1017"; }
+            { id = "kimi-k3.1-pro"; }
+            { id = "kimi-k3"; }
+          ];
+        };
+      }
+    ];
   };
   fool.kdocs.enable = true;
   fool.gpg.pinentry = pkgs.pinentry-qt;
