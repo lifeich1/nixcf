@@ -8,6 +8,6 @@
   类型化唯一来源。
 - `collections/` 与 `plasma/`：桌面主机软件、音频和图形环境。
 - `firewall/`、`sudo/`、`proxychains/`：系统策略。
-- `atticd/`、`gitea/`、`hobob/`、`syncthing/`、`virtualbox/`、`vlmcsd/`：可选服务。
+- `atticd/`、`gitea/`、`hobob/`、`steam/`、`syncthing/`、`virtualbox/`、`vlmcsd/`：可选服务。
 
 新模块应声明 `fool.<name>` option、在此导入，并由 `host/<name>/configuration.nix` 选择启用。

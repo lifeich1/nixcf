@@ -11,6 +11,7 @@
     ./nix
     ./plasma
     ./proxychains
+    ./steam
     ./sudo
     ./syncthing
     ./virtualbox
