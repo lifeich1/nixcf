@@ -72,6 +72,8 @@
   };
   # Steam + GE-Proton（仅本机；Proton 版本随 nixpkgs 更新）
   fool.steam.enable = true;
+  # GPU 硬挂（amdgpu ring timeout / MES reset 失败）时自动落盘 devcoredump。
+  fool.amdgpu-devcoredump.enable = true;
   fool.homelab.proxy.use-pi = true;
   services.xray.enable = true;
   # xray 10809 仅本机 loopback 使用，无需入站规则（calibre 9090 规则见上）。

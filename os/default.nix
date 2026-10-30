@@ -1,6 +1,7 @@
 {
   imports = [
     ./access
+    ./amdgpu-devcoredump
     ./atticd
     ./base
     ./collections
